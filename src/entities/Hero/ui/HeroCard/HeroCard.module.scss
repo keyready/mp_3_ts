@@ -1,0 +1,33 @@
+.HeroCard {
+    padding: 20px;
+    border: 2px solid red;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.heroMainInfoBlock {
+    display: flex;
+    gap: 10px;
+}
+
+.heroName {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.heroNames {
+    text-align: center;
+}
+
+.hero_photo {
+    width: 150px;
+}
+
+.medal {
+    width: 70px;
+}
+
+.awards {
+    display: flex;
+}

@@ -1,0 +1,31 @@
+.Button {
+	cursor: pointer;
+	padding: 5px 10px;
+	transition: 200ms;
+
+	&:hover {
+		transform: scale(0.95);
+	}
+};
+
+.clear {
+	margin: 0;
+	padding: 0;
+	outline: none;
+	border: none;
+	background: none;
+}
+
+.primary {
+	background: var(--inverted-bg-color);
+	color: var(--primary-color);
+	border: 2px solid var(--primary-color);
+	border-radius: 5px;
+}
+
+.outlined {
+	background: transparent;
+	color: var(--inverted-primary-color);
+	border: 2px solid var(--primary-color);
+	border-radius: 5px;
+}
