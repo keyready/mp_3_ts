@@ -9,7 +9,7 @@ export const fetchAllHeroes = createAsyncThunk<
 >(
     'heroes/fetchAllHeroes',
     async (_, thunkApi) => {
-        const { extra, rejectWithValue } = thunkApi;
+        const { rejectWithValue } = thunkApi;
 
         try {
             const response = await axios.get<Hero[]>('/heroes', {

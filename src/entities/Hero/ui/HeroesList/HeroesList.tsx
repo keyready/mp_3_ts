@@ -1,5 +1,4 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -16,7 +15,6 @@ interface HeroesListProps {
 }
 
 export const HeroesList = memo((props: HeroesListProps) => {
-    const { t } = useTranslation();
     const {
         className,
     } = props;
@@ -29,14 +27,36 @@ export const HeroesList = memo((props: HeroesListProps) => {
         dispatch(fetchAllHeroes());
     }, [dispatch]);
 
+    if (heroesIsLoading) {
+        return (
+            <div className={classNames(classes.HeroesList, {}, [className])}>
+                <h2>Загрузка данных...</h2>
+            </div>
+        );
+    }
+
+    if (heroesError) {
+        return (
+            <div className={classNames(classes.HeroesList, {}, [className])}>
+                <h2 style={{ color: 'red' }}>
+                    Упс... Произошла ошибка:
+                    <br />
+                    {`${heroesError}`}
+                </h2>
+            </div>
+        );
+    }
+
     return (
         <div className={classNames(classes.HeroesList, {}, [className])}>
-            {heroesData?.map((hero) => (
-                <HeroCard
-                    key={hero.id}
-                    hero={hero}
-                />
-            ))}
+            {heroesData?.length
+                ? heroesData?.map((hero) => (
+                    <HeroCard
+                        key={hero.id}
+                        hero={hero}
+                    />
+                ))
+                : <h2>Тут пока пусто...</h2>}
         </div>
     );
 });
