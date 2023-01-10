@@ -1,6 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { HeroesListSkeleton } from 'entities/Hero/ui/HeroesListSkeleton/HeroesListSkeleton';
 import {
     getAllHeroesData,
     getAllHeroesError,
@@ -30,7 +31,16 @@ export const HeroesList = memo((props: HeroesListProps) => {
     if (heroesIsLoading) {
         return (
             <div className={classNames(classes.HeroesList, {}, [className])}>
-                <h2>Загрузка данных...</h2>
+                {
+                    new Array(5)
+                        .fill(0)
+                        .map((item, index) => (
+                            <HeroesListSkeleton
+                                key={index}
+                                className={classes.card}
+                            />
+                        ))
+                }
             </div>
         );
     }
@@ -54,6 +64,7 @@ export const HeroesList = memo((props: HeroesListProps) => {
                     <HeroCard
                         key={hero.id}
                         hero={hero}
+                        isLoading={heroesIsLoading}
                     />
                 ))
                 : <h2>Тут пока пусто...</h2>}

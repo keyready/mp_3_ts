@@ -2,13 +2,21 @@
   "users": [
     {
       "id": 1,
+      "middlename": "Корчак",
+      "firstname": "Родион",
+      "lastname": "Дмитриевич",
       "username": "keyready",
       "password": "qwerty123",
+      "email": "dallss13@bk.ru",
       "role": "admin"
     },
     {
       "id": 2,
+      "middlename": "Майоров",
+      "firstname": "Андрей",
+      "lastname": "Олегович",
       "username": "unnamedUser",
+      "email": "vip.korchak@list.ru",
       "password": "123",
       "role": "user"
     }

@@ -6,12 +6,14 @@ import classes from './HeroCard.module.scss';
 interface HeroCardProps {
     className?: string;
     hero?: Hero
+    isLoading?: boolean;
 }
 
 export const HeroCard = memo((props: HeroCardProps) => {
     const {
         className,
         hero,
+        isLoading,
     } = props;
 
     return (

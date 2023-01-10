@@ -1,0 +1,13 @@
+.Input {
+    padding: 5px 10px;
+    border: none;
+    color: var(--primary-color);
+    background: none;
+    font-size: 20px;
+    transition: 200ms;
+    outline: 2px solid red;
+
+    &:focus {
+        outline: 2px solid orange;
+    }
+}

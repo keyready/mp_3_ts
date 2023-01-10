@@ -18,14 +18,15 @@ server.use(async (req, res, next) => {
 });
 
 // Эндпоинт для логина
-server.post('/login', (req, res) => {
+server.post('/sign_in', (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
+        console.log('login server');
         const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
         const { users = [] } = db;
 
         const userFromBd = users.find(
-            (user) => user.username === username && user.password === password,
+            (user) => user.email === email && user.password === password,
         );
 
         if (userFromBd) {
@@ -36,6 +37,11 @@ server.post('/login', (req, res) => {
     } catch (e) {
         return res.status(500).json({ message: e.message });
     }
+});
+
+server.post('/sign_up', (req, res) => {
+    console.log(req.body);
+    console.log(req.files);
 });
 
 // проверяем, авторизован ли пользователь

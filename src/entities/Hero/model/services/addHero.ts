@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { getUserData } from 'entities/User/model/selector/UserSelector';
 import { Hero } from '../types/Hero';
 
 export const addHero = createAsyncThunk<
@@ -17,7 +19,7 @@ export const addHero = createAsyncThunk<
                 newHero,
                 {
                     headers: {
-                        authorization: 'super-secret-token',
+                        authorization: 'super-token',
                     },
                 },
             );

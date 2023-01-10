@@ -12,7 +12,7 @@ export const fetchAllHeroes = createAsyncThunk<
         const { rejectWithValue } = thunkApi;
 
         try {
-            const response = await axios.get<Hero[]>('/heroes', {
+            const response = await axios.get<Hero[]>('http://localhost:8000/heroes', {
                 headers: {
                     authorization: 'super-secret-token',
                 },

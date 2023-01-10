@@ -1,0 +1,32 @@
+.Profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.profileInfo {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.profilePhoto {
+    border: 2px solid teal;
+    border-radius: 10px;
+}
+
+.usersNames {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.middleName {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.names {
+    font-variant: small-caps;
+}

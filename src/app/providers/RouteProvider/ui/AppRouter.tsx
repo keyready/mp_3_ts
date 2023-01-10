@@ -1,29 +1,29 @@
 import { Suspense, useCallback } from 'react';
 import { AppRoutesProps, routerConfig } from 'shared/config/routeConfig/routeConfig';
 import { Route, Routes } from 'react-router-dom';
+import { RequireAuth } from './RequireAuth';
 
 const AppRouter = () => {
-    const renderWithSuspense = useCallback((route: AppRoutesProps) => {
+    const renderWithWrapper = useCallback((route: AppRoutesProps) => {
         const element = (
-            <Suspense fallback={<h3>Loading...</h3>}>
+            <Suspense fallback={<h2>Загрузка...</h2>}>
                 <div className="page">
                     {route.element}
                 </div>
             </Suspense>
         );
-
         return (
             <Route
                 key={route.path}
                 path={route.path}
-                element={element}
+                element={route.authOnly ? <RequireAuth>{element}</RequireAuth> : element}
             />
         );
     }, []);
 
     return (
         <Routes>
-            {Object.values(routerConfig).map(renderWithSuspense)}
+            {Object.values(routerConfig).map(renderWithWrapper)}
         </Routes>
     );
 };
