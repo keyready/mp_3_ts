@@ -1,0 +1,14 @@
+.HeroesList {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    align-content: center;
+    grid-gap: 20px;
+}
+
+@media (width <= 1000px) {
+    .HeroesList {
+        grid-template-columns: 1fr;
+    }
+
+}

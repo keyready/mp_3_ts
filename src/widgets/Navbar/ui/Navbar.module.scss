@@ -1,13 +1,11 @@
 .Navbar {
-	width: 100%;
-	height: var(--navbar-heigth);
-	padding: 20px;
-
-	background: lightcyan;
-
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	gap: 10px;
-	flex-grow: 1;
-};
+    width: 100%;
+    height: var(--navbar-heigth);
+    padding: 20px;
+    background: lightcyan;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-grow: 1;
+}

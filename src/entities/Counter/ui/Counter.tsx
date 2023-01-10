@@ -3,7 +3,6 @@ import { memo } from 'react';
 import { Button, ButtonTheme } from 'shared/UI/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { CounterActions } from '../model/slices/CounterSlice';
-import classes from './Counter.module.scss';
 import { getCounterValue } from '../model/selectors/CounterSelector';
 
 interface CounterUIProps {
@@ -26,7 +25,7 @@ export const Counter = memo((props: CounterUIProps) => {
     };
 
     return (
-        <div className={classNames(classes.CounterUI, {}, [className])}>
+        <div className={classNames('', {}, [className])}>
             <h1>
                 Счет:
                 {` ${value}`}

@@ -1,0 +1,37 @@
+.HeroCard {
+    padding: 20px;
+    border: 2px solid teal;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.heroInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.heroMainInfo {
+    text-align: center;
+}
+
+.heroSurname {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.heroNames {
+    letter-spacing: 2px;
+}
+
+.heroStory {
+    white-space: pre-wrap;
+}
+
+.heroRank {
+    color: teal;
+    font-size: 24px;
+    margin-bottom: 10px;
+}

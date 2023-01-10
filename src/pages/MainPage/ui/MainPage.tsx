@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import React, { memo } from 'react';
-import classes from './MainPage.module.scss';
+import { HeroesList } from 'entities/Hero';
 
 interface MainPageProps {
     className?: string;
@@ -12,8 +12,8 @@ const MainPage = memo((props: MainPageProps) => {
     } = props;
 
     return (
-        <div className={classNames(classes.MainPage, {}, [className])}>
-            {/* / */}
+        <div className={classNames('', {}, [className])}>
+            <HeroesList />
         </div>
     );
 });
