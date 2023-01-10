@@ -1,5 +1,4 @@
-import { classNames, Mods } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
+import { classNames } from 'shared/lib/classNames/classNames';
 import { memo } from 'react';
 import classes from './Text.module.scss';
 
@@ -24,8 +23,6 @@ interface TextProps {
 }
 
 export const Text = memo((props: TextProps) => {
-    const { t } = useTranslation();
-
     const {
         className,
         title,

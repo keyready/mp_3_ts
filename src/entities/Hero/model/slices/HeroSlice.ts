@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAllHeroes, Hero } from 'entities/Hero';
+import { Hero } from 'entities/Hero';
 import { fetchHeroById } from '../services/fetchHeroById';
 import { HeroSchema } from '../types/HeroSchema';
 

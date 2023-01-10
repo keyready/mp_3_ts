@@ -9,10 +9,10 @@ export const fetchHeroById = createAsyncThunk<
 >(
     'hero/fetchHeroById',
     async (heroId, thunkApi) => {
-        const { extra, rejectWithValue } = thunkApi;
+        const { rejectWithValue } = thunkApi;
 
         try {
-            const response = await axios.get<Hero>(`http://localhost:8000/heroes/${heroId}`, {
+            const response = await axios.get<Hero>(`/heroes/${heroId}`, {
                 headers: {
                     authorization: 'super-secret-token',
                 },
@@ -21,8 +21,6 @@ export const fetchHeroById = createAsyncThunk<
             if (!response.data) {
                 throw new Error();
             }
-
-            console.log(response.data);
 
             return response.data;
         } catch (e) {

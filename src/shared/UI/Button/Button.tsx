@@ -1,5 +1,4 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
 import { ButtonHTMLAttributes, memo, ReactNode } from 'react';
 import classes from './Button.module.scss';
 
@@ -17,8 +16,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
 }
 
 export const Button = memo((props: ButtonProps) => {
-    const { t } = useTranslation();
-
     const {
         className,
         children,

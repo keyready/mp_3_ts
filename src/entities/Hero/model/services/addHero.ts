@@ -9,7 +9,7 @@ export const addHero = createAsyncThunk<
 >(
     'hero/createNewHero',
     async (newHero, thunkApi) => {
-        const { extra, rejectWithValue } = thunkApi;
+        const { rejectWithValue } = thunkApi;
 
         try {
             const response = await axios.post<Hero>(
@@ -25,8 +25,6 @@ export const addHero = createAsyncThunk<
             if (!response.data) {
                 throw new Error();
             }
-
-            console.log('hero created');
 
             return 'hero created';
         } catch (e) {
