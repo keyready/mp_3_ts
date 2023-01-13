@@ -2,6 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HeroesListSkeleton } from 'entities/Hero/ui/HeroesListSkeleton/HeroesListSkeleton';
+import { getUserData } from 'entities/User';
 import {
     getAllHeroesData,
     getAllHeroesError,
@@ -23,6 +24,7 @@ export const HeroesList = memo((props: HeroesListProps) => {
     const heroesData = useSelector(getAllHeroesData);
     const heroesError = useSelector(getAllHeroesError);
     const heroesIsLoading = useSelector(getAllHeroesIsLoading);
+    const logonUserData = useSelector(getUserData);
 
     useEffect(() => {
         dispatch(fetchAllHeroes());
@@ -62,6 +64,7 @@ export const HeroesList = memo((props: HeroesListProps) => {
             {heroesData?.length
                 ? heroesData?.map((hero) => (
                     <HeroCard
+                        user={logonUserData}
                         key={hero.id}
                         hero={hero}
                         isLoading={heroesIsLoading}

@@ -45,6 +45,12 @@ export const Navbar = memo((props: NavbarProps) => {
                             Добавить героя
                         </Link>
                         <Link
+                            style={{ marginRight: 10 }}
+                            to="/admin"
+                        >
+                            Админ панель
+                        </Link>
+                        <Link
                             to="/profile"
                         >
                             Мой профиль

@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserData } from 'entities/User/model/selector/UserSelector';
+import { memo } from 'react';
+import { useSelector } from 'react-redux';
+import { getUserData } from '../../model/selector/UserSelector';
 import classes from './Profile.module.scss';
 
 interface ProfileProps {

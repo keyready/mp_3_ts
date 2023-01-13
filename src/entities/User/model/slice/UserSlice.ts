@@ -20,9 +20,11 @@ export const UserSlice = createSlice({
             state.isInited = true;
         },
         checkAuthData: (state) => {
-            const userData = localStorage.getItem(USER_LOCALSTORAGE_KEY);
+            const userData = localStorage.getItem(USER_LOCALSTORAGE_KEY) as string;
+            console.log(JSON.parse(userData));
             if (userData) {
                 state.data = JSON.parse(userData);
+                console.log(state.data);
                 state.isInited = true;
             }
         },

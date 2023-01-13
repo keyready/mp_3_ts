@@ -6,3 +6,9 @@ export interface UserSchema {
     error?: string;
     isInited?: boolean
 }
+
+export interface UsersSchema {
+    data?: User[];
+    isLoading: boolean;
+    error?: string;
+}

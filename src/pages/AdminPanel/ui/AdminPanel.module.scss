@@ -1,0 +1,45 @@
+.usersList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userRow {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid teal;
+    border-radius: 5px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr 2fr 3fr 2fr 2fr 2fr;
+    flex-grow: 1;
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.userId {
+    text-align: center;
+}
+
+.userPhoto {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    justify-self: center;
+}
+
+.names {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.email {
+    color: teal;
+    font-weight: bold;
+}

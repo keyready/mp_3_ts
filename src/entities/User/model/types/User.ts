@@ -7,4 +7,6 @@ export interface User {
     password?: string;
     photo?: string;
     token?: string;
+    role?: string;
+    banned?: boolean;
 }

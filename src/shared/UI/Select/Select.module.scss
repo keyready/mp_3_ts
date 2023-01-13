@@ -1,0 +1,35 @@
+.Listbox {
+    position: relative;
+    justify-self: center;
+}
+
+.Button {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 2px solid green;
+    border-radius: 10px;
+}
+
+.Options {
+    border-radius: 10px;
+    color: orange;
+    background: blue;
+    position: absolute;
+    z-index: 100;
+    box-shadow: 4px 4px 8px red;
+}
+
+.Option {
+    cursor: pointer;
+    margin: 10px;
+}
+
+.active {
+    background: green;
+}
+
+.unavailable {
+    color: red;
+    background: gray;
+    opacity: 0.7;
+}

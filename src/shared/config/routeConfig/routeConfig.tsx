@@ -5,6 +5,7 @@ import { AboutPage } from 'pages/AboutPage';
 import { AddHeroPage } from 'pages/AddHeroPage';
 import { LoginPage } from 'pages/LoginPage';
 import { ProfilePage } from 'pages/ProfilePage';
+import { AdminPanel } from 'pages/AdminPanel';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -17,6 +18,7 @@ export enum AppRoutes {
     LOGIN = 'login',
     REGISTER = 'register',
     PROFILE = 'profile',
+    ADMINPANEL = 'adminPanel'
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -26,6 +28,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.LOGIN]: '/login',
     [AppRoutes.REGISTER]: '/register',
     [AppRoutes.PROFILE]: '/profile',
+    [AppRoutes.ADMINPANEL]: '/admin',
 };
 
 export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
@@ -40,6 +43,11 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.ADDHERO]: {
         path: RoutePath.addHero,
         element: <AddHeroPage />,
+        authOnly: true,
+    },
+    [AppRoutes.ADMINPANEL]: {
+        path: RoutePath.adminPanel,
+        element: <AdminPanel />,
         authOnly: true,
     },
     [AppRoutes.LOGIN]: {

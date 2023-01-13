@@ -1,7 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { getUserData } from 'entities/User/model/selector/UserSelector';
 import { Hero } from '../types/Hero';
 
 export const addHero = createAsyncThunk<
@@ -15,11 +13,11 @@ export const addHero = createAsyncThunk<
 
         try {
             const response = await axios.post<Hero>(
-                '/addHero',
+                'http://localhost:8000/heroes',
                 newHero,
                 {
                     headers: {
-                        authorization: 'super-token',
+                        authorization: 'super-secret-token',
                     },
                 },
             );
@@ -27,6 +25,8 @@ export const addHero = createAsyncThunk<
             if (!response.data) {
                 throw new Error();
             }
+
+            document.location.href = '/';
 
             return 'hero created';
         } catch (e) {

@@ -13,12 +13,14 @@ export const AddHeroForm = memo(() => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         // @ts-ignore
-        dispatch(addHero(formData));
+        const data = Object.fromEntries(formData.entries());
+        // @ts-ignore
+        dispatch(addHero(data));
     }, [dispatch]);
 
     return (
         <form
-            encType="multipart/formdata"
+            // encType="multipart/formdata"
             className={classes.AddHeroForm}
             onSubmit={(e) => submitFormHandler(e)}
         >

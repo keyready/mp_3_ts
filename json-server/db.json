@@ -8,7 +8,8 @@
       "username": "keyready",
       "password": "qwerty123",
       "email": "dallss13@bk.ru",
-      "role": "admin"
+      "role": "admin",
+      "banned": false
     },
     {
       "id": 2,
@@ -18,7 +19,8 @@
       "username": "unnamedUser",
       "email": "vip.korchak@list.ru",
       "password": "123",
-      "role": "user"
+      "role": "user",
+      "banned": false
     }
   ],
   "awards": [
