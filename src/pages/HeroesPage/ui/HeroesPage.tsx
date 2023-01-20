@@ -8,6 +8,7 @@ import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import { AppLink } from 'shared/UI/AppLink';
 import { getHeroes, heroesPageReducers } from '../model/slice/HeroesPageSlice';
 import { getHeroesError, getHeroesIsLoading } from '../model/selectors/HeroesPageSelector';
 import { initHeroesPage } from '../model/services/initHeroesPage';
@@ -38,6 +39,7 @@ const HeroesPage = memo((props: HeroesPageProps) => {
     return (
         <DynamicModuleLoader reducers={reducer} removeAfterUnmount={false}>
             <Page className={classNames(classes.HeroesPage, {}, [className])}>
+                <AppLink to="/createHero">Добавить героя</AppLink>
                 <HeroesList
                     isLoading={isLoading}
                     heroes={getAllHeroes}

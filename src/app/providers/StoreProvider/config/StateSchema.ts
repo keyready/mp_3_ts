@@ -12,6 +12,7 @@ import { AxiosInstance } from 'axios';
 import { UISchema } from 'features/UI';
 import { HeroSchema } from 'entities/Hero/model/types/HeroSchema';
 import { HeroesPageSchema } from 'pages/HeroesPage';
+import { CreateHeroSchema } from 'pages/CreateHeroPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -20,8 +21,9 @@ export interface StateSchema {
     // asynchronous reducers
     profile?: ProfileSchema;
     loginForm?: LoginSchema;
-    hero?: HeroSchema
-    heroesPage?: HeroesPageSchema
+    hero?: HeroSchema;
+    heroesPage?: HeroesPageSchema;
+    createHeroPage?: CreateHeroSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

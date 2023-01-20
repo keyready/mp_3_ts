@@ -11,6 +11,12 @@
       "email": "vip.korchak@list.ru",
       "password": "qwerty",
       "role": "user"
+    },
+    {
+      "email": "newMail@list.ru",
+      "password": "qwe",
+      "role": "user",
+      "id": 3
     }
   ],
   "profiles": [
