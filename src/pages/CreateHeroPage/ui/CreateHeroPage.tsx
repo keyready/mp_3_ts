@@ -13,6 +13,7 @@ import { TextArea } from 'shared/UI/TextArea/TextArea';
 import { Button } from 'shared/UI/Button';
 import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { Hero } from 'entities/Hero';
+import { InputFile } from 'shared/UI/InputFile/InputFile';
 import { CreateHeroPageReducer } from '../model/slice/CreateHeroPageSlice';
 import classes from './CreateHeroPage.module.scss';
 
@@ -105,9 +106,10 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                         value={formData.story?.join('\n')}
                     />
 
-                    <input
+                    <InputFile
                         name="photo"
                         type="file"
+                        message="Загрузите фото героя"
                     />
 
                     <Button
