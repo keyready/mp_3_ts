@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Page } from 'widgets/Page/Page';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { Text, TextTheme } from 'shared/UI/Text/Text';
 import classes from './ForbiddenPage.module.scss';
 
@@ -12,6 +12,10 @@ const ForbiddenPage = memo((props: ForbiddenPageProps) => {
     const {
         className,
     } = props;
+
+    useEffect(() => {
+        document.title = 'Наш полк | Нет прав';
+    }, []);
 
     return (
         <Page className={classNames(classes.ForbiddenPage, {}, [className])}>

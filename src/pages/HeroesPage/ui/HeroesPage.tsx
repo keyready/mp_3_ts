@@ -32,6 +32,7 @@ const HeroesPage = memo((props: HeroesPageProps) => {
 
     useEffect(() => {
         dispatch(initHeroesPage());
+        document.title = 'Наш полк';
     }, [dispatch]);
 
     return (

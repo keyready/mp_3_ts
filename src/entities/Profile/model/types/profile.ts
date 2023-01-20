@@ -1,11 +1,12 @@
 export interface Profile {
     id?: string;
-    first?: string,
+    firstname?: string,
     lastname?: string,
-    age?: number,
+    middlename?: string,
+    age?: string,
     city?: string,
-    username?: string,
-    avatar?: string
+    email?: string,
+    heroes?: number;
 }
 
 export enum ValidateProfileError {

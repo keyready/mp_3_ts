@@ -4,16 +4,17 @@ export const validateProfileData = (profile?: Profile) => {
     if (!profile) return [ValidateProfileError.NO_DATA];
 
     const {
-        first,
+        firstname,
         lastname,
         age,
     } = profile;
     const errors: ValidateProfileError[] = [];
 
-    if (!lastname || !first) {
+    if (!lastname || !firstname) {
         errors.push(ValidateProfileError.INCORRECT_USER_DATA);
     }
-    if (!age || age < 0 || !Number.isInteger(age)) {
+    // eslint-disable-next-line no-bitwise
+    if (!age || ~~age < 0 || !Number.isInteger(age)) {
         errors.push(ValidateProfileError.INCORRECT_USER_AGE);
     }
 

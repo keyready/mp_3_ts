@@ -11,24 +11,6 @@
       "email": "vip.korchak@list.ru",
       "password": "qwerty",
       "role": "user"
-    },
-    {
-      "email": "newacc@mail.ru",
-      "password": "sadf",
-      "role": "user",
-      "id": 3
-    },
-    {
-      "email": "newacc@mail.ru",
-      "password": "123",
-      "role": "user",
-      "id": 4
-    },
-    {
-      "email": "new@mail.ru",
-      "password": "123",
-      "role": "user",
-      "id": 5
     }
   ],
   "profiles": [
@@ -37,14 +19,18 @@
       "middlename": "Корчак",
       "firstname": "Родион",
       "lastname": "Дмитриевич",
-      "heroes": 0
+      "age": 18,
+      "city": "Хабаровск",
+      "email": "dallss13@bk.ru"
     },
     {
       "id": 2,
-      "middlename": "Майоров",
       "firstname": "Андрей",
       "lastname": "Владимирович",
-      "heroes": 0
+      "middlename": "Майоров",
+      "age": 20,
+      "city": "Санкт-Петербург",
+      "email": "vip.korchak@list.ru"
     }
   ],
   "heroes": [

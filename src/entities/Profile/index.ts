@@ -15,6 +15,9 @@ export {
 export {
     updateProfileData,
 } from './model/services/updateProfileData/updateProfileData';
+export {
+    fetchProfileHeroes,
+} from './model/services/fetchProfileHeroes/fetchProfileHeroes';
 
 export {
     ProfileCard,

@@ -1,7 +1,6 @@
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import { Text, TextAlign, TextTheme } from 'shared/UI/Text/Text';
 import { Input } from 'shared/UI/Input';
-import { Avatar } from 'shared/UI/Avatar/Avatar';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
 import { Profile } from '../../model/types/profile';
 import classes from './ProfileCard.module.scss';
@@ -12,12 +11,11 @@ interface ProfileCardProps {
     isLoading?: boolean;
     error?: string;
     readonly?: boolean;
-    onChangeFirstname: (value?: string) => void;
-    onChangeLastname: (value?: string) => void;
-    onChangeAge: (value?: string) => void;
-    onChangeCity: (value?: string) => void;
-    onChangeUsername: (value?: string) => void;
-    onChangeAvatar: (value?: string) => void;
+    onChangeFirstname: (value: string) => void;
+    onChangeLastname: (value: string) => void;
+    onChangeAge: (value: string) => void;
+    onChangeCity: (value: string) => void;
+    onChangeEmail: (value: string) => void;
 }
 
 export const ProfileCard = (props: ProfileCardProps) => {
@@ -31,8 +29,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
         onChangeLastname,
         onChangeAge,
         onChangeCity,
-        onChangeUsername,
-        onChangeAvatar,
+        onChangeEmail,
     } = props;
 
     if (isLoading) {
@@ -78,18 +75,15 @@ export const ProfileCard = (props: ProfileCardProps) => {
     return (
         <div className={classNames(classes.ProfileCard, mods, [className])}>
             <div className={classes.data}>
-                {data?.avatar && (
-                    <div className={classes.avatarWrapper}>
-                        <Avatar
-                            src={data.avatar}
-                            alt="Фото профиля"
-                            size={150}
-                            rounded={20}
-                        />
-                    </div>
-                )}
                 <Input
-                    value={data?.first}
+                    value={data?.middlename}
+                    placeholder="Ваша фамилия"
+                    className={classes.input}
+                    onChange={onChangeLastname}
+                    readonly={readonly}
+                />
+                <Input
+                    value={data?.firstname}
                     placeholder="Ваше имя"
                     className={classes.input}
                     onChange={onChangeFirstname}
@@ -97,7 +91,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
                 />
                 <Input
                     value={data?.lastname}
-                    placeholder="Ваша фамилия"
+                    placeholder="Ваше отчество"
                     className={classes.input}
                     onChange={onChangeLastname}
                     readonly={readonly}
@@ -117,17 +111,10 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     readonly={readonly}
                 />
                 <Input
-                    value={data?.username}
+                    value={data?.email}
                     placeholder="Имя пользователя"
                     className={classes.input}
-                    onChange={onChangeUsername}
-                    readonly={readonly}
-                />
-                <Input
-                    value={data?.avatar}
-                    placeholder="Ссылка на аватарку"
-                    className={classes.input}
-                    onChange={onChangeAvatar}
+                    onChange={onChangeEmail}
                     readonly={readonly}
                 />
             </div>
