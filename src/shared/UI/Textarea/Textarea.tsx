@@ -7,6 +7,7 @@ interface TextAreaProps {
     placeholder?: string;
     value?: string;
     onChange?: (value: string) => void;
+    name?: string;
 }
 
 export const TextArea = memo((props: TextAreaProps) => {
@@ -15,6 +16,7 @@ export const TextArea = memo((props: TextAreaProps) => {
         placeholder,
         value,
         onChange,
+        name,
     } = props;
 
     const onTextareaChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -28,6 +30,7 @@ export const TextArea = memo((props: TextAreaProps) => {
             onChange={onTextareaChange}
             placeholder={placeholder}
             rows={5}
+            name={name}
         >
             {value}
         </textarea>
