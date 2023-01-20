@@ -7,6 +7,7 @@ export interface User {
 
 export interface UserSchema {
     authData?: User;
+    token?: string;
 
     _inited?: boolean;
 }

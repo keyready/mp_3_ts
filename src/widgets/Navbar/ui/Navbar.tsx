@@ -5,6 +5,7 @@ import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { LoginModal } from 'features/AuthByEmail';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAuthData, userActions } from 'entities/User';
+import { getUserToken } from 'entities/User/model/selectors/getUserAuthData/getUserAuthData';
 import classes from './Navbar.module.scss';
 
 export interface NavbarProps {
@@ -13,6 +14,7 @@ export interface NavbarProps {
 
 export const Navbar = memo(({ className }: NavbarProps) => {
     const userData = useSelector(getUserAuthData);
+    const token = useSelector(getUserToken);
     const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -26,12 +28,12 @@ export const Navbar = memo(({ className }: NavbarProps) => {
         dispatch(userActions.logout());
     }, [dispatch]);
 
-    if (userData?.id) {
+    if (token) {
         return (
             <div className={classNames(classes.Navbar, {}, [className])}>
                 <Button
                     onClick={onLogout}
-                    theme={ButtonTheme.PRIMARY}
+                    theme={ButtonTheme.ERROR}
                 >
                     Выйти
                 </Button>

@@ -8,14 +8,8 @@ import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
-import {
-    getHeroes,
-    heroesPageReducers,
-} from '../model/slice/HeroesPageSlice';
-import {
-    getHeroesError,
-    getHeroesIsLoading,
-} from '../model/selectors/HeroesPageSelector';
+import { getHeroes, heroesPageReducers } from '../model/slice/HeroesPageSlice';
+import { getHeroesError, getHeroesIsLoading } from '../model/selectors/HeroesPageSelector';
 import { initHeroesPage } from '../model/services/initHeroesPage';
 import classes from './HeroesPage.module.scss';
 

@@ -1,52 +1,61 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Input } from 'shared/UI/Input';
 import { Button } from 'shared/UI/Button';
 import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
-import {
-    getLoginUsername,
-} from '../../model/selectors/getLoginUsername/getLoginUsername';
+import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
 import {
     getLoginPassword,
+    getLoginRepeatedPassword,
 } from '../../model/selectors/getLoginPassword/getLoginPassword';
-import {
-    getLoginIsLoading,
-} from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
+import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
 import { loginActions } from '../../model/slices/loginSlice';
-import { loginByEmail } from '../../model/services/loginByEmail/loginByEmail';
-import classes from './LoginForm.module.scss';
+import { registerByEmail } from '../../model/services/registerByEmail/registerByEmail';
+import classes from './RegisterForm.module.scss';
 
-export interface LoginFormProps {
+export interface RegisterFormProps {
     className?: string;
-    onSuccess?: () => void
+    onSuccess?: () => void;
 }
 
-const LoginForm = memo((props: LoginFormProps) => {
+const RegisterForm = memo((props: RegisterFormProps) => {
     const {
         className,
         onSuccess,
     } = props;
+    const [successMessage, setSuccessMessage] = useState<string>('');
     const dispatch = useAppDispatch();
     const username = useSelector(getLoginUsername);
     const password = useSelector(getLoginPassword);
-    const isLoading = useSelector(getLoginIsLoading);
+    const repeatedPassword = useSelector(getLoginRepeatedPassword);
     const error = useSelector(getLoginError);
+    const isLoading = useSelector(getLoginIsLoading);
 
     const onUsernameChange = useCallback((value: string) => {
+        dispatch(loginActions.setError(''));
         dispatch(loginActions.setUsername(value));
     }, [dispatch]);
     const onPasswordChange = useCallback((value: string) => {
+        dispatch(loginActions.setError(''));
         dispatch(loginActions.setPassword(value));
     }, [dispatch]);
-
-    const onLoginClick = useCallback(async (e) => {
+    const onRepPasswordChange = useCallback((value: string) => {
+        dispatch(loginActions.setError(''));
+        dispatch(loginActions.setRepPassword(value));
+    }, [dispatch]);
+    const onRegisterClick = useCallback(async (e) => {
         e.preventDefault();
 
-        if (!password || !username) {
+        if (!password || !username || !repeatedPassword) {
             dispatch(loginActions.setError('Все поля обязательны для заполнения'));
+            return;
+        }
+
+        if (password !== repeatedPassword) {
+            dispatch(loginActions.setError('Введенные пароли не совпадают'));
             return;
         }
 
@@ -55,34 +64,42 @@ const LoginForm = memo((props: LoginFormProps) => {
             return;
         }
 
-        const result = await dispatch(loginByEmail({ email: username, password }));
+        const result = await dispatch(registerByEmail({ email: username, password }));
         if (result.meta.requestStatus === 'fulfilled') {
-            onSuccess?.();
+            setSuccessMessage('Регистрация прошла успешно!');
         }
-    }, [dispatch, onSuccess, password, username]);
+    }, [dispatch, password, repeatedPassword, username]);
 
     return (
-        <form
-            className={classNames(classes.LoginForm, {}, [className])}
-        >
+        <form className={classNames(classes.RegisterForm, {}, [className])}>
             {error && <p className={classes.loginError}>{error}</p>}
+            {successMessage && <p className={classes.registerSuccess}>{successMessage}</p>}
             <Input
                 autoFocus
                 placeholder="Введите email"
                 value={username}
                 onChange={onUsernameChange}
                 type="text"
+                required
             />
             <Input
                 placeholder="Введите пароль"
                 value={password}
                 onChange={onPasswordChange}
                 type="password"
+                required
+            />
+            <Input
+                placeholder="Подтвердите пароль"
+                value={repeatedPassword}
+                onChange={onRepPasswordChange}
+                type="password"
+                required
             />
             <Button
                 theme={ButtonTheme.OUTLINED}
                 className={classes.loginBtn}
-                onClick={onLoginClick}
+                onClick={onRegisterClick}
                 disabled={isLoading}
                 type="submit"
             >
@@ -92,4 +109,4 @@ const LoginForm = memo((props: LoginFormProps) => {
     );
 });
 
-export default LoginForm;
+export default RegisterForm;

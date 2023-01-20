@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Modal } from 'shared/UI/Modal';
-import { LoginFormLazy } from 'features/AuthByEmail/ui/LoginForm/LoginForm.lazy';
 import { Loader } from 'shared/UI/Loader';
+import { FormLazy } from '../Form/Form.lazy';
 
 interface LoginModalProps {
     isOpen?: boolean;
@@ -21,7 +21,7 @@ export const LoginModal = (props: LoginModalProps) => {
             isOpen={isOpen}
         >
             <Suspense fallback={<Loader />}>
-                <LoginFormLazy onSuccess={onClose} />
+                <FormLazy onSuccess={onClose} />
             </Suspense>
         </Modal>
     );

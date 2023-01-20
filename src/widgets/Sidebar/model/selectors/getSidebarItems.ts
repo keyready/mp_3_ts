@@ -1,14 +1,14 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { getUserAuthData } from 'entities/User';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import MainIcon from 'shared/assests/icons/home.svg';
 import AboutIcon from 'shared/assests/icons/about.svg';
 import HeroesIcon from 'shared/assests/icons/heroes.svg';
+import { getUserToken } from 'entities/User/model/selectors/getUserAuthData/getUserAuthData';
 import { SidebarItemType } from '../types/sidebar';
 
 export const getSidebarItems = createSelector(
-    getUserAuthData,
-    (userData) => {
+    getUserToken,
+    (token) => {
         const SidebarItemsList: SidebarItemType[] = [
             {
                 path: RoutePath.main,
@@ -20,14 +20,13 @@ export const getSidebarItems = createSelector(
                 text: 'О проекте',
                 Icon: AboutIcon,
             },
-            {
+        ];
+        if (token) {
+            SidebarItemsList.push({
                 path: RoutePath.heroes,
                 text: 'Наш полк',
                 Icon: HeroesIcon,
-            },
-        ];
-        if (userData) {
-            SidebarItemsList.push();
+            });
         }
 
         return SidebarItemsList;

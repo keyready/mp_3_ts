@@ -11,6 +11,18 @@
       "email": "vip.korchak@list.ru",
       "password": "qwerty",
       "role": "user"
+    },
+    {
+      "email": "newacc@mail.ru",
+      "password": "sadf",
+      "role": "user",
+      "id": 3
+    },
+    {
+      "email": "newacc@mail.ru",
+      "password": "123",
+      "role": "user",
+      "id": 4
     }
   ],
   "profiles": [

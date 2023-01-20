@@ -51,7 +51,7 @@ export const Sidebar = memo(({ classname }: SidebarProps) => {
                     theme={ButtonTheme.PRIMARY}
                     onClick={toggleSidebar}
                 >
-                    <h3>{collapsed ? '➥': '⇐'}</h3>
+                    <h3>{collapsed ? '➥' : '⇐'}</h3>
                 </Button>
             </div>
         </div>

@@ -1,7 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
-    Dispatch,
-    memo, ReactNode, SetStateAction, useState,
+    Dispatch, memo, ReactNode, SetStateAction, useState,
 } from 'react';
 import { Tab } from '@headlessui/react';
 import classes from './Tabs.module.scss';
@@ -28,7 +27,7 @@ export const Tabs = memo((props: TabsProps) => {
         <div className={classes.Tabs}>
             <Tab.Group>
                 <Tab.List className={classes.tabsList}>
-                    {Object.keys(categories).map((category) => (
+                    {categories.map((category) => (
                         <Tab
                             className={({ selected }) => classNames(
                                 classes.tab,

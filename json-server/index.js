@@ -1,6 +1,7 @@
 const fs = require('fs');
 const jsonServer = require('json-server');
 const path = require('path');
+const crypto = require('crypto');
 
 const server = jsonServer.create();
 const PORT = 9999;
@@ -21,6 +22,7 @@ server.use(async (req, res, next) => {
 server.post('/login', (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log(req.body);
         const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
         const { users = [] } = db;
 
@@ -29,12 +31,20 @@ server.post('/login', (req, res) => {
         );
 
         if (userFromBd) {
-            return res.json(userFromBd);
+            return res.json(crypto.randomBytes(10).toString('hex'));
         }
 
         return res.status(403).json({ message: 'User not found' });
     } catch (e) {
         return res.status(500).json({ message: e.message });
+    }
+});
+
+server.post('/register', (req, res) => {
+    try {
+        const { email, password } = req.body;
+    } catch (e) {
+        res.status(500).json({ message: e.message });
     }
 });
 

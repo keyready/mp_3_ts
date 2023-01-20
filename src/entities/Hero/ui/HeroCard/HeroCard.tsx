@@ -14,10 +14,6 @@ export const HeroCard = memo((props: HeroProps) => {
         hero,
     } = props;
 
-    useEffect(() => {
-        console.log(hero.user);
-    }, [hero.user]);
-
     return (
         <div className={classNames(classes.Hero, {}, [className])}>
             <div className={classes.info}>

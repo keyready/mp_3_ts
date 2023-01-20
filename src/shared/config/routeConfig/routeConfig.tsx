@@ -23,7 +23,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.HEROES]: '/heroes',
 
     // last
-    [AppRoutes.NOT_FOUND]: '*',
+    [AppRoutes.NOT_FOUND]: '/*',
 };
 
 export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
@@ -38,6 +38,7 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.HEROES]: {
         path: RoutePath.heroes,
         element: <HeroesPage />,
+        authOnly: true,
     },
     // last
     [AppRoutes.NOT_FOUND]: {
