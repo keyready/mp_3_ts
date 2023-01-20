@@ -1,69 +1,54 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Button } from 'shared/UI/Button';
+import { memo, useCallback, useState } from 'react';
+import { ButtonTheme } from 'shared/UI/Button/ui/Button';
+import { LoginModal } from 'features/AuthByEmail';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsUserInited } from 'entities/User/model/selector/UserSelector';
-import { Button } from 'shared/UI/Button/Button';
-import { UserActions } from 'entities/User';
+import { getUserAuthData, userActions } from 'entities/User';
 import classes from './Navbar.module.scss';
 
-interface NavbarProps {
-    className?: string;
+export interface NavbarProps {
+    className?: string
 }
 
-export const Navbar = memo((props: NavbarProps) => {
-    const {
-        className,
-    } = props;
+export const Navbar = memo(({ className }: NavbarProps) => {
+    const userData = useSelector(getUserAuthData);
     const dispatch = useDispatch();
-    const inited = useSelector(getIsUserInited);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const onExitClick = useCallback(() => {
-        dispatch(UserActions.logout());
+    const onCloseModal = useCallback(() => {
+        setIsModalVisible(false);
+    }, []);
+    const onLogin = useCallback(() => {
+        setIsModalVisible(true);
+    }, []);
+    const onLogout = useCallback(() => {
+        dispatch(userActions.logout());
     }, [dispatch]);
+
+    if (userData?.id) {
+        return (
+            <div className={classNames(classes.Navbar, {}, [className])}>
+                <Button
+                    onClick={onLogout}
+                    theme={ButtonTheme.PRIMARY}
+                >
+                    Выйти
+                </Button>
+            </div>
+        );
+    }
 
     return (
         <div className={classNames(classes.Navbar, {}, [className])}>
-            <Link
-                to="/"
+
+            <Button
+                onClick={onLogin}
+                theme={ButtonTheme.PRIMARY}
             >
-                На главную
-            </Link>
-            {inited
-                ? (
-                    <div>
-                        <Button
-                            onClick={onExitClick}
-                            style={{ marginRight: 10 }}
-                        >
-                            Выйти
-                        </Button>
-                        <Link
-                            style={{ marginRight: 10 }}
-                            to="/addHero"
-                        >
-                            Добавить героя
-                        </Link>
-                        <Link
-                            style={{ marginRight: 10 }}
-                            to="/admin"
-                        >
-                            Админ панель
-                        </Link>
-                        <Link
-                            to="/profile"
-                        >
-                            Мой профиль
-                        </Link>
-                    </div>
-                )
-                : (
-                    <Link
-                        to="/login"
-                    >
-                        Войти
-                    </Link>
-                )}
+                Войти
+            </Button>
+            {isModalVisible && <LoginModal isOpen={isModalVisible} onClose={onCloseModal} />}
         </div>
     );
 });

@@ -1,20 +1,9 @@
-import { classNames } from 'shared/lib/classNames/classNames';
-import { memo } from 'react';
+import { Page } from 'widgets/Page/Page';
 
-interface AboutPageProps {
-    className?: string;
-}
-
-const AboutPage = memo((props: AboutPageProps) => {
-    const {
-        className,
-    } = props;
-
-    return (
-        <div className={classNames('', {}, [className])}>
-            <h1>About Page</h1>
-        </div>
-    );
-});
+const AboutPage = () => (
+    <Page>
+        <h1>О ПРОЕКТЕ</h1>
+    </Page>
+);
 
 export default AboutPage;

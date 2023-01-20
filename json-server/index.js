@@ -3,7 +3,7 @@ const jsonServer = require('json-server');
 const path = require('path');
 
 const server = jsonServer.create();
-const PORT = 8000;
+const PORT = 9999;
 const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 
 server.use(jsonServer.defaults({}));
@@ -18,10 +18,9 @@ server.use(async (req, res, next) => {
 });
 
 // Эндпоинт для логина
-server.post('/sign_in', (req, res) => {
+server.post('/login', (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log('login server');
         const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
         const { users = [] } = db;
 
@@ -39,17 +38,12 @@ server.post('/sign_in', (req, res) => {
     }
 });
 
-server.post('/sign_up', (req, res) => {
-    console.log(req.body);
-    console.log(req.files);
-});
-
 // проверяем, авторизован ли пользователь
 // eslint-disable-next-line
 server.use((req, res, next) => {
-    if (req.headers.authorization !== 'super-secret-token') {
-        return res.status(403).json({ message: 'AUTH ERROR' });
-    }
+    // if (!req.headers.authorization) {
+    //     return res.status(403).json({ message: 'AUTH ERROR' });
+    // }
 
     next();
 });

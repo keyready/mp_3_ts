@@ -1,9 +1,12 @@
+import { User } from 'entities/User';
+
 export interface Hero {
     id: number;
-    firstname: string;
-    middlename: string;
-    lastname: string;
-    story: string;
-    rank: string;
-    photo: string
+    user: User;
+    middlename?: string;
+    firstname?: string;
+    lastname?: string;
+    story?: string[];
+    rank?: string;
+    photo?: string;
 }

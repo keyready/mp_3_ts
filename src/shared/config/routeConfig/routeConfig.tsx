@@ -1,11 +1,8 @@
 import { RouteProps } from 'react-router-dom';
-import { RegisterPage } from 'pages/RegisterPage';
-import { MainPage } from 'pages/MainPage';
-import { AboutPage } from 'pages/AboutPage';
-import { AddHeroPage } from 'pages/AddHeroPage';
-import { LoginPage } from 'pages/LoginPage';
-import { ProfilePage } from 'pages/ProfilePage';
-import { AdminPanel } from 'pages/AdminPanel';
+import { MainPage } from 'pages/mainPage';
+import { AboutPage } from 'pages/aboutPage';
+import { NotFound } from 'pages/NotFound';
+import { HeroesPage } from 'pages/HeroesPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -14,21 +11,19 @@ export type AppRoutesProps = RouteProps & {
 export enum AppRoutes {
     MAIN = 'main',
     ABOUT = 'about',
-    ADDHERO = 'addHero',
-    LOGIN = 'login',
-    REGISTER = 'register',
-    PROFILE = 'profile',
-    ADMINPANEL = 'adminPanel'
+    HEROES = 'heroes',
+
+    // last
+    NOT_FOUND = 'not_found'
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.ABOUT]: '/about',
     [AppRoutes.MAIN]: '/',
-    [AppRoutes.ADDHERO]: '/addHero',
-    [AppRoutes.LOGIN]: '/login',
-    [AppRoutes.REGISTER]: '/register',
-    [AppRoutes.PROFILE]: '/profile',
-    [AppRoutes.ADMINPANEL]: '/admin',
+    [AppRoutes.HEROES]: '/heroes',
+
+    // last
+    [AppRoutes.NOT_FOUND]: '*',
 };
 
 export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
@@ -40,27 +35,13 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
         path: RoutePath.about,
         element: <AboutPage />,
     },
-    [AppRoutes.ADDHERO]: {
-        path: RoutePath.addHero,
-        element: <AddHeroPage />,
-        authOnly: true,
+    [AppRoutes.HEROES]: {
+        path: RoutePath.heroes,
+        element: <HeroesPage />,
     },
-    [AppRoutes.ADMINPANEL]: {
-        path: RoutePath.adminPanel,
-        element: <AdminPanel />,
-        authOnly: true,
-    },
-    [AppRoutes.LOGIN]: {
-        path: RoutePath.login,
-        element: <LoginPage />,
-    },
-    [AppRoutes.REGISTER]: {
-        path: RoutePath.register,
-        element: <RegisterPage />,
-    },
-    [AppRoutes.PROFILE]: {
-        path: RoutePath.profile,
-        element: <ProfilePage />,
-        authOnly: true,
+    // last
+    [AppRoutes.NOT_FOUND]: {
+        path: RoutePath.not_found,
+        element: <NotFound />,
     },
 };

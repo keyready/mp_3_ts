@@ -1,24 +1,30 @@
-import { memo, ReactNode } from 'react';
 import { Provider } from 'react-redux';
-import { createReduxStore } from '../config/store';
+import { ReactNode } from 'react';
+import { ReducersMapObject } from '@reduxjs/toolkit';
+import { CreateReduxStore } from '../config/store';
 import { StateSchema } from '../config/StateSchema';
 
 interface StoreProviderProps {
-    children?: ReactNode;
-    initialState?: StateSchema
+    children: ReactNode;
+    initialState?: DeepPartial<StateSchema>;
+    lazyReducers?: DeepPartial<ReducersMapObject<StateSchema>>
 }
 
-export const StoreProvider = memo((props: StoreProviderProps) => {
+export const StoreProvider = (props: StoreProviderProps) => {
     const {
         children,
         initialState,
+        lazyReducers,
     } = props;
 
-    const store = createReduxStore(initialState);
+    const store = CreateReduxStore(
+        initialState as StateSchema,
+        lazyReducers as ReducersMapObject<StateSchema>,
+    );
 
     return (
         <Provider store={store}>
             {children}
         </Provider>
     );
-});
+};

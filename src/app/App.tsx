@@ -1,25 +1,31 @@
 import { classNames } from 'shared/lib/classNames/classNames';
+import { useTheme } from 'app/providers/ThemeProvider';
+import { Sidebar } from 'widgets/Sidebar/ui/Sidebar/Sidebar';
+import { AppRouter } from 'app/providers/AppRouter';
+import { Navbar } from 'widgets/Navbar';
 import { Suspense, useEffect } from 'react';
-import './styles/index.scss';
-import { AppRouter } from 'app/providers/RouteProvider';
-import { Navbar } from 'widgets/Navbar/';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserActions } from 'entities/User';
-import { getIsUserInited } from 'entities/User/model/selector/UserSelector';
+import { getUserInited, userActions } from 'entities/User';
 
 export const App = () => {
+    const { theme } = useTheme();
     const dispatch = useDispatch();
+    const inited = useSelector(getUserInited);
 
+    // проверить, был ли авторизован пользователь перед закрытием вкладки
     useEffect(() => {
-        dispatch(UserActions.checkAuthData());
+        dispatch(userActions.initAuthData());
     }, [dispatch]);
 
     return (
-        <div className={classNames('app', {}, [])}>
-            <Suspense fallback={<div>Loading...</div>}>
+        <div
+            className={classNames('app', {}, [theme])}
+        >
+            <Suspense fallback="">
                 <Navbar />
-                <div className="page__wrapper">
-                    <AppRouter />
+                <div className="page">
+                    <Sidebar />
+                    {inited && <AppRouter />}
                 </div>
             </Suspense>
         </div>

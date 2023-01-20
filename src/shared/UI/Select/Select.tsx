@@ -1,55 +1,60 @@
-import { Listbox } from '@headlessui/react';
 import { classNames } from 'shared/lib/classNames/classNames';
+import { ChangeEvent, memo, useMemo } from 'react';
 import classes from './Select.module.scss';
 
-export interface IOption {
-    id: number;
-    name: string;
-    unavailable: boolean
+interface SelectOptions {
+    value: string;
+    content: string;
 }
-export interface SelectProps {
-    options: IOption[]
-    onChange?: () => void;
-    selectedValue?: IOption;
+
+interface SelectProps {
+    className?: string;
+    label?: string;
+    readonly?: boolean;
+    option?: SelectOptions[];
+    value?: string;
+    onChange?: (value: string) => void;
 }
-export function Select(props: SelectProps) {
+
+export const Select = memo((props: SelectProps) => {
     const {
-        options,
-        selectedValue,
+        className,
+        option,
+        value,
+        label,
+        readonly,
         onChange,
     } = props;
 
-    return (
-        <Listbox
-            as="div"
-            value={selectedValue}
-            onChange={onChange}
-            className={classes.Listbox}
+    const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+        onChange?.(e.target.value);
+    };
+
+    const options = useMemo(() => option?.map((opt) => (
+        <option
+            className={classes.option}
+            value={opt.value}
+            key={opt.value}
         >
-            <Listbox.Button
-                className={classes.Button}
+            {opt.content}
+        </option>
+    )), [option]);
+
+    return (
+        <div className={classNames(classes.Select, {}, [className])}>
+            <label
+                className={classNames(classes.label, { [classes.readonly]: readonly }, [])}
             >
-                {selectedValue?.name}
-            </Listbox.Button>
-            <Listbox.Options
-                className={classes.Options}
+                {`${label}>`}
+            </label>
+            <select
+                disabled={readonly}
+                className={classes.select}
+                value={value}
+                onChange={onChangeHandler}
             >
-                {options.map((option) => (
-                    <Listbox.Option
-                        className={classes.Option}
-                        key={option.id}
-                        value={option}
-                    >
-                        {({ active }) => (
-                            <li
-                                className={classNames(classes.item, { [classes.active]: active })}
-                            >
-                                {option.name}
-                            </li>
-                        )}
-                    </Listbox.Option>
-                ))}
-            </Listbox.Options>
-        </Listbox>
+                {options}
+            </select>
+        </div>
     );
-}
+});

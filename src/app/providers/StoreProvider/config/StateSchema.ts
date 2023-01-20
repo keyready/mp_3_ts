@@ -1,20 +1,45 @@
-import { CounterSchema } from 'entities/Counter';
-import { HeroesSchema, HeroSchema } from 'entities/Hero';
 import { UserSchema } from 'entities/User';
-import { To } from '@remix-run/router';
-import { NavigateOptions } from 'react-router/dist/lib/context';
-import { UsersSchema } from 'entities/User/model/types/UserSchema';
+import { LoginSchema } from 'features/AuthByEmail';
+import {
+    AnyAction,
+    CombinedState,
+    EnhancedStore,
+    Reducer,
+    ReducersMapObject,
+} from '@reduxjs/toolkit';
+import { ProfileSchema } from 'entities/Profile';
+import { AxiosInstance } from 'axios';
+import { UISchema } from 'features/UI';
+import { HeroSchema } from 'entities/Hero/model/types/HeroSchema';
+import { HeroesPageSchema } from 'pages/HeroesPage';
 
 export interface StateSchema {
-    counter: CounterSchema;
-    hero: HeroSchema
-    heroes: HeroesSchema
-    user: UserSchema
-    users: UsersSchema
+    user: UserSchema;
+    ui: UISchema
+
+    // asynchronous reducers
+    profile?: ProfileSchema;
+    loginForm?: LoginSchema;
+    hero?: HeroSchema
+    heroesPage?: HeroesPageSchema
+}
+
+export type StateSchemaKey = keyof StateSchema;
+export type MountedReducers = OptionalRecord<StateSchemaKey, boolean>
+export interface reducerManager {
+    getReducerMap: () => ReducersMapObject<StateSchema>;
+    reduce: (state: StateSchema, action: AnyAction) => CombinedState<StateSchema>;
+    add: (key: StateSchemaKey, reducer: Reducer) => void;
+    remove: (key: StateSchemaKey) => void;
+    getMountedReducers: () => MountedReducers;
+}
+
+export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
+    reducerManager: reducerManager;
 }
 
 export interface ThunkExtraArg {
-    navigate?: (to: To, options?: NavigateOptions) => void;
+    api: AxiosInstance;
 }
 
 export interface ThunkConfig<T> {

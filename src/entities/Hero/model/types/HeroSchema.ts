@@ -5,9 +5,3 @@ export interface HeroSchema {
     isLoading: boolean;
     error?: string;
 }
-
-export interface HeroesSchema {
-    data?: Hero[];
-    isLoading: boolean;
-    error?: string;
-}

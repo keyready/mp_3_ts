@@ -1,36 +1,32 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { CSSProperties, memo, ReactNode } from 'react';
+import { CSSProperties } from 'react';
 import classes from './Skeleton.module.scss';
 
 interface SkeletonProps {
-    className?: string
-    width: number | string;
-    height: string | number;
-    rounded?: string
-    children?: ReactNode
+    className?: string;
+    width?: string | number;
+    height?: string | number;
+    border?: string;
 }
 
-export const Skeleton = memo((props: SkeletonProps) => {
+export const Skeleton = (props: SkeletonProps) => {
     const {
         className,
         width,
         height,
-        rounded,
-        children,
+        border,
     } = props;
 
     const styles: CSSProperties = {
         width,
         height,
-        borderRadius: rounded,
+        borderRadius: border,
     };
 
     return (
         <div
             className={classNames(classes.Skeleton, {}, [className])}
             style={styles}
-        >
-            {children}
-        </div>
+        />
     );
-});
+};

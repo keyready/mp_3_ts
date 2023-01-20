@@ -1,35 +1,33 @@
-import { ChangeEvent, memo, TextareaHTMLAttributes } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import classes from './Textarea.module.scss';
+import { ChangeEvent, memo, useCallback } from 'react';
+import classes from './TextArea.module.scss';
 
-type HTMLTextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'value' | 'onChange'>
-
-interface TextareaProps extends HTMLTextareaProps {
+interface TextAreaProps {
     className?: string;
+    placeholder?: string;
     value?: string;
-    onChange?: (str: string) => string;
+    onChange?: (value: string) => void;
 }
 
-export const Textarea = memo((props: TextareaProps) => {
+export const TextArea = memo((props: TextAreaProps) => {
     const {
         className,
+        placeholder,
         value,
         onChange,
-        ...otherProps
     } = props;
 
-    function onChangeHandler(e: ChangeEvent<HTMLTextAreaElement>) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        onChange?.(e.target.value);
-    }
+    const onTextareaChange = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
+        onChange?.(event.target.value);
+    }, [onChange]);
 
     return (
         <textarea
-            className={classNames(classes.Textarea, {}, [className])}
-            onChange={(e) => onChangeHandler(e)}
-            {...otherProps}
+            className={classNames(classes.TextArea, {}, [className])}
+            value={value}
+            onChange={onTextareaChange}
+            placeholder={placeholder}
+            rows={5}
         >
             {value}
         </textarea>

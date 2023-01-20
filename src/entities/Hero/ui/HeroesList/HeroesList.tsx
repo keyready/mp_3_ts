@@ -1,76 +1,42 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { HeroesListSkeleton } from 'entities/Hero/ui/HeroesListSkeleton/HeroesListSkeleton';
-import { getUserData } from 'entities/User';
-import {
-    getAllHeroesData,
-    getAllHeroesError,
-    getAllHeroesIsLoading,
-} from '../../model/selectors/HeroSelector';
+import { memo } from 'react';
+import { Hero } from 'entities/Hero/model/types/Hero';
+import { HeroCard } from 'entities/Hero';
 import classes from './HeroesList.module.scss';
-import { fetchAllHeroes } from '../../model/services/fetchAllHeroes';
-import { HeroCard } from '../HeroCard/HeroCard';
 
 interface HeroesListProps {
     className?: string;
+    heroes?: Hero[];
+    isLoading?: boolean;
 }
 
 export const HeroesList = memo((props: HeroesListProps) => {
     const {
         className,
+        heroes,
+        isLoading,
     } = props;
-    const dispatch = useDispatch();
-    const heroesData = useSelector(getAllHeroesData);
-    const heroesError = useSelector(getAllHeroesError);
-    const heroesIsLoading = useSelector(getAllHeroesIsLoading);
-    const logonUserData = useSelector(getUserData);
 
-    useEffect(() => {
-        dispatch(fetchAllHeroes());
-    }, [dispatch]);
-
-    if (heroesIsLoading) {
+    function renderHero(hero: Hero) {
         return (
-            <div className={classNames(classes.HeroesList, {}, [className])}>
-                {
-                    new Array(5)
-                        .fill(0)
-                        .map((item, index) => (
-                            <HeroesListSkeleton
-                                key={index}
-                                className={classes.card}
-                            />
-                        ))
-                }
-            </div>
+            <HeroCard
+                key={hero.id}
+                hero={hero}
+            />
         );
     }
 
-    if (heroesError) {
+    if (isLoading) {
         return (
-            <div className={classNames(classes.HeroesList, {}, [className])}>
-                <h2 style={{ color: 'red' }}>
-                    Упс... Произошла ошибка:
-                    <br />
-                    {`${heroesError}`}
-                </h2>
-            </div>
+            <h2>Загрузка</h2>
         );
     }
 
     return (
         <div className={classNames(classes.HeroesList, {}, [className])}>
-            {heroesData?.length
-                ? heroesData?.map((hero) => (
-                    <HeroCard
-                        user={logonUserData}
-                        key={hero.id}
-                        hero={hero}
-                        isLoading={heroesIsLoading}
-                    />
-                ))
-                : <h2>Тут пока пусто...</h2>}
+            {heroes?.length
+                ? heroes.map(renderHero)
+                : null}
         </div>
     );
 });

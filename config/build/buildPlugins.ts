@@ -23,6 +23,7 @@ export function buildPlugins(
         new webpack.DefinePlugin({
             IS_DEV: JSON.stringify(isDev),
             __API__: JSON.stringify(apiUrl),
+            LOADING_DELAY: JSON.stringify(500),
         }),
     ];
 

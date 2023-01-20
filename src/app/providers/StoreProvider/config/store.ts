@@ -1,19 +1,40 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { CounterReducer } from 'entities/Counter';
-import { HeroesReducer, HeroReducer } from 'entities/Hero';
-import { UserReducer, UsersReducer } from 'entities/User';
+import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
+import { userReducer } from 'entities/User';
+import { $api } from 'shared/api/api';
+import { UIReducer } from 'features/UI';
+import { createReducerManager } from './reducerManager';
 import { StateSchema } from './StateSchema';
 
-export function createReduxStore(initialState?: StateSchema) {
-    return configureStore<StateSchema>({
-        reducer: {
-            counter: CounterReducer,
-            hero: HeroReducer,
-            heroes: HeroesReducer,
-            user: UserReducer,
-            users: UsersReducer,
-        },
+export function CreateReduxStore(
+    initialState?: StateSchema,
+    lazyReducers?: ReducersMapObject<StateSchema>,
+) {
+    const rootReducers: ReducersMapObject<StateSchema> = {
+        ...lazyReducers,
+        user: userReducer,
+        ui: UIReducer,
+    };
+
+    const reducerManager = createReducerManager(rootReducers);
+
+    const store = configureStore({
+        // @ts-ignore
+        reducer: reducerManager.reduce as ReducersMapObject<StateSchema>,
         devTools: IS_DEV,
         preloadedState: initialState,
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+            thunk: {
+                extraArgument: {
+                    api: $api,
+                },
+            },
+        }),
     });
+
+    // @ts-ignore
+    store.reducerManager = reducerManager;
+
+    return store;
 }
+
+export type AppDispatch = ReturnType<typeof CreateReduxStore>['dispatch']

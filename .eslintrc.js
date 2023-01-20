@@ -28,6 +28,7 @@ module.exports = {
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/label-has-associated-control': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
+        'react/jsx-no-useless-fragment': 'off',
         'react/function-component-definition': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/prefer-default-export': 'off',
@@ -42,20 +43,11 @@ module.exports = {
         'no-undef': 'off',
         'react/jsx-props-no-spreading': 'warn',
         'no-return-await': 'warn',
-        'no-unused-vars': 'off',
+        'no-unused-vars': 'warn',
     },
     globals: {
         IS_DEV: true,
         __API__: true,
         LOADING_DELAY: null,
-    },
-    overrides: [
-        {
-            files: ['**/src/**/*.{test,stories}.{ts,tsx}'],
-            rules: {
-                'i18next/no-literal-string': 'off',
-                'max-len': 'off',
-            },
-        },
-    ],
+    }
 };

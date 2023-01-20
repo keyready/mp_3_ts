@@ -1,84 +1,42 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useEffect } from 'react';
-import { User } from 'entities/User';
-import { Button } from 'shared/UI/Button/Button';
 import { Hero } from '../../model/types/Hero';
 import classes from './HeroCard.module.scss';
 
-interface HeroCardProps {
+interface HeroProps {
     className?: string;
-    hero?: Hero;
-    isLoading?: boolean;
-    user?: User;
+    hero: Hero;
 }
 
-export const HeroCard = memo((props: HeroCardProps) => {
+export const HeroCard = memo((props: HeroProps) => {
     const {
         className,
         hero,
-        isLoading,
-        user,
     } = props;
 
     useEffect(() => {
-        console.log(user);
-    }, [user]);
-
-    function deleteHero(id: number | undefined) {
-        fetch(`http://localhost:8000/heroes/${id}`, {
-            method: 'delete',
-            headers: {
-                authorization: 'super-secret-token',
-            },
-        })
-            .then((res) => res.json())
-            .then(() => {
-                document.location.reload();
-            });
-    }
+        console.log(hero.user);
+    }, [hero.user]);
 
     return (
-        <div className={classNames(classes.HeroCard, {}, [className])}>
-            {user?.role === 'admin'
-                ? (
-                    <Button
-                        style={{
-                            position: 'absolute',
-                            top: '10px',
-                            right: '10px',
-                            fontSize: 14,
-                            background: 'crimson',
-                            border: '2px solid red',
-                            color: 'white',
-                        }}
-                        type="button"
-                        onClick={() => deleteHero(hero?.id)}
-                    >
-                        Удалить
-                    </Button>
-                )
-                : ''}
-
-            <div className={classes.heroInfo}>
+        <div className={classNames(classes.Hero, {}, [className])}>
+            <div className={classes.info}>
+                <h3>{hero.user.email}</h3>
                 <img
-                    width={100}
-                    src={`/static/images/heroes/${hero?.photo}`}
-                    alt={`${hero?.firstname} ${hero?.lastname}`}
+                    className={classes.heroPhoto}
+                    src={`/images/heroes/${hero?.photo}`}
+                    alt=""
                 />
-
                 <div className={classes.heroMainInfo}>
-                    <h3 className={classes.heroRank}>{hero?.rank}</h3>
-                    <h1 className={classes.heroSurname}>{hero?.middlename}</h1>
-                    <h3 className={classes.heroNames}>
-                        {hero?.firstname}
-                        {' '}
-                        {hero?.lastname}
-                    </h3>
+                    <p>{hero?.rank}</p>
+                    <div className={classes.names}>
+                        <h2>{hero?.middlename}</h2>
+                        <h2>{hero?.firstname}</h2>
+                        <h2>{hero?.lastname}</h2>
+                    </div>
                 </div>
             </div>
-            <p className={classes.heroStory}>
-                {hero?.story}
-            </p>
+            <p className={classes.storyPart}>{hero?.story}</p>
         </div>
     );
 });

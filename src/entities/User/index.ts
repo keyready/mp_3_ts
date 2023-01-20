@@ -1,15 +1,13 @@
-export { loginByEmail } from './model/services/loginByEmail';
-export { registerUserByEmail } from './model/services/registerUserByEmail';
-export { fetchAllUsers } from './model/services/fetchAllUsers';
-export { UserActions, UserReducer } from './model/slice/UserSlice';
-export { UsersActions, UsersReducer } from './model/slice/UsersSlice';
-export { User } from './model/types/User';
-export { UserSchema } from './model/types/UserSchema';
-export { Profile } from './ui/Profile/Profile';
+import { userActions, userReducer } from './model/slice/userSlice';
+import { getUserAuthData } from './model/selectors/getUserAuthData/getUserAuthData';
+import { getUserInited } from './model/selectors/getUserInited/getUserInited';
+import { User, UserSchema } from './model/types/user';
+
 export {
-    getAllUsers,
-    getAllUsersIsLoading,
-    getIsUserInited,
-    getUserData,
-    getAllUsersError,
-} from './model/selector/UserSelector';
+    userReducer,
+    userActions,
+    getUserAuthData,
+    getUserInited,
+    User,
+    UserSchema,
+};

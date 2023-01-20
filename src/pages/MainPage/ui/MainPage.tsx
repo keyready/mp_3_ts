@@ -1,21 +1,9 @@
-import { classNames } from 'shared/lib/classNames/classNames';
-import React, { memo } from 'react';
-import { HeroesList } from 'entities/Hero';
+import { Page } from 'widgets/Page/Page';
 
-interface MainPageProps {
-    className?: string;
-}
-
-const MainPage = memo((props: MainPageProps) => {
-    const {
-        className,
-    } = props;
-
-    return (
-        <div className={classNames('', {}, [className])}>
-            <HeroesList />
-        </div>
-    );
-});
+const MainPage = () => (
+    <Page>
+        <h1>Мейн пейдж</h1>
+    </Page>
+);
 
 export default MainPage;
