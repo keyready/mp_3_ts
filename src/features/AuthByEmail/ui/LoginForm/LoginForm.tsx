@@ -10,6 +10,7 @@ import {
     ReducersList,
 } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Tabs } from 'shared/UI/Tabs/Tabs';
 import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
@@ -58,6 +59,7 @@ const LoginForm = memo((props: LoginFormProps) => {
             removeAfterUnmount
             reducers={initialReducers}
         >
+            <Tabs />
             <form
                 className={classNames(classes.LoginForm, {}, [className])}
             >

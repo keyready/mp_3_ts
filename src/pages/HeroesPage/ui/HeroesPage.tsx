@@ -2,14 +2,21 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useEffect } from 'react';
 import { Page } from 'widgets/Page/Page';
 import { useSelector } from 'react-redux';
-import { getHeroes, heroesPageReducers } from 'pages/HeroesPage/model/slice/HeroesPageSlice';
-import { getHeroDataIsLoading } from 'entities/Hero/model/selectors/HeroSelector';
-import { getHeroesError, getHeroesIsLoading } from 'pages/HeroesPage/model/selectors/HeroesPageSelector';
 import { HeroesList } from 'entities/Hero/ui/HeroesList/HeroesList';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { initHeroesPage } from 'pages/HeroesPage/model/services/initHeroesPage';
-import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
-import { HeroReducer } from 'entities/Hero';
+import {
+    DynamicModuleLoader,
+    ReducersList,
+} from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import {
+    getHeroes,
+    heroesPageReducers,
+} from '../model/slice/HeroesPageSlice';
+import {
+    getHeroesError,
+    getHeroesIsLoading,
+} from '../model/selectors/HeroesPageSelector';
+import { initHeroesPage } from '../model/services/initHeroesPage';
 import classes from './HeroesPage.module.scss';
 
 interface HeroesPageProps {

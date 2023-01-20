@@ -21,7 +21,6 @@ export const HeroCard = memo((props: HeroProps) => {
     return (
         <div className={classNames(classes.Hero, {}, [className])}>
             <div className={classes.info}>
-                <h3>{hero.user.email}</h3>
                 <img
                     className={classes.heroPhoto}
                     src={`/images/heroes/${hero?.photo}`}
