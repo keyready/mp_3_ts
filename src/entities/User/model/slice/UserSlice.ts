@@ -18,9 +18,9 @@ export const userSlice = createSlice({
             // проверить, авторизован ли пользователь (после закрытия и открытия приложения)
             const token = localStorage.getItem(USER_AUTHORIZATION_TOKEN);
             if (token) {
-                state._inited = true;
                 state.token = token;
             }
+            state._inited = true;
         },
         logout: (state) => {
             // выход
