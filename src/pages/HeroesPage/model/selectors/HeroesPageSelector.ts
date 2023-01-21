@@ -4,3 +4,4 @@ export const getHeroesIsLoading = (state: StateSchema) => state.heroesPage?.isLo
 export const getHeroesError = (state: StateSchema) => state.heroesPage?.error;
 
 export const getHeroesPageInited = (state: StateSchema) => state.heroesPage?._inited;
+export const getHeroesPageModified = (state: StateSchema) => state.heroesPage?.modified;

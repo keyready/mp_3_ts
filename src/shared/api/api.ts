@@ -10,6 +10,6 @@ import { USER_AUTHORIZATION_TOKEN } from 'shared/const';
 export const $api = axios.create({
     baseURL: __API__,
     headers: {
-        Authorization: `Basic ${localStorage.getItem(USER_AUTHORIZATION_TOKEN)}` || '',
+        authorization: `Basic ${localStorage.getItem(USER_AUTHORIZATION_TOKEN)}` || '',
     },
 });

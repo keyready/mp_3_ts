@@ -9,6 +9,7 @@ import {
     ReducersList,
 } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { AppLink } from 'shared/UI/AppLink';
+import { Text, TextTheme } from 'shared/UI/Text/Text';
 import { getHeroes, heroesPageReducers } from '../model/slice/HeroesPageSlice';
 import { getHeroesError, getHeroesIsLoading } from '../model/selectors/HeroesPageSelector';
 import { initHeroesPage } from '../model/services/initHeroesPage';
@@ -39,6 +40,13 @@ const HeroesPage = memo((props: HeroesPageProps) => {
     return (
         <DynamicModuleLoader reducers={reducer} removeAfterUnmount={false}>
             <Page className={classNames(classes.HeroesPage, {}, [className])}>
+                {error && (
+                    <Text
+                        theme={TextTheme.ERROR}
+                        title="Произошла ошибка"
+                        text="... при загрузке героев..."
+                    />
+                )}
                 <AppLink to="/createHero">Добавить героя</AppLink>
                 <HeroesList
                     isLoading={isLoading}

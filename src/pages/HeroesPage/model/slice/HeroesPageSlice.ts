@@ -23,6 +23,10 @@ const heroesPageSlice = createSlice({
     reducers: {
         init: (state) => {
             state._inited = true;
+            state.modified = false;
+        },
+        modify: (state) => {
+            state.modified = true;
         },
     },
     extraReducers: ((builder) => {
