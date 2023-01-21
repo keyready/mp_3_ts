@@ -11,18 +11,20 @@ export const createHero = createAsyncThunk<
     async (newHero, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
         // const dispatch = useDispatch();
+        console.warn(newHero);
 
         try {
             const { id } = JSON.parse(localStorage.getItem(USER_LOCALSTORAGE_KEY)!);
 
             const heroData = { ...newHero, userId: id };
-            const response = await extra.api.post<string>('/heroes', heroData);
+            const response = await extra.api.post<string>('/heroes', {
+                ...heroData,
+            });
 
             if (!response.data) {
                 throw new Error();
             }
 
-            // dispatch(heroesPageActions.modify());
             return response.data;
         } catch (e) {
             console.log(e);

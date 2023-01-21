@@ -6,7 +6,8 @@ import {
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+}
+    from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Input } from 'shared/UI/Input';
 import { TextArea } from 'shared/UI/TextArea/TextArea';
@@ -14,7 +15,6 @@ import { Button } from 'shared/UI/Button';
 import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { Hero } from 'entities/Hero';
 import { InputFile } from 'shared/UI/InputFile/InputFile';
-import { createHero } from '../model/services/createHero';
 import { createHeroPageReducers } from '../model/slice/CreateHeroPageSlice';
 import classes from './CreateHeroPage.module.scss';
 
@@ -40,7 +40,7 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
     });
 
     useEffect(() => {
-
+        document.title = 'Добавление героя';
     }, []);
 
     const onFormSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
@@ -48,18 +48,19 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
 
         const formdata = new FormData(e.currentTarget);
         // @ts-ignore
-        const data = Object.fromEntries(formdata.entries());
-        dispatch(createHero(data));
+        // const data = Object.fromEntries(formdata.entries());
 
-    //     fetch('http://localhost:9999/create', {
-    //         method: 'post',
-    //         body: formdata,
-    //     })
-    //         .then((res) => res.json())
-    //         .then((res) => {
-    //             console.log(res);
-    //         });
-    }, [dispatch]);
+        fetch('http://localhost:9999/create', {
+            method: 'post',
+            body: formdata,
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.warn(res);
+            });
+
+        // dispatch(createHero(formdata));
+    }, []);
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -88,7 +89,7 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                     />
                     <Input
                         name="lastname"
-                        placeholder="Фамилия героя"
+                        placeholder="Отчество героя"
                         type="text"
                         value={formData.lastname}
                         onChange={(value) => setFormData({ ...formData, lastname: value })}

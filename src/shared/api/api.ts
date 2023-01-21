@@ -7,9 +7,15 @@
 import axios from 'axios';
 import { USER_AUTHORIZATION_TOKEN } from 'shared/const';
 
+const getToken = () => {
+    const token = JSON.parse(localStorage.getItem(USER_AUTHORIZATION_TOKEN)!);
+    console.warn(token);
+    return `Basic ${token}`;
+};
+
 export const $api = axios.create({
     baseURL: __API__,
     headers: {
-        authorization: `Basic ${localStorage.getItem(USER_AUTHORIZATION_TOKEN)}` || '',
+        Authorization: getToken(),
     },
 });

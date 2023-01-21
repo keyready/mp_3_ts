@@ -6,6 +6,7 @@ import { LoginModal } from 'features/AuthByEmail';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAuthData, userActions } from 'entities/User';
 import { getUserToken } from 'entities/User/model/selectors/getUserAuthData/getUserAuthData';
+import { useNavigate } from 'react-router-dom';
 import classes from './Navbar.module.scss';
 
 export interface NavbarProps {
@@ -17,6 +18,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     const token = useSelector(getUserToken);
     const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const navigate = useNavigate();
 
     const onCloseModal = useCallback(() => {
         setIsModalVisible(false);
@@ -26,7 +28,8 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     }, []);
     const onLogout = useCallback(() => {
         dispatch(userActions.logout());
-    }, [dispatch]);
+        navigate('/');
+    }, [dispatch, navigate]);
 
     if (token) {
         return (

@@ -13,7 +13,8 @@ export const registerByEmail = createAsyncThunk<User, RegisterByEmailProps, Thun
         const { extra, rejectWithValue } = thunkAPI;
 
         try {
-            const response = await extra.api.post<User>('/users', {
+            // const response = await extra.api.post<User>('/users', {
+            const response = await extra.api.post<User>('/sign_up', {
                 ...authData,
                 role: 'user',
             });

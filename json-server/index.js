@@ -19,6 +19,7 @@ server.use(async (req, res, next) => {
 });
 
 // Эндпоинт для логина
+let secretToken;
 server.post('/login', (req, res) => {
     try {
         const { email, password } = req.body;
@@ -33,7 +34,7 @@ server.post('/login', (req, res) => {
             const profile = profiles.find(
                 (profile) => profile.id === userFromBd.id,
             );
-            const secretToken = crypto.randomBytes(10).toString('hex');
+            secretToken = crypto.randomBytes(10).toString('hex');
             return res.json({ profile, secretToken });
         }
 
@@ -46,7 +47,7 @@ server.post('/login', (req, res) => {
 // проверяем, авторизован ли пользователь
 // eslint-disable-next-line
 server.use((req, res, next) => {
-    // if (!req.headers.authorization) {
+    // if (req.headers.authorization !== `Basic ${secretToken}`) {
     //     return res.status(403).json({ message: 'AUTH ERROR' });
     // }
     next();

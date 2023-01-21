@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { Hero } from 'entities/Hero/model/types/Hero';
-import { HeroCard } from 'entities/Hero';
+import { HeroCard, HeroCardSkeleton } from 'entities/Hero';
 import classes from './HeroesList.module.scss';
 
 interface HeroesListProps {
@@ -26,17 +26,18 @@ export const HeroesList = memo((props: HeroesListProps) => {
         );
     }
 
-    if (isLoading) {
-        return (
-            <h2>Загрузка</h2>
-        );
-    }
+    const getSkeletons = () => new Array(5)
+        .fill(0)
+        .map((index) => (
+            <HeroCardSkeleton key={index} />
+        ));
 
     return (
         <div className={classNames(classes.HeroesList, {}, [className])}>
             {heroes?.length
                 ? heroes.map(renderHero)
                 : null}
+            {isLoading && getSkeletons()}
         </div>
     );
 });
