@@ -17,6 +17,12 @@
       "password": "qwe",
       "role": "user",
       "id": 3
+    },
+    {
+      "email": "dallss13@bk.ru1",
+      "password": "123",
+      "role": "user",
+      "id": 4
     }
   ],
   "profiles": [
@@ -84,6 +90,16 @@
       ],
       "photo": "hero3.jpg",
       "rank": "младший сержант"
+    },
+    {
+      "middlename": "Поляков",
+      "firstname": "Дмитрий",
+      "lastname": "Сергеевич",
+      "rank": "дух долбоебизма",
+      "story": "лывьдльфыа\nфыафывтаьфжылвьажфыьва\nфывалдфыьвадльфываль\n",
+      "photo": "dima.jpg",
+      "id": 4,
+      "userId": 2
     }
   ],
   "awards": [

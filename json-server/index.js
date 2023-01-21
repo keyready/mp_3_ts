@@ -30,7 +30,11 @@ server.post('/login', (req, res) => {
         );
 
         if (userFromBd) {
-            return res.json(crypto.randomBytes(10).toString('hex'));
+            const response = {
+                token: crypto.randomBytes(10).toString('hex'),
+                userData: userFromBd,
+            };
+            return res.json(response);
         }
 
         return res.status(403).json({ message: 'User not found' });

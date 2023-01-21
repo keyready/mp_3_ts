@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { USER_AUTHORIZATION_TOKEN } from 'shared/const';
+import { responseSchema } from 'features/AuthByEmail/model/services/loginByEmail/loginByEmail';
 import { UserSchema } from '../types/user';
 
 const initialState: UserSchema = {
@@ -10,9 +11,10 @@ export const userSlice = createSlice({
     name: 'userSlice',
     initialState,
     reducers: {
-        setAuthData: (state, action: PayloadAction<string>) => {
+        setAuthData: (state, action: PayloadAction<responseSchema>) => {
             // при авторизации записать данные в стейт и в локал сторадж
-            state.token = action.payload;
+            state.token = action.payload.token;
+            state.authData = action.payload.userData;
         },
         initAuthData: (state) => {
             // проверить, авторизован ли пользователь (после закрытия и открытия приложения)

@@ -39,7 +39,7 @@ const HeroesPage = memo((props: HeroesPageProps) => {
     return (
         <DynamicModuleLoader reducers={reducer} removeAfterUnmount={false}>
             <Page className={classNames(classes.HeroesPage, {}, [className])}>
-                <AppLink to="/createHero">Добавить героя</AppLink>
+                {getAllHeroes.length ? <AppLink to="/createHero">Добавить героя</AppLink> : ''}
                 <HeroesList
                     isLoading={isLoading}
                     heroes={getAllHeroes}

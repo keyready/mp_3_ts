@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userActions } from 'entities/User';
-import { USER_AUTHORIZATION_TOKEN } from 'shared/const';
+import { USER_AUTHORIZATION_TOKEN, USER_LOCALSTORAGE_KEY } from 'shared/const';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 
 interface loginByEmailProps {
@@ -8,19 +8,30 @@ interface loginByEmailProps {
     password: string;
 }
 
-export const loginByEmail = createAsyncThunk<string, loginByEmailProps, ThunkConfig<string>>(
+export interface responseSchema {
+    token: string;
+    userData: any
+}
+
+export const loginByEmail = createAsyncThunk<
+    responseSchema,
+    loginByEmailProps,
+    ThunkConfig<string>
+>(
     'login/loginByEmail',
     async (authData, thunkAPI) => {
         const { extra, dispatch, rejectWithValue } = thunkAPI;
 
         try {
-            const response = await extra.api.post<string>('/login', authData);
+            const response = await extra.api.post<responseSchema>('/login', authData);
 
             if (!response.data) {
                 throw new Error();
             }
 
-            localStorage.setItem(USER_AUTHORIZATION_TOKEN, JSON.stringify(response.data));
+            console.log(response.data);
+            localStorage.setItem(USER_AUTHORIZATION_TOKEN, response.data.token);
+            localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data.userData));
             dispatch(userActions.setAuthData(response.data));
 
             return response.data;

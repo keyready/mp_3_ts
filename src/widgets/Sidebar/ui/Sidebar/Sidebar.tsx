@@ -14,7 +14,7 @@ export interface SidebarProps {
 
 export const Sidebar = memo(({ classname }: SidebarProps) => {
     const SidebarItemsList = useSelector(getSidebarItems);
-    const [collapsed, setCollapsed] = useState<boolean>(true);
+    const [collapsed, setCollapsed] = useState<boolean>(false);
 
     const toggleSidebar = () => {
         setCollapsed(!collapsed);

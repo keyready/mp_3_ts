@@ -14,6 +14,8 @@ import { Button } from 'shared/UI/Button';
 import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { Hero } from 'entities/Hero';
 import { InputFile } from 'shared/UI/InputFile/InputFile';
+import { createHero } from 'pages/CreateHeroPage/model/services/createHero';
+import { profileActions, profileReducer } from 'entities/Profile';
 import { CreateHeroPageReducer } from '../model/slice/CreateHeroPageSlice';
 import classes from './CreateHeroPage.module.scss';
 
@@ -39,25 +41,27 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
     });
 
     useEffect(() => {
-
+        document.title = 'Добавление героя';
     }, []);
 
     const onFormSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const formdata = new FormData(e.currentTarget);
+        const formData = new FormData(e.currentTarget);
         // @ts-ignore
-        // const data = Object.fromEntries(formdata.entries());
+        const data = Object.fromEntries(formData.entries());
+        // dispatch(profileActions);
+        dispatch(createHero(data));
 
-        fetch('http://localhost:9999/create', {
-            method: 'post',
-            body: formdata,
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                console.log(res);
-            });
-    }, []);
+    //     fetch('http://localhost:9999/create', {
+    //         method: 'post',
+    //         body: formdata,
+    //     })
+    //         .then((res) => res.json())
+    //         .then((res) => {
+    //             console.log(res);
+    //         });
+    }, [dispatch]);
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -69,7 +73,7 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                 >
                     <Input
                         autoFocus
-                        name="heroMiddlename"
+                        name="middlename"
                         placeholder="Фамилия героя"
                         type="text"
                         value={formData.middlename}
@@ -77,7 +81,7 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                         required
                     />
                     <Input
-                        name="heroFirstname"
+                        name="firstname"
                         placeholder="Имя героя"
                         type="text"
                         value={formData.firstname}
@@ -85,7 +89,7 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                         required
                     />
                     <Input
-                        name="heroLastname"
+                        name="lastname"
                         placeholder="Фамилия героя"
                         type="text"
                         value={formData.lastname}
@@ -93,7 +97,7 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                         required
                     />
                     <Input
-                        name="heroRank"
+                        name="rank"
                         placeholder="Воинское звание"
                         type="text"
                         value={formData.rank}
@@ -110,6 +114,7 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                         name="photo"
                         type="file"
                         message="Загрузите фото героя"
+                        accept=".jpg,.png,.jpeg"
                     />
 
                     <Button
