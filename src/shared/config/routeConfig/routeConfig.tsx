@@ -7,6 +7,7 @@ import { ForbiddenPage } from 'pages/ForbiddenPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { CreateHeroPage } from 'pages/CreateHeroPage';
 import { AdminPage } from 'pages/adminPage';
+import { ConfirmEmailPage } from 'pages/ConfirmEmailPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -21,6 +22,7 @@ export enum AppRoutes {
     PROFILE = 'profile',
     CREATEHERO = 'create_hero',
     ADMINPAGE = 'admin_age',
+    CONFIRMPAGE = 'confirm_page',
 
     // last
     NOT_FOUND = 'not_found'
@@ -33,6 +35,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.PROFILE]: '/profile/',
     [AppRoutes.CREATEHERO]: '/createHero',
     [AppRoutes.ADMINPAGE]: '/admin/page',
+    [AppRoutes.CONFIRMPAGE]: '/activate/',
 
     // last
     [AppRoutes.NOT_FOUND]: '/*',
@@ -68,6 +71,10 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <AdminPage />,
         authOnly: true,
         adminOnly: true,
+    },
+    [AppRoutes.CONFIRMPAGE]: {
+        path: `${RoutePath.confirm_page}:link`,
+        element: <ConfirmEmailPage />,
     },
 
     // last

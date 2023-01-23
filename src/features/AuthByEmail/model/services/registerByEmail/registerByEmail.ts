@@ -1,28 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { User } from 'entities/User';
+import { userActions } from 'entities/User';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 
-interface RegisterByEmailProps {
-    email: string;
-    password: string;
-}
-
 export const registerByEmail = createAsyncThunk<
-    User,
+    any,
     any,
     ThunkConfig<string>
 >(
     'login/registerByEmail',
     async (registerData, thunkAPI) => {
-        const { extra, rejectWithValue } = thunkAPI;
+        const { extra, rejectWithValue, dispatch } = thunkAPI;
 
         try {
-            const response = await extra.api.post<User>(
-                '/create',
+            const response = await extra.api.post(
+                '/sign_up',
                 registerData,
                 {
                     headers: {
                         'Content-type': 'multipart/form-data',
+                        flag: 'super-secret-flag-4toby-vse-dymali-4to-ya-trushHbIy-weber',
                     },
                 },
             );
@@ -30,6 +26,8 @@ export const registerByEmail = createAsyncThunk<
             if (!response.data) {
                 throw new Error();
             }
+
+            dispatch(userActions.setActivateLink(response.data.link));
 
             return response.data;
         } catch (e) {

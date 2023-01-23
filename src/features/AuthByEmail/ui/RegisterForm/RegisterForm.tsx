@@ -1,6 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
-    ChangeEvent,
     FormEvent, memo, useCallback, useState,
 } from 'react';
 import { Input } from 'shared/UI/Input';
@@ -9,17 +8,15 @@ import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { InputFile } from 'shared/UI/InputFile/InputFile';
-import { profileSlice } from 'entities/Profile/model/slice/profileSlice';
-import axios from 'axios';
 import {
-    getLoginPassword,
-    getLoginRepeatedPassword,
     getLoginError,
     getLoginIsLoading,
+    getLoginPassword,
+    getLoginRepeatedPassword,
     getLoginUsername,
     getRegisterFirstname,
-    getRegisterMiddlename,
     getRegisterLastname,
+    getRegisterMiddlename,
 } from '../../model/selectors';
 import { loginActions } from '../../model/slices/loginSlice';
 import { registerByEmail } from '../../model/services/registerByEmail/registerByEmail';
@@ -45,7 +42,6 @@ const RegisterForm = memo((props: RegisterFormProps) => {
     const repeatedPassword = useSelector(getLoginRepeatedPassword);
     const error = useSelector(getLoginError);
     const isLoading = useSelector(getLoginIsLoading);
-    const [file, setFile] = useState<FileList>();
 
     const onLastnameChange = useCallback((value: string) => {
         dispatch(loginActions.setError(''));
@@ -125,8 +121,8 @@ const RegisterForm = memo((props: RegisterFormProps) => {
             <Input
                 autoFocus
                 placeholder="Введите Вашу фамилию"
-                value={middlename}
-                onChange={onMiddlenameChange}
+                value={lastname}
+                onChange={onLastnameChange}
                 type="text"
                 name="middlename"
                 required
@@ -141,8 +137,8 @@ const RegisterForm = memo((props: RegisterFormProps) => {
             />
             <Input
                 placeholder="Введите Ваше отчество"
-                value={lastname}
-                onChange={onLastnameChange}
+                value={middlename}
+                onChange={onMiddlenameChange}
                 type="text"
                 name="lastname"
                 required
@@ -174,7 +170,6 @@ const RegisterForm = memo((props: RegisterFormProps) => {
                 type="file"
                 name="photo"
                 message="Ваша фотография"
-                // onChange={onFileUpload}
             />
             <Button
                 theme={ButtonTheme.OUTLINED}

@@ -3,11 +3,12 @@
  */
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { LoginSchema } from '../types/loginSchema';
 import {
     registerByEmail,
 } from '../services/registerByEmail/registerByEmail';
-import { LoginSchema } from '../types/loginSchema';
 import { loginByEmail } from '../services/loginByEmail/loginByEmail';
+import { confirmEmail } from '../services/confirmEmail/confirmEmail';
 
 const initialState: LoginSchema = {
     username: '',
@@ -55,6 +56,7 @@ export const loginSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload;
             })
+
             .addCase(registerByEmail.pending, (state) => {
                 state.error = undefined;
                 state.isLoading = true;
@@ -63,6 +65,18 @@ export const loginSlice = createSlice({
                 state.isLoading = false;
             })
             .addCase(registerByEmail.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+
+            .addCase(confirmEmail.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(confirmEmail.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(confirmEmail.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });
