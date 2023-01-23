@@ -9,6 +9,7 @@ import { getUserAuthData } from 'entities/User';
 
 const AppRouter = () => {
     const userData = useSelector(getUserAuthData);
+    console.warn(userData, 'user data');
     const renderWithWrapper = useCallback((route: AppRoutesProps) => {
         const element = (
             <Suspense fallback={<PageLoader />}>
@@ -17,7 +18,6 @@ const AppRouter = () => {
         );
 
         let checkedElement;
-        console.warn(userData?.role);
         if (route.adminOnly) {
             checkedElement = <RequireAdmin>{element}</RequireAdmin>;
         } else if (route.authOnly) {
@@ -31,7 +31,7 @@ const AppRouter = () => {
                 element={checkedElement}
             />
         );
-    }, [userData?.role]);
+    }, []);
 
     return (
         <Routes>

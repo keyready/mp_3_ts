@@ -3,9 +3,9 @@ import { useTheme } from 'app/providers/ThemeProvider';
 import { Sidebar } from 'widgets/Sidebar/ui/Sidebar/Sidebar';
 import { AppRouter } from 'app/providers/AppRouter';
 import { Navbar } from 'widgets/Navbar';
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserInited, userActions } from 'entities/User';
+import { fetchUserData, getUserInited, userActions } from 'entities/User';
 
 export const App = () => {
     const { theme } = useTheme();
@@ -14,9 +14,9 @@ export const App = () => {
 
     // проверить, был ли авторизован пользователь перед закрытием вкладки
     useEffect(() => {
-        console.warn('useeffect in app');
-        dispatch(userActions.initAuthData());
-    }, [dispatch]);
+        dispatch(userActions.initAuthToken());
+        dispatch(fetchUserData());
+    }, [dispatch, inited]);
 
     return (
         <div

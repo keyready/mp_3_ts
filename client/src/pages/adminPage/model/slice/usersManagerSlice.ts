@@ -1,11 +1,11 @@
 import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { StateSchema } from 'app/providers/StoreProvider';
-import { Profile } from 'entities/Profile';
 import { fetchUsers } from 'pages/adminPage/model/services/fetchUsers';
 import { UsersManagerSchema } from 'pages/adminPage';
+import { User } from 'entities/User';
 
-const usersManagerAdapter = createEntityAdapter<Profile>({
-    selectId: (hero) => hero.id,
+const usersManagerAdapter = createEntityAdapter<User>({
+    selectId: (user) => user.id,
 });
 
 export const getUsers = usersManagerAdapter.getSelectors<StateSchema>(
@@ -29,7 +29,7 @@ const usersManagerSlice = createSlice({
             })
             .addCase(fetchUsers.fulfilled, (
                 state,
-                action: PayloadAction<Profile[]>,
+                action: PayloadAction<User[]>,
             ) => {
                 state.isLoading = false;
                 usersManagerAdapter.setAll(state, action.payload);

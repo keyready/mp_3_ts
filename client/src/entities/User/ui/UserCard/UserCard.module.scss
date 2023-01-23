@@ -1,0 +1,27 @@
+.UserCard {
+    padding: 20px;
+    border: 2px solid var(--inverted-bg-color);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+}
+
+.photo {
+    border-radius: 10px;
+}
+
+.names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lastname {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.name {
+    text-transform: capitalize;
+}

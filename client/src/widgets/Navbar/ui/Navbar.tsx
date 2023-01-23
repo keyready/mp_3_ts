@@ -29,11 +29,22 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     const onLogout = useCallback(() => {
         dispatch(userActions.logout());
         navigate('/');
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
     }, [dispatch, navigate]);
+    const onAdminPageLinkClick = useCallback(() => {
+        navigate('/admin/page');
+    }, [navigate]);
 
     if (token) {
         return (
             <div className={classNames(classes.Navbar, {}, [className])}>
+                <Button
+                    onClick={onAdminPageLinkClick}
+                    theme={ButtonTheme.OUTLINED}
+                >
+                    Петух-панель
+                </Button>
                 <Button
                     onClick={onLogout}
                     theme={ButtonTheme.ERROR}

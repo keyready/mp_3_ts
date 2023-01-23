@@ -1,18 +1,20 @@
-import {classNames} from 'shared/lib/classNames/classNames';
-import {Page} from 'widgets/Page/Page';
-import {FormEvent, memo, useCallback, useEffect, useState,} from 'react';
-import {DynamicModuleLoader, ReducersList,} from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
-import {useAppDispatch} from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import {Input} from 'shared/UI/Input';
-import {TextArea} from 'shared/UI/TextArea/TextArea';
-import {Button} from 'shared/UI/Button';
-import {ButtonTheme} from 'shared/UI/Button/ui/Button';
-import {Hero} from 'entities/Hero';
-import {InputFile} from 'shared/UI/InputFile/InputFile';
-import {Text, TextTheme} from 'shared/UI/Text/Text';
-import {createHeroPageReducers} from '../model/slice/CreateHeroPageSlice';
+import { classNames } from 'shared/lib/classNames/classNames';
+import { Page } from 'widgets/Page/Page';
+import {
+    FormEvent, memo, useCallback, useEffect, useState,
+} from 'react';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Input } from 'shared/UI/Input';
+import { TextArea } from 'shared/UI/TextArea/TextArea';
+import { Button } from 'shared/UI/Button';
+import { ButtonTheme } from 'shared/UI/Button/ui/Button';
+import { Hero } from 'entities/Hero';
+import { InputFile } from 'shared/UI/InputFile/InputFile';
+import { Text, TextTheme } from 'shared/UI/Text/Text';
+import { createHero } from 'pages/CreateHeroPage/model/services/createHero';
+import { createHeroPageReducers } from '../model/slice/CreateHeroPageSlice';
 import classes from './CreateHeroPage.module.scss';
-import {createHero} from "pages/CreateHeroPage/model/services/createHero";
 
 interface CreateHeroPageProps {
     className?: string;

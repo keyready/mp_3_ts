@@ -2,41 +2,49 @@ const AwardModel = require('../models/award.model');
 const UserModel = require('../models/user.model');
 const HeroModel = require('../models/hero.model');
 
-class AdminService{
-    async showAllUsers(){
-        const users = await UserModel.findAll({raw:true});
+class AdminService {
+    async showAllUsers() {
+        const users = await UserModel.findAll({raw: true});
         return users;
     }
 
-    async banUser(userId,banReason){
-        await UserModel.update({
-            isBanned:true,
-            banReason:banReason
-        },{
-            where:{
-                userId:userId
-            }
-        })
-        return true
-    }
-
-    async unBanUser(userId){
-        await UserModel.update({
-            isBanned: false
-        },{
-            where:{
-                userId:userId
-            }
-        })
-        return true
-    }
-
-    async addAward(title,description,photo){
-        const candidate = await AwardModel.findOne({where:{title}})
-        if (candidate){
-            return false
+    async banUser(userId, banReason,currentId) {
+        const currentUser = await UserModel.findByPk(currentId)
+        if (currentUser.role === 'admin'){
+            await UserModel.update({
+                isBanned: true,
+                banReason: banReason || 'по причине пидорас'
+            }, {
+                where: {
+                    id: userId
+                }
+            })
+            return true
         }
-        else {
+        return false
+    }
+
+    async unBanUser(userId, currentId) {
+        const currentUser = await UserModel.findByPk(currentId)
+        if (currentUser.role === 'admin') {
+            await UserModel.update({
+                isBanned: false,
+                banReason: ''
+            }, {
+                where: {
+                    id: userId
+                }
+            })
+            return true
+        }
+        return false
+    }
+
+    async addAward(title, description, photo) {
+        const candidate = await AwardModel.findOne({where: {title}})
+        if (candidate) {
+            return false
+        } else {
             await AwardModel.create({
                 title,
                 description,
@@ -46,51 +54,51 @@ class AdminService{
         }
     }
 
-    async deleteAward(awardId){
-        await AwardModel.destroy({where:{id:awardId}})
+    async deleteAward(awardId) {
+        await AwardModel.destroy({where: {id: awardId}})
         return true
     }
 
-    async updateAward(title,description,awardId){
+    async updateAward(title, description, awardId) {
         await AwardModel.update({
             title,
             description
-        },{
-            where:{
-                id:awardId
+        }, {
+            where: {
+                id: awardId
             }
         })
         return true
     }
 
-    async showAllAwards(){
-        const awards = await AwardModel.findAll({raw:true});
+    async showAllAwards() {
+        const awards = await AwardModel.findAll({raw: true});
         return awards;
     }
 
-    async showOneAward(awardId){
+    async showOneAward(awardId) {
         const award = await AwardModel.findByPk(awardId);
         return award;
     }
 
-    async deleteHeroFromAdmin(heroId){
+    async deleteHeroFromAdmin(heroId) {
         await HeroModel.destroy({
-            where:{
-                id:heroId
+            where: {
+                id: heroId
             }
         })
         return true
     }
 
-    async changeRole(userId,newRole){
-        await HeroModel.update({
-            role:newRole
-        },{
-            where:{
-                userId
-            }
-        })
-        return true
+    async changeRole(userId, newRole, currentId) {
+        const currentUser = await UserModel.findByPk(currentId)
+        if (currentUser.role === 'admin') {
+            const user = await UserModel.findByPk(userId)
+            user.role = newRole
+            await user.save()
+            return true
+        }
+        return false
     }
 
 }

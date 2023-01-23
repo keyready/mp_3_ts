@@ -1,8 +1,8 @@
-import { Profile } from 'entities/Profile';
 import { EntityState } from '@reduxjs/toolkit';
+import { User } from 'entities/User';
 
-export interface UsersManagerSchema extends EntityState<Profile>{
-    data?: Profile[];
+export interface UsersManagerSchema extends EntityState<User>{
+    data?: User[];
     isLoading?: boolean;
     error?: string;
 }
