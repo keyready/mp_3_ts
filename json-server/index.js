@@ -19,6 +19,8 @@ server.use(async (req, res, next) => {
 });
 
 server.post('/create', (req, res) => {
+    console.warn(req.body);
+    console.warn(req.file);
     res.json({ success: 'success' });
 });
 

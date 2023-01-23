@@ -11,6 +11,18 @@
       "email": "vip.korchak@list.ru",
       "password": "qwerty",
       "role": "user"
+    },
+    {
+      "email": "dallss13@bk.ru",
+      "password": "123",
+      "role": "user",
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "id": 5
     }
   ],
   "profiles": [

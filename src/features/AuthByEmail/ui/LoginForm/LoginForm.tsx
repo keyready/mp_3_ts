@@ -7,14 +7,14 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import {
     getLoginUsername,
-} from '../../model/selectors/getLoginUsername/getLoginUsername';
+} from '../../model/selectors/selectors/getLoginUsername';
 import {
     getLoginPassword,
-} from '../../model/selectors/getLoginPassword/getLoginPassword';
+} from '../../model/selectors/selectors/getLoginPassword';
 import {
     getLoginIsLoading,
-} from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
-import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
+} from '../../model/selectors/selectors/getLoginIsLoading';
+import { getLoginError } from '../../model/selectors/selectors/getLoginError';
 import { loginActions } from '../../model/slices/loginSlice';
 import { loginByEmail } from '../../model/services/loginByEmail/loginByEmail';
 import classes from './LoginForm.module.scss';
