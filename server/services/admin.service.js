@@ -1,5 +1,6 @@
 const AwardModel = require('../models/award.model');
 const UserModel = require('../models/user.model');
+const HeroModel = require('../models/hero.model');
 
 class AdminService{
     async showAllUsers(){
@@ -26,6 +27,17 @@ class AdminService{
         await UserModel.update({
             isBanned:true,
             banReason:banReason
+        },{
+            where:{
+                userId:userId
+            }
+        })
+        return true
+    }
+
+    async unBanUser(userId){
+        await UserModel.update({
+            isBanned: false
         },{
             where:{
                 userId:userId
@@ -74,6 +86,15 @@ class AdminService{
     async showOneAward(awardId){
         const award = await AwardModel.findByPk(awardId);
         return award;
+    }
+
+    async deleteHeroFromAdmin(heroId){
+        await HeroModel.destroy({
+            where:{
+                id:heroId
+            }
+        })
+        return true
     }
 
 }

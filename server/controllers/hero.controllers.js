@@ -1,5 +1,8 @@
 const HeroService = require('../services/hero.service');
+const EmailService = require('../services/email.service');
+const UserModel = require('../models/user.model');
 const path = require('path');
+const {max} = require("pg/lib/defaults");
 
 class HeroControllers{
     async addHero(req,res){
@@ -11,6 +14,9 @@ class HeroControllers{
             if (!flag){
                 return res.status(412).json({message:'Такой герой уже существует.'})
             }
+            const user = await UserModel.findByPk(req.user.id)
+            const heroes = await HeroService.showMyHeroes(req.user.id)
+            await EmailService.addHeroEmail(user.email,heroes[heroes.length-1].id,user.firstname,user.middlename)
             return res.status(200).json({message:'Герой успешно добавлен.'})
         }
         catch (e){

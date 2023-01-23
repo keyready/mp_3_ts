@@ -25,7 +25,8 @@ module.exports = DB.define('heroes',{
     },
     photo:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:false,
+        unique: true
     }
 },{
     timestamps:false,

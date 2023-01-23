@@ -33,7 +33,27 @@ class AdminController{
             }
             else {
                 await EmailService.banUser(user.firstname, user.middlename, banReason, user.email)
-                return res.status(200).json({message:`Пользователь ${userId} успешно забанен.`})
+                return res.status(200).json({message:`Пользователь ${userId} успешно заблокирован.`})
+            }
+        }
+        catch (e){
+            console.log(e.message)
+            return res.status(500).json(e.message)
+        }
+    }
+
+    async unBanUser(req,res){
+        try{
+            if(req.user.role != 'admin'){
+                return res.status(403).json({message:'У вас нет прав на осуществление данного запроса.'})
+            }
+            const {userId} = req.params;
+            const flag = await AdminService.unBanUser(userId);
+            if(!flag){
+                return res.status(400).json({message:'Ошибка в запросе.'})
+            }
+            else {
+                return res.status(200).json({message:`Пользователь ${userId} успешно разблокирован.`})
             }
         }
         catch (e){
@@ -143,6 +163,18 @@ class AdminController{
             const {awardId} = req.params;
             const award = await AdminService.showOneAward(awardId)
             return res.status(200).json(award)
+        }
+        catch (e){
+            console.log(e.message)
+            return res.status(500).json(e.message)
+        }
+    }
+
+    async deleteHeroFromAdmin(req,res){
+        try{
+            const {heroId} = req.params;
+            await AdminService.deleteHeroFromAdmin(heroId)
+            return res.status(200).json({message:`Герой ${heroId} успешно удален.`})
         }
         catch (e){
             console.log(e.message)

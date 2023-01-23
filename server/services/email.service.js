@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer')
+const path = require('path')
 
 class EmailService{
     async successfulSignUp(firstname,middlename,email,link) {
@@ -67,6 +68,46 @@ class EmailService{
         })
     }
 
+    async addHeroEmail(email,hero,firstname,middlename){
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            auth: {
+                user: 'immortalheroes1712@gmail.com',
+                pass: 'ixnyuzxtxqsxedjh'
+            },
+            secure: true
+        })
+
+        const MailData = {
+            from: 'immortalheroes1712@gmail.com',
+            to: email,
+            text: `                             Уважаемый/ая ${firstname} ${middlename}! 
+                                                    Ваш новый герой на платформе 
+                                                 
+                                                 Имя: ${hero.firstname} 
+                                                 Фамилия: ${hero.lastname}
+                                                 Отчество: ${hero.middlename}
+                                                 Звание: ${hero.rank}
+                                                 История: ${hero.story}                                               
+                    `,
+            attachment: [{
+                filename : hero.photo,
+                path: path.resolve(`../../client/dist/images/heroes/${hero.photo}`),
+                cid: hero.photo
+            }]
+        }
+
+        transporter.sendMail(MailData,(err,info) =>{
+            if(err){
+                console.log(err.message)
+            }
+            else {
+                console.log(info)
+            }
+        })
+
+    }
 };
 
 module.exports = new EmailService()
