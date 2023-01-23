@@ -1,5 +1,6 @@
 const EmailService = require('../services/email.service');
 const AdminService = require('../services/admin.service');
+const UserService = require('../services/user.service');
 const UserModel = require('../models/user.model');
 
 const path = require('path')
@@ -7,7 +8,7 @@ const path = require('path')
 class AdminController{
     async showAllUsers(req,res){
         try {
-            if (req.user.role != 'admin'){
+            if (req.user.role !== 'admin'){
                 return res.status(403).json({message:'У вас нет прав на осуществление данного запроса.'})
             }
             const users = await AdminService.showAllUsers();
@@ -21,7 +22,7 @@ class AdminController{
 
     async banUser(req,res){
         try{
-            if (req.user.role != 'admin'){
+            if (req.user.role !== 'admin'){
                 return res.status(403).json({message:'У вас нет прав на осуществление данного запроса.'})
             }
             const {userId} = req.params;
@@ -44,7 +45,7 @@ class AdminController{
 
     async unBanUser(req,res){
         try{
-            if(req.user.role != 'admin'){
+            if(req.user.role !== 'admin'){
                 return res.status(403).json({message:'У вас нет прав на осуществление данного запроса.'})
             }
             const {userId} = req.params;
@@ -62,37 +63,9 @@ class AdminController{
         }
     }
 
-    async showBanUsers(req,res){
-        try {
-            if (req.user.role != 'admin'){
-                return res.status(403).json({message:'У вас нет прав на осуществление данного запроса.'})
-            }
-            const users = await AdminService.showBanUsers()
-            return res.status(200).json(users)
-        }
-        catch (e){
-            console.log(e.message)
-            return res.status(500).json(e.message)
-        }
-    }
-
-    async showNoActivatedUsers(req,res){
-        try{
-            if (req.user.role != 'admin'){
-                return res.status(403).json({message:'У вас нет прав на осуществление данного запроса.'})
-            }
-            const users = await AdminService.showNoActivatedUsers();
-            return res.status(200).json(users)
-        }
-        catch (e){
-            console.log(e.message)
-            return res.status(500).json(e.message)
-        }
-    }
-
     async addAward(req,res){
         try{
-            if (req.user.role != 'admin'){
+            if (req.user.role !== 'admin'){
                 return res.status(403).json({message:'У вас нет прав на осуществление данного запроса.'})
             }
             const {title,description} = req.body;
@@ -172,9 +145,28 @@ class AdminController{
 
     async deleteHeroFromAdmin(req,res){
         try{
+            if(req.user.role !== 'admin'){
+                return res.status(403).json({message:'У вас нет прав на осуществление данного запроса.'})
+            }
             const {heroId} = req.params;
             await AdminService.deleteHeroFromAdmin(heroId)
             return res.status(200).json({message:`Герой ${heroId} успешно удален.`})
+        }
+        catch (e){
+            console.log(e.message)
+            return res.status(500).json(e.message)
+        }
+    }
+
+    async changeRole(req,res){
+        try{
+            const {userId} = req.params;
+            const {newRole} = req.body;
+            const flag = await AdminService.changeRole(userId,newRole)
+            if (!flag){
+                return res.status(403).json({message:'У вас нет прав для осуществления данного действия.'})
+            }
+            return res.status(200).json({message:`Роль пользователя ${userId} успешно изменена.`})
         }
         catch (e){
             console.log(e.message)

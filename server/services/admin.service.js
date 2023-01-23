@@ -8,21 +8,6 @@ class AdminService{
         return users;
     }
 
-    async showBanUsers(){
-        const users = await UserModel.findAll({
-            raw:true,
-            where:{
-                isBanned:true
-            }
-        })
-        return users;
-    }
-
-    async showNoActivatedUsers(){
-        const users = await UserModel.findAll({where:{isActivated:false},raw:true})
-        return users
-    }
-
     async banUser(userId,banReason){
         await UserModel.update({
             isBanned:true,
@@ -92,6 +77,17 @@ class AdminService{
         await HeroModel.destroy({
             where:{
                 id:heroId
+            }
+        })
+        return true
+    }
+
+    async changeRole(userId,newRole){
+        await HeroModel.update({
+            role:newRole
+        },{
+            where:{
+                userId
             }
         })
         return true

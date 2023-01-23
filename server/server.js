@@ -1,16 +1,19 @@
 require('dotenv').config()
+
 const express = require('express');
 const app = express();
 const DB = require('./config/db.connect');
 const AppRoutes = require('../server/routes');
-const cors = require('cors');
 
 const fs = require('fs')
+const cors = require('cors');
 
 const dir_names = ['heroes', 'users', 'awards']
+
 fs.mkdir(`../client/dist/images`, (err) => {
     console.log(err)
 })
+
 dir_names.forEach((name => {
     fs.mkdir(`../client/dist/images/${name}`, (err) => {
         if (err) {
@@ -27,7 +30,7 @@ const path = require('path');
 app.use(express.static(path.resolve('../client/dist/')))
 app.use(express.json())
 app.use(fileUpload({}))
-app.use(cors());c
+app.use(cors());
 
 app.use('/', AppRoutes.UserRoutes);
 app.use('/', AppRoutes.HeroRoutes);
