@@ -111,19 +111,8 @@ const RegisterForm = memo((props: RegisterFormProps) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
 
-        axios
-            .post('http://localhost:9999/create', formData, {
-                headers: {
-                    'Content-type': 'multipart/form-data',
-                },
-            })
-            .then((res) => {
-                console.log(`Success${res.data}`);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
+        dispatch(registerByEmail(formData));
+    }, [dispatch]);
 
     return (
         <form

@@ -13,17 +13,13 @@ export const registerByEmail = createAsyncThunk<
     ThunkConfig<string>
 >(
     'login/registerByEmail',
-    async (authData, thunkAPI) => {
+    async (registerData, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
 
         try {
             const response = await extra.api.post<User>(
-                'http://localhost:9999/create',
-                {
-                    // const response = await extra.api.post<User>('/sign_up', {
-                    ...authData,
-                    role: 'user',
-                },
+                '/create',
+                registerData,
                 {
                     headers: {
                         'Content-type': 'multipart/form-data',
