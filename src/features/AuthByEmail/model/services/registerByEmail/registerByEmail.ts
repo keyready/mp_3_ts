@@ -7,17 +7,29 @@ interface RegisterByEmailProps {
     password: string;
 }
 
-export const registerByEmail = createAsyncThunk<User, RegisterByEmailProps, ThunkConfig<string>>(
+export const registerByEmail = createAsyncThunk<
+    User,
+    any,
+    ThunkConfig<string>
+>(
     'login/registerByEmail',
     async (authData, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
 
         try {
-            const response = await extra.api.post<User>('/users', {
-            // const response = await extra.api.post<User>('/sign_up', {
-                ...authData,
-                role: 'user',
-            });
+            const response = await extra.api.post<User>(
+                'http://localhost:9999/create',
+                {
+                    // const response = await extra.api.post<User>('/sign_up', {
+                    ...authData,
+                    role: 'user',
+                },
+                {
+                    headers: {
+                        'Content-type': 'multipart/form-data',
+                    },
+                },
+            );
 
             if (!response.data) {
                 throw new Error();
