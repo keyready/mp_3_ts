@@ -24,8 +24,8 @@ export const loginByEmail = createAsyncThunk<
         const { extra, dispatch, rejectWithValue } = thunkAPI;
 
         try {
-            // const response = await extra.api.post<responseType>('/sign_in', authData);
-            const response = await extra.api.post<responseType>('/login', authData);
+            const response = await extra.api.post<responseType>('/sign_in', authData);
+            // const response = await extra.api.post<responseType>('/login', authData);
 
             if (!response.data) {
                 throw new Error();
