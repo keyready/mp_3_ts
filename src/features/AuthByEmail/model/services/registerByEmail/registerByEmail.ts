@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { userActions } from 'entities/User';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 
 export const registerByEmail = createAsyncThunk<
@@ -9,7 +8,7 @@ export const registerByEmail = createAsyncThunk<
 >(
     'login/registerByEmail',
     async (registerData, thunkAPI) => {
-        const { extra, rejectWithValue, dispatch } = thunkAPI;
+        const { extra, rejectWithValue } = thunkAPI;
 
         try {
             const response = await extra.api.post(
@@ -26,8 +25,6 @@ export const registerByEmail = createAsyncThunk<
             if (!response.data) {
                 throw new Error();
             }
-
-            dispatch(userActions.setActivateLink(response.data.link));
 
             return response.data;
         } catch (e) {

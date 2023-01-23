@@ -11,9 +11,6 @@ export const userSlice = createSlice({
     name: 'userSlice',
     initialState,
     reducers: {
-        setActivateLink: (state, action: PayloadAction<string>) => {
-            state._activate_link = action.payload;
-        },
         setAuthData: (state, action: PayloadAction<responseType>) => {
             // при авторизации записать данные в стейт и в локал сторадж
             state.token = action.payload.secretToken;

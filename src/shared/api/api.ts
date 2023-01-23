@@ -8,8 +8,11 @@ import axios from 'axios';
 import { USER_AUTHORIZATION_TOKEN } from 'shared/const';
 
 const getToken = () => {
-    const token = JSON.parse(localStorage.getItem(USER_AUTHORIZATION_TOKEN)!);
-    return `Basic ${token}`;
+    const token = localStorage.getItem(USER_AUTHORIZATION_TOKEN);
+    if (token) {
+        return `Basic ${JSON.parse(token)}`;
+    }
+    return 'He TTyckayte ego cuda';
 };
 
 export const $api = axios.create({

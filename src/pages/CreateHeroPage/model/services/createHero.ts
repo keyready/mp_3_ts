@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
-import { USER_LOCALSTORAGE_KEY } from 'shared/const';
 
 export const createHero = createAsyncThunk<
     string,
@@ -10,18 +9,18 @@ export const createHero = createAsyncThunk<
     'createHeroPage/createHero',
     async (newHero, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
-        // const dispatch = useDispatch();
-        // console.warn(newHero);
 
         try {
-            const { id } = JSON.parse(localStorage.getItem(USER_LOCALSTORAGE_KEY)!);
-
-            const heroData = { ...newHero, userId: id };
-            const response = await extra.api.post<string>('/create', heroData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
+            const response = await extra.api.post(
+                '/create',
+                newHero,
+                {
+                    headers: {
+                        'Content-type': 'multipart/form-data',
+                        flag: 'super-secret-flag-4toby-vse-dymali-4to-ya-trushHbIy-weber',
+                    },
                 },
-            });
+            );
 
             if (!response.data) {
                 throw new Error();

@@ -6,8 +6,7 @@ import {
 import {
     DynamicModuleLoader,
     ReducersList,
-}
-    from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+} from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Input } from 'shared/UI/Input';
 import { TextArea } from 'shared/UI/TextArea/TextArea';
@@ -15,7 +14,10 @@ import { Button } from 'shared/UI/Button';
 import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { Hero } from 'entities/Hero';
 import { InputFile } from 'shared/UI/InputFile/InputFile';
-import { createHero } from 'pages/CreateHeroPage/model/services/createHero';
+import { Text, TextTheme } from 'shared/UI/Text/Text';
+import {
+    registerByEmail,
+} from 'features/AuthByEmail/model/services/registerByEmail/registerByEmail';
 import { createHeroPageReducers } from '../model/slice/CreateHeroPageSlice';
 import classes from './CreateHeroPage.module.scss';
 
@@ -39,33 +41,37 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
         story: undefined,
         rank: '',
     });
+    const [resultMessage, setResultMessage] = useState<string>('');
+    const [creatingError, setCreatingError] = useState<boolean>(false);
 
     useEffect(() => {
         document.title = 'Добавление героя';
     }, []);
 
-    const onFormSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+    const onFormSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const formdata = new FormData(e.currentTarget);
-        // @ts-ignore
-        // const data = Object.fromEntries(formdata.entries());
+        const formData = new FormData(e.currentTarget);
 
-        // fetch('http://localhost:9999/heroes', {
-        //     method: 'post',
-        //     body: JSON.stringify(data),
-        // })
-        //     .then((res) => res.json())
-        //     .then((res) => {
-        //         console.warn(res);
-        //     });
-        //
-        dispatch(createHero(formdata));
+        const result = await dispatch(registerByEmail(formData));
+        if (result.meta.requestStatus === 'fulfilled') {
+            setResultMessage('Герой успешно добавлен!');
+            setCreatingError(false);
+        } else {
+            setResultMessage('Произошла непредвиденная ошибка... ;(');
+            setCreatingError(true);
+        }
     }, [dispatch]);
 
     return (
         <DynamicModuleLoader reducers={reducers}>
             <Page className={classNames('', {}, [className])}>
+                {resultMessage && (
+                    <Text
+                        title={resultMessage}
+                        theme={creatingError ? TextTheme.ERROR : TextTheme.PRIMARY}
+                    />
+                )}
                 <form
                     className={classes.createHeroForm}
                     encType="multipart/form-data"

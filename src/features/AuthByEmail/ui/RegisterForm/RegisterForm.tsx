@@ -68,9 +68,7 @@ const RegisterForm = memo((props: RegisterFormProps) => {
         dispatch(loginActions.setRepPassword(value));
     }, [dispatch]);
 
-    const onRegisterClick = useCallback(async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
+    const validateForm = useCallback(() => {
         if (!password
             || !username
             || !repeatedPassword
@@ -79,36 +77,32 @@ const RegisterForm = memo((props: RegisterFormProps) => {
             || !middlename
         ) {
             dispatch(loginActions.setError('Все поля обязательны для заполнения'));
-            return;
-        }
-
-        if (password !== repeatedPassword) {
+            return false;
+        } if (password !== repeatedPassword) {
             dispatch(loginActions.setError('Введенные пароли не совпадают'));
-            return;
-        }
-
-        if (!username.match('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')) {
+            return false;
+        } if (!username.match('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')) {
             dispatch(loginActions.setError('Вы ввели неверный email'));
+            return false;
+        }
+
+        return true;
+    }, [dispatch, firstname, lastname, middlename, password, repeatedPassword, username]);
+
+    const onFileUpload = useCallback(async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        if (!validateForm()) {
             return;
         }
 
-        // @ts-ignore
-        const formData = new FormData(e.target.form);
-        // formData.append('photo', file);
+        const formData = new FormData(event.currentTarget);
 
         const result = await dispatch(registerByEmail(formData));
-
         if (result.meta.requestStatus === 'fulfilled') {
             setSuccessMessage('Регистрация прошла успешно!');
         }
-    }, [dispatch, firstname, lastname, middlename, password, repeatedPassword, username]);
-
-    const onFileUpload = useCallback((event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-
-        dispatch(registerByEmail(formData));
-    }, [dispatch]);
+    }, [dispatch, validateForm]);
 
     return (
         <form
