@@ -12,5 +12,4 @@ export interface UserSchema {
     token?: string;
 
     _inited?: boolean;
-    _activate_link?: string;
 }
