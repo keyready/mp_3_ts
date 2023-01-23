@@ -1,0 +1,31 @@
+.HeroCardSkeleton {
+    width: var(--hero-card-width);
+    padding: 20px;
+    border: 2px dotted var(--inverted-bg-color);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 15px;
+}
+
+.heroMainInfo,
+.names {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.storyPart {
+    // white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 20px;
+}

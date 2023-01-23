@@ -1,0 +1,14 @@
+.tabsWrapper {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--inverted-bg-color);
+    display: flex;
+    justify-content: space-evenly;
+    opacity: 0.7;
+    margin-bottom: 20px;
+}
+
+.selectedTab {
+    background: var(--primary-color);
+}

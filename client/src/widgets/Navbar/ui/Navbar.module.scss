@@ -1,0 +1,15 @@
+.Navbar {
+    width: 100%;
+    height: var(--navbar-heigth);
+    padding: 20px;
+
+    // border-radius: 20px;
+    background: var(--inverted-bg-color);
+
+    // box-shadow: 10px 10px 50px var(--inverted-bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-grow: 1;
+}

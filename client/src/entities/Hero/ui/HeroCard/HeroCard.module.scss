@@ -1,0 +1,40 @@
+.Hero {
+    width: var(--hero-card-width);
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    outline: 2px solid var(--inverted-bg-color);
+}
+
+.info {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+}
+
+.heroPhoto {
+    width: 100px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.heroMainInfo,
+.names {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.storyPart p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.readmoreBtn {
+    margin-top: 20px;
+    margin-left: auto;
+}
