@@ -18,6 +18,10 @@ server.use(async (req, res, next) => {
     next();
 });
 
+server.post('/create', (req, res) => {
+    res.json({ success: 'success' });
+});
+
 // Эндпоинт для логина
 let secretToken;
 server.post('/login', (req, res) => {

@@ -24,8 +24,8 @@ export const loginByEmail = createAsyncThunk<
         const { extra, dispatch, rejectWithValue } = thunkAPI;
 
         try {
-            const response = await extra.api.post<responseType>('/sign_in', authData);
-            // const response = await extra.api.post<responseType>('/login', authData);
+            // const response = await extra.api.post<responseType>('/sign_in', authData);
+            const response = await extra.api.post<responseType>('/login', authData);
 
             if (!response.data) {
                 throw new Error();
@@ -41,8 +41,8 @@ export const loginByEmail = createAsyncThunk<
                 USER_LOCALSTORAGE_KEY,
                 JSON.stringify(response.data.profile),
             );
-            dispatch(userActions.setAuthData(response.data));
 
+            dispatch(userActions.setAuthData(response.data));
             return response.data;
         } catch (e) {
             return rejectWithValue('login error');

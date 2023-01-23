@@ -13,6 +13,7 @@ import { UISchema } from 'features/UI';
 import { HeroSchema } from 'entities/Hero/model/types/HeroSchema';
 import { HeroesPageSchema } from 'pages/HeroesPage';
 import { CreateHeroSchema } from 'pages/CreateHeroPage';
+import { UsersManagerSchema } from 'pages/adminPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -24,6 +25,7 @@ export interface StateSchema {
     hero?: HeroSchema;
     heroesPage?: HeroesPageSchema;
     createHeroPage?: CreateHeroSchema;
+    usersManagerPage?: UsersManagerSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

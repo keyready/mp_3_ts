@@ -28,8 +28,8 @@ export const HeroesList = memo((props: HeroesListProps) => {
 
     const getSkeletons = () => new Array(5)
         .fill(0)
-        .map((index) => (
-            <HeroCardSkeleton key={index} />
+        .map((key, okey) => (
+            <HeroCardSkeleton key={okey} />
         ));
 
     return (

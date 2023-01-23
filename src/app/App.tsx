@@ -14,6 +14,7 @@ export const App = () => {
 
     // проверить, был ли авторизован пользователь перед закрытием вкладки
     useEffect(() => {
+        console.warn('useeffect in app');
         dispatch(userActions.initAuthData());
     }, [dispatch]);
 

@@ -2,7 +2,11 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { Page } from 'widgets/Page/Page';
 import { memo, useCallback, useEffect } from 'react';
 import {
-    fetchProfileData, getProfileData, profileActions, ProfileCard, profileReducer,
+    fetchProfileData,
+    getProfileData,
+    profileActions,
+    ProfileCard,
+    profileReducer,
 } from 'entities/Profile';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
@@ -11,7 +15,6 @@ import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
-import classes from './ProfilePage.module.scss';
 
 interface ProfilePageProps {
     className?: string;
@@ -34,20 +37,20 @@ const ProfilePage = memo((props: ProfilePageProps) => {
     const profileData = useSelector(getProfileData);
 
     const onChangeFirstname = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ firstname: value || '' }));
-    }, [dispatch]);
+        dispatch(profileActions.changeData({ id: id!, firstname: value || '' }));
+    }, [dispatch, id]);
     const onChangeLastname = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ lastname: value || '' }));
-    }, [dispatch]);
+        dispatch(profileActions.changeData({ id: id!, lastname: value || '' }));
+    }, [dispatch, id]);
     const onChangeAge = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ age: value || '' }));
-    }, [dispatch]);
+        dispatch(profileActions.changeData({ id: id!, age: value || '' }));
+    }, [dispatch, id]);
     const onChangeCity = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ city: value || '' }));
-    }, [dispatch]);
+        dispatch(profileActions.changeData({ id: id!, city: value || '' }));
+    }, [dispatch, id]);
     const onChangeEmail = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ email: value || '' }));
-    }, [dispatch]);
+        dispatch(profileActions.changeData({ id: id!, email: value || '' }));
+    }, [dispatch, id]);
 
     return (
         <DynamicModuleLoader reducers={reducers}>

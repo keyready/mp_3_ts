@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { USER_AUTHORIZATION_TOKEN, USER_LOCALSTORAGE_KEY } from 'shared/const';
 import { responseType } from 'features/AuthByEmail';
-import { Profile } from 'entities/Profile';
 import { UserSchema } from '../types/user';
 
 const initialState: UserSchema = {
@@ -20,10 +19,13 @@ export const userSlice = createSlice({
         initAuthData: (state) => {
             // проверить, авторизован ли пользователь (после закрытия и открытия приложения)
             const token = localStorage.getItem(USER_AUTHORIZATION_TOKEN);
-            const authData = localStorage.getItem(USER_LOCALSTORAGE_KEY) as Profile;
+            const authData = localStorage.getItem(USER_LOCALSTORAGE_KEY);
+            console.warn(JSON.parse(authData!));
+            console.log('вроде бы аус дата');
+
             if (token && authData) {
-                state.token = token;
-                state.authData = authData;
+                state.token = JSON.parse(token);
+                state.authData = JSON.parse(authData);
             }
             state._inited = true;
         },

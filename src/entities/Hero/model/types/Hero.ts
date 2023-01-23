@@ -6,7 +6,7 @@ export interface Hero {
     middlename?: string;
     firstname?: string;
     lastname?: string;
-    story?: string[];
+    story?: string;
     rank?: string;
     photo?: string;
 }

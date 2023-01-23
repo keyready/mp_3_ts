@@ -44,10 +44,10 @@ const HeroesPage = memo((props: HeroesPageProps) => {
                     <Text
                         theme={TextTheme.ERROR}
                         title="Произошла ошибка"
-                        text="... при загрузке героев..."
+                        text="... при загрузке героев"
                     />
                 )}
-                <AppLink to="/createHero">Добавить героя</AppLink>
+                {!error && <AppLink to="/createHero">Добавить героя</AppLink>}
                 <HeroesList
                     isLoading={isLoading}
                     heroes={getAllHeroes}

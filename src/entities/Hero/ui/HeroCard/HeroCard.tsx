@@ -1,5 +1,9 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, useEffect } from 'react';
+import { memo, MouseEvent, useCallback } from 'react';
+import { Button } from 'shared/UI/Button';
+import { ButtonTheme } from 'shared/UI/Button/ui/Button';
+import { useNavigate } from 'react-router-dom';
+import { Text } from 'shared/UI/Text/Text';
 import { Hero } from '../../model/types/Hero';
 import classes from './HeroCard.module.scss';
 
@@ -13,6 +17,11 @@ export const HeroCard = memo((props: HeroProps) => {
         className,
         hero,
     } = props;
+    const navigate = useNavigate();
+
+    const onReadmoreClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+        navigate(`/hero/${hero.id}`);
+    }, [hero.id, navigate]);
 
     return (
         <div className={classNames(classes.Hero, {}, [className])}>
@@ -31,7 +40,21 @@ export const HeroCard = memo((props: HeroProps) => {
                     </div>
                 </div>
             </div>
-            <p className={classes.storyPart}>{hero?.story}</p>
+            <div className={classes.storyPart}>
+                {hero.story?.split('\n').map((paragraph) => (
+                    <Text
+                        text={paragraph}
+                        indent={20}
+                    />
+                ))}
+            </div>
+            <Button
+                className={classes.readmoreBtn}
+                theme={ButtonTheme.OUTLINED}
+                onClick={onReadmoreClick}
+            >
+                Читать далее...
+            </Button>
         </div>
     );
 });

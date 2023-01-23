@@ -1,5 +1,5 @@
 export interface Profile {
-    id?: string;
+    id: string;
     firstname?: string,
     lastname?: string,
     middlename?: string,
@@ -7,6 +7,7 @@ export interface Profile {
     city?: string,
     email?: string,
     heroes?: number;
+    role?: string;
 }
 
 export enum ValidateProfileError {

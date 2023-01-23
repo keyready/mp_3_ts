@@ -15,6 +15,7 @@ import { Button } from 'shared/UI/Button';
 import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { Hero } from 'entities/Hero';
 import { InputFile } from 'shared/UI/InputFile/InputFile';
+import { createHero } from 'pages/CreateHeroPage/model/services/createHero';
 import { createHeroPageReducers } from '../model/slice/CreateHeroPageSlice';
 import classes from './CreateHeroPage.module.scss';
 
@@ -50,17 +51,17 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
         // @ts-ignore
         // const data = Object.fromEntries(formdata.entries());
 
-        fetch('http://localhost:9999/create', {
-            method: 'post',
-            body: formdata,
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                console.warn(res);
-            });
-
-        // dispatch(createHero(formdata));
-    }, []);
+        // fetch('http://localhost:9999/heroes', {
+        //     method: 'post',
+        //     body: JSON.stringify(data),
+        // })
+        //     .then((res) => res.json())
+        //     .then((res) => {
+        //         console.warn(res);
+        //     });
+        //
+        dispatch(createHero(formdata));
+    }, [dispatch]);
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -106,7 +107,7 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                     <TextArea
                         name="story"
                         placeholder="Ваша история..."
-                        value={formData.story?.join('\n')}
+                        value={formData.story}
                     />
 
                     <InputFile
