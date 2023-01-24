@@ -1,6 +1,7 @@
 const UserService = require('../services/user.service');
 const EmailService = require('../services/email.service');
 const {generateLink} = require('../config/config');
+const crypto = require('crypto')
 
 const path = require('path');
 
@@ -8,7 +9,15 @@ class UserControllers {
     async sign_up(req, res) {
         try {
             const {firstname, middlename, lastname, email, password} = req.body;
-            req.files.photo.mv(path.resolve(`../client/dist/images/users/${req.files.photo.name}`))
+            // TODO путь до фотки регистрации
+
+            const dot = req.files.photo.name.lastIndexOf('.');
+            const newFileName =
+                crypto.randomBytes(5).toString('hex') +
+                req.files.photo.name.substr(dot)
+            req.files.photo.mv(path.resolve(`../client/public/images/users/${newFileName}`))
+            // req.files.photo.mv(path.resolve(`../client/dist/images/users/${newFileName}`))
+
             const link = generateLink();
             const flag = await UserService.sign_up(firstname, middlename, lastname, email, password, link, req.files.photo.name)
             if (!flag) {
