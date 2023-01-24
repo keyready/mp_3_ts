@@ -1,6 +1,6 @@
-const AwardModel = require('../models/award.model');
-const UserModel = require('../models/user.model');
-const HeroModel = require('../models/hero.model');
+const {AwardModel} = require('../models');
+const {UserModel} = require('../models');
+const {HeroModel} = require('../models');
 
 class AdminService {
     async showAllUsers() {

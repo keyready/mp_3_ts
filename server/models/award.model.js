@@ -12,7 +12,7 @@ module.exports = DB.define('awards',{
         allowNull: false,
         unique: true
     },
-    image:{
+    photo:{
         type:DataTypes.STRING,
         allowNull:false,
         unique:true

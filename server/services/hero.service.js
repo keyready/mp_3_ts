@@ -1,19 +1,20 @@
-const HeroModel = require('../models/hero.model');
-const HeroAwardModel = require('../models/hero-award.model');
-const AwardModel = require('../models/award.model')
+const {HeroModel} = require('../models');
+const {HeroAwardModel} = require('../models');
+const {AwardModel} = require('../models')
 const {Op} = require('sequelize');
 
 const fs = require('fs')
 const path = require('path')
 
 class HeroService{
-    async addHero(firstname,middlename,lastname,story,rank,photo,/*array_awards_id,*/userId){
+    async addHero(firstname,middlename,lastname,story,rank,photo,/*SelectArrayAwardsId,*/userId){
         const candidate = await HeroModel.findOne({where:{
             firstname,middlename,lastname,rank,story
         }})
         if (candidate){
             return false
         }
+        
         const hero = await HeroModel.create({
             firstname,
             middlename,
@@ -24,31 +25,53 @@ class HeroService{
             userId
         })
 
-        // const selectedAwards = await AwardModel.findAll({
-        //     where:{
-        //         [Op.in]:{
-        //             id:array_awards_id
-        //         }
-        //     },
-        //     attributes:['id']
+        // SelectArrayAwardsId.forEach((awardId) =>{
+        //     HeroAwardModel.create({
+        //         heroId:hero.id,
+        //         awardId:awardId
+        //     })
         // })
 
-        // for (let i = 0; i < selectedAwards.length; i++){
-        //     await HeroAwardModel.create({
-        //         heroId:hero.id,
-        //         awardId:selectedAwards[i].id
-        //     })
-        // }
         return true
     }
 
     async showAllHeroes(){
         const heroes = await HeroModel.findAll({raw:true})
+        
+        // let PersonalAwardsObjects = []
+        // heroes.map(async(hero) =>{
+        //     const tmp = await HeroAwardModel.findAll({
+        //         where:{
+        //             heroId:hero.id
+        //         },
+        //         attributes:['awardId','heroId']
+        //     })
+        //     PersonalAwardsObjects.push(tmp)
+        // })
+        //
+        // PersonalAwardsObjects.map(async(PersonalAwardsOneObject) =>{
+        //     const PersonalAwards = await AwardModel.findAll({
+        //         where:{
+        //             id:PersonalAwardsOneObject.awardId
+        //         }
+        //     })
+        //     heroes.forEach(async(hero)=>{
+        //         hero.awards=PersonalAwards
+        //         await hero.save()
+        //     })
+        // })
+
+        // let PersonalAwardsIdArray=[]
+        // PersonalAwardsIdObjects.map(async(oneObject) =>{
+        //     PersonalAwardsIdArray.push(oneObject.awardId)
+        // })
+    //TODO вернуть все медальки
         return heroes
     }
 
     async showMyHeroes(userId){
         const heroes = await HeroModel.findAll({where:{userId:userId}})
+        //TODO вернуть все медальки
         return heroes
     }
 
@@ -73,20 +96,33 @@ class HeroService{
         return true
     }
 
-    async showOneUser(heroId){
+    async showOneHero(heroId){
         const hero = await HeroModel.findByPk(heroId);
 
-        const awards_heroes_table = await HeroAwardModel.findAll({where:{heroId},attributes:['awardId']})
-        let awards_id = []
-        for (let i = 0; i < awards_heroes_table.length;i++){
-            awards_id.push(awards_heroes_table[i].awardId)
-        }
+        const PersonalAwardsIdObjects = await HeroAwardModel.findAll({
+            where:{
+                heroId
+            },
+            attributes:['awardId']
+        })
+
+        let PersonalAwardsIdArray=[]
+        PersonalAwardsIdObjects.map((elem) =>{
+            PersonalAwardsIdArray.push(elem.awardId)
+        })
+
         const awards = await AwardModel.findAll({
             where:{
-                [Op.in]: awards_id
+                id:{
+                    [Op.in]:PersonalAwardsIdArray
+                }
             }
         })
-        return {hero:hero,awards:awards}
+
+        hero.awards = awards
+        //await hero.save()
+
+        return hero
     }
 
 }

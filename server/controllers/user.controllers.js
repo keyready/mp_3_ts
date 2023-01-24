@@ -9,7 +9,6 @@ class UserControllers {
     async sign_up(req, res) {
         try {
             const {firstname, middlename, lastname, email, password} = req.body;
-            // TODO путь до фотки регистрации
 
             const dot = req.files.photo.name.lastIndexOf('.');
             const newFileName =
@@ -23,7 +22,6 @@ class UserControllers {
             if (!flag) {
                 return res.status(401).json({message: 'Ошибка регистрации'})
             }
-            console.log(email)
             // await EmailService.successfulSignUp(firstname,middlename,email, link)
             return res.status(200).json({message: 'Регистрация прошла успешно.', link})
         } catch (e) {

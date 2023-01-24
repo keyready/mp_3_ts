@@ -1,7 +1,7 @@
 const EmailService = require('../services/email.service');
 const AdminService = require('../services/admin.service');
 const UserService = require('../services/user.service');
-const UserModel = require('../models/user.model');
+const {UserModel} = require('../models');
 
 const path = require('path')
 
