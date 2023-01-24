@@ -6,12 +6,24 @@ const {Op} = require('sequelize');
 const fs = require('fs')
 const path = require('path')
 
+<<<<<<< HEAD
 class HeroService{
     async addHero(firstname,middlename,lastname,story,rank,photo,/*SelectArrayAwardsId,*/userId){
         const candidate = await HeroModel.findOne({where:{
             firstname,middlename,lastname,rank,story
         }})
         if (candidate){
+=======
+class HeroService {
+    async addHero(firstname, middlename, lastname, story, rank, photo,/*array_awards_id,*/userId) {
+        console.log(userId)
+        const candidate = await HeroModel.findOne({
+            where: {
+                firstname, middlename, lastname, rank, story
+            }
+        })
+        if (candidate) {
+>>>>>>> 00bbaf282eba0541893a7264e0930606384c3daa
             return false
         }
         
@@ -35,6 +47,7 @@ class HeroService{
         return true
     }
 
+<<<<<<< HEAD
     async showAllHeroes(){
         const heroes = await HeroModel.findAll({raw:true})
         
@@ -72,20 +85,29 @@ class HeroService{
     async showMyHeroes(userId){
         const heroes = await HeroModel.findAll({where:{userId:userId}})
         //TODO вернуть все медальки
+=======
+    async showAllHeroes() {
+        const heroes = await HeroModel.findAll({raw: true})
         return heroes
     }
 
-    async deleteHero(userId,heroId){
-        const hero = await HeroModel.destroy({where:{userId:userId,heroId:heroId}})
+    async showMyHeroes(userId) {
+        const heroes = await HeroModel.findAll({where: {userId: userId}})
+>>>>>>> 00bbaf282eba0541893a7264e0930606384c3daa
+        return heroes
+    }
+
+    async deleteHero(userId, heroId) {
+        const hero = await HeroModel.destroy({where: {userId: userId, heroId: heroId}})
         fs.rm(path.resolve(`../../client/dist/images/heroes/${hero.photo}`))
         return true
     }
 
-    async updateHero(firstname,middlename,lastname,story,rank,userId,heroId){
+    async updateHero(firstname, middlename, lastname, story, rank, userId, heroId) {
         const hero = await HeroModel.findOne({
-            where:{
-                userId:userId,
-                heroId:heroId
+            where: {
+                userId: userId,
+                heroId: heroId
             }
         })
         hero.firstname = firstname
@@ -96,6 +118,7 @@ class HeroService{
         return true
     }
 
+<<<<<<< HEAD
     async showOneHero(heroId){
         const hero = await HeroModel.findByPk(heroId);
 
@@ -123,6 +146,22 @@ class HeroService{
         //await hero.save()
 
         return hero
+=======
+    async showOneUser(heroId) {
+        const hero = await HeroModel.findByPk(heroId);
+
+        const awards_heroes_table = await HeroAwardModel.findAll({where: {heroId}, attributes: ['awardId']})
+        let awards_id = []
+        for (let i = 0; i < awards_heroes_table.length; i++) {
+            awards_id.push(awards_heroes_table[i].awardId)
+        }
+        const awards = await AwardModel.findAll({
+            where: {
+                [Op.in]: awards_id
+            }
+        })
+        return {hero: hero, awards: awards}
+>>>>>>> 00bbaf282eba0541893a7264e0930606384c3daa
     }
 
 }

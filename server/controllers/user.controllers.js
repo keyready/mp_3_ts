@@ -18,7 +18,7 @@ class UserControllers {
             // req.files.photo.mv(path.resolve(`../client/dist/images/users/${newFileName}`))
 
             const link = generateLink();
-            const flag = await UserService.sign_up(firstname, middlename, lastname, email, password, link, req.files.photo.name)
+            const flag = await UserService.sign_up(firstname, middlename, lastname, email, password, link, newFileName)
             if (!flag) {
                 return res.status(401).json({message: 'Ошибка регистрации'})
             }
