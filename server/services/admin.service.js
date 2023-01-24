@@ -8,9 +8,9 @@ class AdminService {
         return users;
     }
 
-    async banUser(userId, banReason,currentId) {
+    async banUser(userId, banReason, currentId) {
         const currentUser = await UserModel.findByPk(currentId)
-        if (currentUser.role === 'admin'){
+        if (currentUser.role === 'admin') {
             await UserModel.update({
                 isBanned: true,
                 banReason: banReason || 'по причине пидорас'

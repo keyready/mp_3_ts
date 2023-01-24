@@ -8,7 +8,8 @@ const path = require('path')
 class AdminController {
     async showAllUsers(req, res) {
         try {
-            if (req.user.role !== 'admin') {
+            const currentUser = await UserModel.findByPk(req.user.id)
+            if (currentUser.role !== 'admin') {
                 return res.status(403).json({message: 'У вас нет прав на осуществление данного запроса.'})
             }
             const users = await AdminService.showAllUsers();

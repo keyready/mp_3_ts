@@ -18,7 +18,7 @@ class HeroControllers {
             req.files.photo.mv(path.resolve(`../client/public/images/users/${newFileName}`))
             // req.files.photo.mv(path.resolve(`../client/dist/images/users/${newFileName}`)
 
-            const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, req.files.photo.name,/*array_awards_id,*/req.user.id)
+            const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, newFileName,/*array_awards_id,*/req.user.id)
             if (!flag) {
                 return res.status(412).json({message: 'Такой герой уже существует.'})
             }
