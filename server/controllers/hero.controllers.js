@@ -14,10 +14,10 @@ class HeroControllers {
             const newFileName =
                 crypto.randomBytes(5).toString('hex') +
                 req.files.photo.name.substr(dot)
-            req.files.photo.mv(path.resolve(`../client/public/images/users/${newFileName}`))
+            req.files.photo.mv(path.resolve(`../client/public/images/heroes/${newFileName}`))
             // req.files.photo.mv(path.resolve(`../client/dist/images/users/${newFileName}`)
 
-            const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, req.files.photo.name,/*SelectArrayAwardsId,*/req.user.id)
+            const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, newFileName,/*SelectArrayAwardsId,*/req.user.id)
             //const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, newFileName,/*array_awards_id,*/req.user.id)
             if (!flag) {
                 return res.status(412).json({message: 'Такой герой уже существует.'})
