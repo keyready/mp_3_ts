@@ -1,13 +1,14 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
-    memo, MouseEvent, useCallback, useMemo,
+    memo, MouseEvent, useCallback, useMemo, useState,
 } from 'react';
 import { Select } from 'shared/UI/Select/Select';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { banUserById, changeUserRole, unBanUserById } from 'entities/User';
 import { Button } from 'shared/UI/Button';
 import { ButtonTheme } from 'shared/UI/Button/ui/Button';
-import { fetchUsers } from 'pages/adminPage/model/services/fetchUsers';
+import { TextArea } from 'shared/UI/TextArea/TextArea';
+import { Text, TextAlign, TextTheme } from 'shared/UI/Text/Text';
 import { User } from '../../model/types/User';
 import classes from './UserCard.module.scss';
 
@@ -22,6 +23,8 @@ export const UserCard = memo((props: UserCardProps) => {
         user,
     } = props;
     const dispatch = useAppDispatch();
+    const [isBanReasonTextVisible, setIsBanReasonTextVisible] = useState<boolean>(false);
+    const [banReasonText, setBanReasonText] = useState<string>('');
     const roles = useMemo(() => [
         { value: 'user', content: 'Юзер' },
         { value: 'admin', content: 'Петух' },
@@ -32,20 +35,29 @@ export const UserCard = memo((props: UserCardProps) => {
         dispatch(changeUserRole(newRoleSender));
     }, [dispatch]);
 
-    const onUserBanHandler = useCallback((event: MouseEvent<HTMLButtonElement>, userId: number) => {
-        dispatch(banUserById(userId));
-        dispatch(fetchUsers());
-    }, [dispatch]);
+    const onUserBanHandler = useCallback((userId: number) => {
+        setIsBanReasonTextVisible(true);
+        if (isBanReasonTextVisible) {
+            dispatch(banUserById({ userId, banReason: banReasonText }));
+        }
+    }, [banReasonText, dispatch, isBanReasonTextVisible]);
+
     const onUserUnBanHandler = useCallback((
         event: MouseEvent<HTMLButtonElement>,
         userId: number,
     ) => {
         dispatch(unBanUserById(userId));
-        dispatch(fetchUsers());
     }, [dispatch]);
 
+    const onBanReasonChangeHandler = useCallback((banReason) => {
+        setBanReasonText(banReason);
+    }, []);
+
     return (
-        <div className={classNames(classes.UserCard, {}, [className])}>
+        <div className={classNames(classes.UserCard, {
+            [classes.isBanned]: user?.isBanned,
+        }, [className])}
+        >
             <img
                 src={`/images/users/${user?.photo}`}
                 alt={user?.middlename}
@@ -65,6 +77,13 @@ export const UserCard = memo((props: UserCardProps) => {
                 option={roles}
                 label="Роль"
             />
+            {user?.isBanned && (
+                <Text
+                    text={user.banReason}
+                    theme={TextTheme.ERROR}
+                    align={TextAlign.CENTER}
+                />
+            )}
             {user?.isBanned
                 ? (
                     <Button
@@ -75,12 +94,20 @@ export const UserCard = memo((props: UserCardProps) => {
                     </Button>
                 )
                 : (
-                    <Button
-                        theme={ButtonTheme.ERROR}
-                        onClick={(e) => onUserBanHandler(e, user!.id)}
-                    >
-                        Забанить
-                    </Button>
+                    <div>
+                        <Button
+                            theme={ButtonTheme.ERROR}
+                            onClick={() => onUserBanHandler(user!.id)}
+                        >
+                            Забанить
+                        </Button>
+                        {isBanReasonTextVisible && (
+                            <TextArea
+                                placeholder="Причина бана"
+                                onChange={(value) => onBanReasonChangeHandler(value)}
+                            />
+                        )}
+                    </div>
                 )}
         </div>
     );

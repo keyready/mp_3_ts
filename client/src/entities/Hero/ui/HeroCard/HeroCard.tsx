@@ -48,6 +48,18 @@ export const HeroCard = memo((props: HeroProps) => {
                     />
                 ))}
             </div>
+            {hero.awards?.length && (
+                <div className={classes.awardsWrapper}>
+                    {hero.awards.map((award) => (
+                        <img
+                            className={classes.awardPhoto}
+                            src={`/images/awards/${award.photo}`}
+                            alt={award.title}
+                            title={award.title}
+                        />
+                    ))}
+                </div>
+            )}
             <Button
                 className={classes.readmoreBtn}
                 theme={ButtonTheme.OUTLINED}

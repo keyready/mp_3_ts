@@ -3,7 +3,10 @@ import { Page } from 'widgets/Page/Page';
 import {
     FormEvent, memo, useCallback, useEffect, useState,
 } from 'react';
-import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import {
+    DynamicModuleLoader,
+    ReducersList,
+} from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Input } from 'shared/UI/Input';
 import { TextArea } from 'shared/UI/TextArea/TextArea';

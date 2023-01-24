@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { USER_AUTHORIZATION_TOKEN } from 'shared/const';
-import { act } from 'react-dom/test-utils';
 import { fetchUserData } from '../services/fetchUserData/fetchUserData';
 import { User, UserSchema } from '../types/user';
 
@@ -20,8 +19,6 @@ export const userSlice = createSlice({
         initAuthToken: (state) => {
             // проверить, авторизован ли пользователь (после закрытия и открытия приложения)
             const token = localStorage.getItem(USER_AUTHORIZATION_TOKEN);
-
-            console.warn('init token from ls', token);
 
             if (token) {
                 state.token = JSON.parse(token);

@@ -10,7 +10,7 @@ import { USER_AUTHORIZATION_TOKEN } from 'shared/const';
 const getToken = () => {
     const token = localStorage.getItem(USER_AUTHORIZATION_TOKEN);
     if (token) {
-        return `Basic ${JSON.parse(token)}`;
+        return `Token ${JSON.parse(token)}`;
     }
     return 'He TTyckayte ego cuda';
 };

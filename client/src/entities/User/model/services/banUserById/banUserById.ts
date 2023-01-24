@@ -4,18 +4,20 @@ import { User } from 'entities/User';
 
 export const banUserById = createAsyncThunk<
     User,
-    number,
+    { userId: number, banReason: string },
     ThunkConfig<string>
 >(
     'user/banUser',
-    async (id, thunkAPI) => {
+    async ({ userId, banReason }, thunkAPI) => {
         const {
             extra, rejectWithValue,
         } = thunkAPI;
 
         try {
+            console.warn(banReason);
             const response = await extra.api.post<User>(
-                `/ban/${id}`,
+                `/ban/${userId}`,
+                { banReason },
             );
 
             return response.data;

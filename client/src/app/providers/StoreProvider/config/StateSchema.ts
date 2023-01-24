@@ -14,6 +14,8 @@ import { HeroSchema } from 'entities/Hero/model/types/HeroSchema';
 import { HeroesPageSchema } from 'pages/HeroesPage';
 import { CreateHeroSchema } from 'pages/CreateHeroPage';
 import { UsersManagerSchema } from 'pages/adminPage';
+import { HeroesManagerSchema } from 'pages/adminPage/model/types/heroesManagerSchema';
+import { AwardSchema } from 'entities/Award/model/types/AwardSchema';
 
 export interface StateSchema {
     user: UserSchema;
@@ -26,6 +28,8 @@ export interface StateSchema {
     heroesPage?: HeroesPageSchema;
     createHeroPage?: CreateHeroSchema;
     usersManagerPage?: UsersManagerSchema;
+    heroesManagerPage?: HeroesManagerSchema;
+    award?: AwardSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

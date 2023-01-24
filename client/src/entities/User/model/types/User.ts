@@ -8,6 +8,7 @@ export interface User {
     avatar?: string;
     role?: string;
     isBanned?: boolean;
+    banReason?: string;
 }
 
 export interface UserSchema {

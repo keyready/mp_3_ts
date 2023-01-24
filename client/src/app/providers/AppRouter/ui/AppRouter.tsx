@@ -9,7 +9,6 @@ import { getUserAuthData } from 'entities/User';
 
 const AppRouter = () => {
     const userData = useSelector(getUserAuthData);
-    console.warn(userData, 'user data');
     const renderWithWrapper = useCallback((route: AppRoutesProps) => {
         const element = (
             <Suspense fallback={<PageLoader />}>

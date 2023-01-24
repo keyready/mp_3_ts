@@ -1,4 +1,4 @@
-const {HeroModel} = require('../models');
+const {HeroModel, UserModel} = require('../models');
 const {HeroAwardModel} = require('../models');
 const {AwardModel} = require('../models')
 const {Op} = require('sequelize');
@@ -6,11 +6,13 @@ const {Op} = require('sequelize');
 const fs = require('fs')
 const path = require('path')
 
-class HeroService{
-    async addHero(firstname,middlename,lastname,story,rank,photo,/*SelectArrayAwardsId,*/userId){
-        const candidate = await HeroModel.findOne({where:{
-            firstname,middlename,lastname,rank,story
-        }})
+class HeroService {
+    async addHero(firstname, middlename, lastname, story, rank, photo,/*SelectArrayAwardsId,*/userId) {
+        const candidate = await HeroModel.findOne({
+            where: {
+                firstname, middlename, lastname, rank, story
+            }
+        })
         if (candidate) {
             return false
         }
@@ -35,9 +37,47 @@ class HeroService{
         return true
     }
 
-    async showAllHeroes(){
-        const heroes = await HeroModel.findAll({raw:true})
-        
+    async showAllHeroes() {
+        // TODO в каждого героя добавить всю информацию о пользователе, который его оставил, т.е.
+        // heroes: [
+        //     {
+        //         id: 1,
+        //         firstname: '',
+        //         awards: [
+        //             {
+        //                 id: '',
+        //                 title: '',
+        //                 ...
+        //             },
+        //             {
+        //                 id: '',
+        //                 title: '',
+        //                 ...
+        //             }
+        //         ],
+        //         ...
+        //     },
+        //     {
+        //         id: 1,
+        //         firstname: '',
+        //         awards: [
+        //             {
+        //                 id: '',
+        //                 title: '',
+        //                 ...
+        //             },
+        //             {
+        //                 id: '',
+        //                 title: '',
+        //                 ...
+        //             }
+        //         ],
+        //         ...
+        //     },
+        // ]
+
+        const heroes = await HeroModel.findAll({raw: true})
+
         // let PersonalAwardsObjects = []
         // heroes.map(async(hero) =>{
         //     const tmp = await HeroAwardModel.findAll({
@@ -65,12 +105,12 @@ class HeroService{
         // PersonalAwardsIdObjects.map(async(oneObject) =>{
         //     PersonalAwardsIdArray.push(oneObject.awardId)
         // })
-    //TODO вернуть все медальки
+        //TODO вернуть все медальки
         return heroes
     }
 
-    async showMyHeroes(userId){
-        const heroes = await HeroModel.findAll({where:{userId:userId}})
+    async showMyHeroes(userId) {
+        const heroes = await HeroModel.findAll({where: {userId: userId}})
         //TODO вернуть все медальки
         return heroes
     }
@@ -81,8 +121,8 @@ class HeroService{
     }
 
     async deleteHero(userId, heroId) {
-        const hero = await HeroModel.destroy({where: {userId: userId, heroId: heroId}})
-        fs.rm(path.resolve(`../../client/dist/images/heroes/${hero.photo}`))
+        const hero = await HeroModel.destroy({where: {userId: userId, id: heroId}})
+        // fs.rm(path.resolve(`../../client/public/images/heroes/${hero.photo}`))
         return true
     }
 
@@ -132,4 +172,5 @@ class HeroService{
 
 }
 
-module.exports = new HeroService();
+module
+    .exports = new HeroService();

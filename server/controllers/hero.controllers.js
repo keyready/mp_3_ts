@@ -55,7 +55,8 @@ class HeroControllers {
     async deleteHero(req, res) {
         try {
             const flag = await HeroService.deleteHero(req.user.id, req.params.heroId)
-            return res.status(200).json({message: 'Герой успешно удален.'})
+            if (flag) return res.status(200).json({message: 'Герой успешно удален.'})
+            return res.status(404).json({message: 'Удаление не произошло.'})
         } catch (e) {
             console.log(e.message)
             return res.status(500).json(e.message)
