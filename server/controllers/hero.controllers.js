@@ -1,5 +1,6 @@
 const HeroService = require('../services/hero.service');
 const EmailService = require('../services/email.service');
+const {UserModel} = require('../models')
 const path = require('path');
 const crypto = require("crypto");
 
@@ -16,16 +17,13 @@ class HeroControllers {
             req.files.photo.mv(path.resolve(`../client/public/images/users/${newFileName}`))
             // req.files.photo.mv(path.resolve(`../client/dist/images/users/${newFileName}`)
 
-<<<<<<< HEAD
             const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, req.files.photo.name,/*SelectArrayAwardsId,*/req.user.id)
-=======
-            const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, newFileName,/*array_awards_id,*/req.user.id)
->>>>>>> 00bbaf282eba0541893a7264e0930606384c3daa
+            //const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, newFileName,/*array_awards_id,*/req.user.id)
             if (!flag) {
                 return res.status(412).json({message: 'Такой герой уже существует.'})
             }
-            //const user = await UserModel.findByPk(req.user.id)
-            //const heroes = await HeroService.showMyHeroes(req.user.id)
+            const user = await UserModel.findByPk(req.user.id)
+            const heroes = await HeroService.showMyHeroes(req.user.id)
             await EmailService.addHeroEmail(user.email, heroes[heroes.length - 1].id, user.firstname, user.middlename)
             return res.status(200).json({message: 'Герой успешно добавлен.'})
         } catch (e) {
