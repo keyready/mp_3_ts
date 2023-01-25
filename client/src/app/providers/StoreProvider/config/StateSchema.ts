@@ -1,4 +1,3 @@
-import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByEmail';
 import {
     AnyAction,
@@ -7,15 +6,19 @@ import {
     Reducer,
     ReducersMapObject,
 } from '@reduxjs/toolkit';
-import { ProfileSchema } from 'entities/Profile';
 import { AxiosInstance } from 'axios';
 import { UISchema } from 'features/UI';
-import { HeroSchema } from 'entities/Hero/model/types/HeroSchema';
+import { UserSchema } from 'entities/User';
+import { ProfileSchema } from 'entities/Profile';
+import { HeroSchema } from 'entities/Hero';
+import { AwardSchema } from 'entities/Award';
 import { HeroesPageSchema } from 'pages/HeroesPage';
 import { CreateHeroSchema } from 'pages/CreateHeroPage';
-import { UsersManagerSchema } from 'pages/adminPage';
-import { HeroesManagerSchema } from 'pages/adminPage/model/types/heroesManagerSchema';
-import { AwardSchema } from 'entities/Award/model/types/AwardSchema';
+import {
+    AwardsManagerSchema,
+    UsersManagerSchema,
+    HeroesManagerSchema,
+} from 'pages/adminPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -29,6 +32,7 @@ export interface StateSchema {
     createHeroPage?: CreateHeroSchema;
     usersManagerPage?: UsersManagerSchema;
     heroesManagerPage?: HeroesManagerSchema;
+    awardsManagerPage?: AwardsManagerSchema;
     award?: AwardSchema
 }
 

@@ -1,0 +1,27 @@
+.AwardCard {
+    width: 100%;
+    padding: 20px;
+    border: 2px solid var(--inverted-bg-color);
+    border-radius: 10px;
+    display: grid;
+    align-items: center;
+    gap: 5px;
+    grid-template-columns: 1fr 2fr 4fr 1fr;
+    justify-items: center;
+}
+
+.photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.title {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.description {
+    font-style: italic;
+    text-align: justify;
+}

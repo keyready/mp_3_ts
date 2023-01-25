@@ -6,3 +6,10 @@ export const getUsersAdminPageIsLoading = (state: StateSchema) => state.usersMan
 export const getAdminPageHeroesIsLoading = (
     state: StateSchema,
 ) => state.heroesManagerPage?.isLoading;
+
+export const getAdminPageAwardsIsLoading = (
+    state: StateSchema,
+) => state.awardsManagerPage?.isLoading;
+export const getAdminPageAwardsError = (
+    state: StateSchema,
+) => state.awardsManagerPage?.error;
