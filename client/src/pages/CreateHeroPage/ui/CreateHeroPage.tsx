@@ -15,9 +15,13 @@ import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { Hero } from 'entities/Hero';
 import { InputFile } from 'shared/UI/InputFile/InputFile';
 import { Text, TextTheme } from 'shared/UI/Text/Text';
-import { createHero } from 'pages/CreateHeroPage/model/services/createHero';
-import { createHeroPageReducers } from '../model/slice/CreateHeroPageSlice';
+import { HSelect } from 'shared/UI/HSelect/HSelect';
+import { useSelector } from 'react-redux';
+import { awardsManagerReducers, getAwards } from 'pages/adminPage/model/slice/awardsManager';
+import { createHero } from '../model/services/createHero';
+import { fetchAwards } from '../../adminPage/model/services/fetchAwards';
 import classes from './CreateHeroPage.module.scss';
+import { createHeroPageReducers } from '../model/slice/CreateHeroPageSlice';
 
 interface CreateHeroPageProps {
     className?: string;
@@ -25,6 +29,7 @@ interface CreateHeroPageProps {
 
 const reducers: ReducersList = {
     createHeroPage: createHeroPageReducers,
+    awardsManagerPage: awardsManagerReducers,
 };
 
 const CreateHeroPage = memo((props: CreateHeroPageProps) => {
@@ -42,14 +47,20 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
     const [resultMessage, setResultMessage] = useState<string>('');
     const [creatingError, setCreatingError] = useState<boolean>(false);
 
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [filteredIds, setFilteredIds] = useState<number[]>([]);
+    const awards = useSelector(getAwards.selectAll);
+
     useEffect(() => {
         document.title = 'Добавление героя';
-    }, []);
+        dispatch(fetchAwards());
+    }, [dispatch]);
 
     const onFormSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
+        formData.append('awards', filteredIds.join(','));
 
         const result = await dispatch(createHero(formData));
         if (result.meta.requestStatus === 'fulfilled') {
@@ -59,7 +70,45 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
             setResultMessage('Произошла непредвиденная ошибка... ;(');
             setCreatingError(true);
         }
-    }, [dispatch]);
+    }, [dispatch, filteredIds]);
+
+    const content = awards.map((award) => (
+        <div
+            className={classes.awardRow}
+            key={award.id}
+        >
+            <img
+                className={classes.photo}
+                src={`/images/awards/${award.photo}`}
+                alt={award.title}
+            />
+            <h2 className={classes.awardTitle}>{award.title}</h2>
+        </div>
+    ));
+    function returnAwards() {
+        const awardsForSelector: any[] = [];
+
+        awards.forEach((value, index) => {
+            awardsForSelector.push(
+                {
+                    value: value.title,
+                    content: content[index],
+                },
+            );
+        });
+
+        return awardsForSelector;
+    }
+
+    const filterAwardsNames = (selectedAwardsNames: string[]) => {
+        setSelectedItems(selectedAwardsNames);
+        const intersection = awards.filter((award) => selectedAwardsNames.includes(award.title));
+
+        const arr: number[] = [];
+        intersection.map((obj) => arr.push(obj.id));
+
+        setFilteredIds(arr);
+    };
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -112,6 +161,14 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                         name="story"
                         placeholder="Ваша история..."
                         value={formData.story}
+                    />
+
+                    <HSelect
+                        items={returnAwards()}
+                        onChange={filterAwardsNames}
+                        selectedItems={selectedItems}
+                        optionsClassname={classes.optionsClassname}
+                        placeholder="Выберите медали"
                     />
 
                     <InputFile

@@ -2,10 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { User, userActions } from 'entities/User';
 
-interface newRoleProps {
-    newRole: string
-    id: number;
-}
 export const fetchUserData = createAsyncThunk<
     User,
     void,
@@ -22,7 +18,6 @@ export const fetchUserData = createAsyncThunk<
                 '/profile',
             );
 
-            console.log('/profile', response.data);
             if (!response.data) {
                 dispatch(userActions.logout());
             }
