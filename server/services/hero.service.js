@@ -16,7 +16,6 @@ class HeroService {
         if (candidate) {
             return false
         }
-
         const hero = await HeroModel.create({
             firstname,
             middlename,
@@ -27,83 +26,80 @@ class HeroService {
             userId
         })
 
-        // SelectArrayAwardsId.forEach((awardId) =>{
-        //     HeroAwardModel.create({
-        //         heroId:hero.id,
-        //         awardId:awardId
-        //     })
-        // })
-
-        // const awards = await AwardModel.findAll({
-        //     where:{
-        //         id:{
-        //             [Op.in]:SelectArrayAwardsId
-        //         }
-        //     },
-        //     raw:true
-        // })
-
         SelectArrayAwardsId.map(async (awardId) =>{
             await HeroAwardModel.create({
                 awardId:awardId,
                 heroId:hero.id
             })
         })
-
-        //await hero.save()
         return true
     }
 
     async showAllHeroes(){
-        const heroes = await HeroModel.findAll()
-
-        // heroes.map(async (hero) =>{
-        //     const AwardsIdObjects = await HeroAwardModel.findAll({
-        //         where:{
-        //             heroId:hero.id
-        //         },
-        //         raw:true,
-        //         attributes:['awardId']
-        //     })
-        //     console.log(AwardsIdObjects)
-        //     let ArrayAwardsId = []
-        //     AwardsIdObjects.map((oneObj) =>{
-        //         ArrayAwardsId.push(oneObj.awardId)
-        //     })
-        //
-        //     const awards = await AwardModel.findAll({
-        //         where:{
-        //             id:{
-        //                 [Op.in]:ArrayAwardsId
-        //             }
-        //         },
-        //         raw:true
-        //     })
-        //
-        //     hero.awards = awards
-        //     await hero.save()
-        // })
+        const heroes = await HeroModel.findAll({raw:true})
+        for (let i = 0; i < heroes.length; i++) {
+            const AwardsIdObjects = await HeroAwardModel.findAll({
+                where: {
+                    heroId: heroes[i].id
+                },
+                raw: true,
+                attributes: ['awardId']
+            })
+            let ArrayAwardsId = []
+            AwardsIdObjects.map((oneObj) => {
+                ArrayAwardsId.push(oneObj.awardId)
+            })
+            const awards = await AwardModel.findAll({
+                where: {
+                    id: {
+                        [Op.in]: ArrayAwardsId
+                    }
+                },
+                raw: true
+            })
+            const author = await UserModel.findByPk(heroes[i].userId)
+            heroes[i].awards = awards
+            heroes[i].userId=author
+        }
         return heroes
     }
 
     async showMyHeroes(userId) {
         const heroes = await HeroModel.findAll({where: {userId: userId}})
-        //TODO вернуть все медальки
-        return heroes
-    }
-
-    async showAllHeroes() {
-        const heroes = await HeroModel.findAll({raw: true})
+        for(let i = 0; i < heroes.length;i++){
+            const AwardsObjectsId = await HeroAwardModel.findAll({
+                where:{
+                    heroId:heroes[i].id
+                },
+                raw:true,
+                attributes:['awardId']
+            })
+            let AwardsIdArray=[]
+            AwardsObjectsId.map((oneObj) =>{
+                AwardsIdArray.push(oneObj.awardId)
+            })
+            const awards = await AwardModel.findAll({
+                where:{
+                    id:{
+                        [Op.in]:AwardsIdArray
+                    }
+                },
+                raw:true
+            })
+            const author = await UserModel.findByPk(heroes[i].userId)
+            heroes[i].userId = author
+            heroes[i].awards = awards
+        }
         return heroes
     }
 
     async deleteHero(userId, heroId) {
         const hero = await HeroModel.destroy({where: {userId: userId, id: heroId}})
-        // fs.rm(path.resolve(`../../client/public/images/heroes/${hero.photo}`))
+        fs.rm(path.resolve(`../../client/public/images/heroes/${hero.photo}`))
         return true
     }
 
-    async updateHero(firstname, middlename, lastname, story, rank, userId, heroId) {
+    async updateHero(firstname, middlename, lastname, story, rank, userId, heroId,photo) {
         const hero = await HeroModel.findOne({
             where: {
                 userId: userId,
@@ -114,40 +110,41 @@ class HeroService {
         hero.middlename = middlename
         hero.story = story
         hero.rank = rank
+        if (photo != ''){
+            fs.rm(path.resolve(`../../client/dist/images/heroes/${hero.photo}`))
+            photo.mv(path.resolve(`../../client/dist/images/heroes/${photo.name}`))
+            hero.photo = photo.name
+        }
         await hero.save()
         return true
     }
 
     async showOneHero(heroId) {
         const hero = await HeroModel.findByPk(heroId);
-
-        const PersonalAwardsIdObjects = await HeroAwardModel.findAll({
-            where: {
+        const AwardsIdObjects = await HeroAwardModel.findAll({
+            where:{
                 heroId
             },
-            attributes: ['awardId']
+            raw:true,
+            attributes:['awardId']
+        });
+        let AwardsIdArray=[]
+        AwardsIdObjects.map((oneObj) =>{
+            AwardsIdArray.push(oneObj.awardId)
         })
-
-        let PersonalAwardsIdArray = []
-        PersonalAwardsIdObjects.map((elem) => {
-            PersonalAwardsIdArray.push(elem.awardId)
-        })
-
         const awards = await AwardModel.findAll({
-            where: {
-                id: {
-                    [Op.in]: PersonalAwardsIdArray
+            where:{
+                id:{
+                    [Op.in]: AwardsIdArray
                 }
-            }
+            },
+            raw:true
         })
-
+        const author = await UserModel.findByPk(hero.userId)
         hero.awards = awards
-        //await hero.save()
-
+        hero.userId = author
         return hero
     }
-
 }
 
-module
-    .exports = new HeroService();
+module.exports = new HeroService();

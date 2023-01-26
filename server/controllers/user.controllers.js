@@ -82,6 +82,22 @@ class UserControllers {
             return res.status(500).json(e.message)
         }
     }
+
+    async updateProfile(req,res){
+        try{
+            const {firstname,middlename,lastname} = req.body;
+            const flag = await UserService.updateProfile(firstname,middlename,lastname,req.user.id)
+            if (!flag){
+                return res.status(400).json({message:'Ошибка обновления профиля'})
+            }
+            return res.status(200).json({message:'Профиль успешно обновлен.'})
+        }
+        catch (e){
+            console.log(e.message)
+            return res.status(500).json(e.message)
+        }
+    }
+
 }
 
 module.exports = new UserControllers();

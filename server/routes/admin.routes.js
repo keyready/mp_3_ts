@@ -5,9 +5,10 @@ const AdminControllers = require('../controllers/admin.controller');
 const {Middleware} = require('../middlewares/middleware');
 
 router.get('/users',[Middleware],AdminControllers.showAllUsers)
+router.get('/user/:userId',[Middleware],AdminControllers.showOneUser)
 router.post('/ban/:userId',[Middleware],AdminControllers.banUser)
 router.post('/unban/:userId',[Middleware],AdminControllers.unBanUser)
-router.post('/deteteHeroFromAdmin/:heroId',[Middleware],AdminControllers.deleteHeroFromAdmin)
+router.post('/deleteHeroFromAdmin/:heroId',[Middleware],AdminControllers.deleteHeroFromAdmin)
 router.post('/awards',[Middleware],AdminControllers.showAllAwards)
 router.post('/addAward',[Middleware],AdminControllers.addAward)
 router.post('/deleteAward/:awardId',[Middleware],AdminControllers.deleteAward)
