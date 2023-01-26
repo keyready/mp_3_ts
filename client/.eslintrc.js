@@ -35,6 +35,7 @@ module.exports = {
         'react/require-default-props': 'off',
         'react/no-array-index-key': 'off',
         'react/react-in-jsx-scope': 'off',
+        'no-restricted-globals': 'off',
         'no-underscore-dangle': 'off',
         'import/no-unresolved': 'off',
         'no-param-reassign': 'off',
@@ -49,5 +50,5 @@ module.exports = {
         IS_DEV: true,
         __API__: true,
         LOADING_DELAY: null,
-    }
+    },
 };

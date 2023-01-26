@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User, UserSchema } from 'entities/User';
 import { fetchProfileData } from '../services/fetchProfileData/fetchProfileData';
 import { updateProfileData } from '../services/updateProfileData/updateProfileData';
-import { Profile, ProfileSchema } from '../types/profile';
 
-const initialState: ProfileSchema = {
-    data: undefined,
+const initialState: UserSchema = {
+    authData: undefined,
     error: undefined,
     isLoading: false,
     readonly: true,
+    form: undefined,
 };
 
 export const profileSlice = createSlice({
@@ -19,15 +20,21 @@ export const profileSlice = createSlice({
         },
         cancelEdit: (state) => {
             state.readonly = true;
-            state.form = state.data;
-            state.validationError = undefined;
+            state.form = state.authData;
         },
-        changeData: (state, action: PayloadAction<Profile>) => {
-            state.validationError = undefined;
-            state.form = {
-                ...state.data,
-                ...state.form,
-                ...action.payload,
+        changeFirstname: (state, action: PayloadAction<string>) => {
+            state.authData = {
+                firstname: action.payload,
+            };
+        },
+        changeLastname: (state, action: PayloadAction<string>) => {
+            state.authData = {
+                lastname: action.payload,
+            };
+        },
+        changeMiddlename: (state, action: PayloadAction<string>) => {
+            state.authData = {
+                middlename: action.payload,
             };
         },
     },
@@ -39,33 +46,33 @@ export const profileSlice = createSlice({
             })
             .addCase(fetchProfileData.fulfilled, (
                 state,
-                action: PayloadAction<Profile>,
+                action: PayloadAction<User>,
             ) => {
                 state.isLoading = false;
-                state.data = action.payload;
+                state.authData = action.payload;
                 state.form = action.payload;
             })
             .addCase(fetchProfileData.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })
+
             .addCase(updateProfileData.pending, (state) => {
-                state.validationError = undefined;
                 state.isLoading = true;
+                state.error = undefined;
             })
             .addCase(updateProfileData.fulfilled, (
                 state,
-                action: PayloadAction<Profile>,
+                action: PayloadAction<User>,
             ) => {
                 state.isLoading = false;
-                state.data = action.payload;
+                state.authData = action.payload;
                 state.form = action.payload;
                 state.readonly = true;
-                state.validationError = undefined;
             })
             .addCase(updateProfileData.rejected, (state, action) => {
                 state.isLoading = false;
-                state.validationError = action.payload;
+                state.error = action.payload;
             });
     }),
 });

@@ -10,6 +10,7 @@ import {
 } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { AppLink } from 'shared/UI/AppLink';
 import { Text, TextTheme } from 'shared/UI/Text/Text';
+import { AppLinkTheme } from 'shared/UI/AppLink/ui/AppLink';
 import { getHeroes, heroesPageReducers } from '../model/slice/HeroesPageSlice';
 import { getHeroesError, getHeroesIsLoading } from '../model/selectors/HeroesPageSelector';
 import { initHeroesPage } from '../model/services/initHeroesPage';
@@ -47,7 +48,15 @@ const HeroesPage = memo((props: HeroesPageProps) => {
                         text="при загрузке героев"
                     />
                 )}
-                {!error && <AppLink to="/createHero">Добавить героя</AppLink>}
+                {!error && (
+                    <AppLink
+                        style={{ marginBottom: 20 }}
+                        to="/createHero"
+                        theme={AppLinkTheme.OUTLINED_INVERTED}
+                    >
+                        Добавить героя
+                    </AppLink>
+                )}
                 <HeroesList
                     isLoading={isLoading}
                     heroes={getAllHeroes}

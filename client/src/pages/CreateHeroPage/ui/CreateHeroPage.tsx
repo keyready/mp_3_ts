@@ -126,11 +126,11 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                 >
                     <Input
                         autoFocus
-                        name="middlename"
+                        name="lastname"
                         placeholder="Фамилия героя"
                         type="text"
-                        value={formData.middlename}
-                        onChange={(value) => setFormData({ ...formData, middlename: value })}
+                        value={formData.lastname}
+                        onChange={(value) => setFormData({ ...formData, lastname: value })}
                         required
                     />
                     <Input
@@ -142,11 +142,11 @@ const CreateHeroPage = memo((props: CreateHeroPageProps) => {
                         required
                     />
                     <Input
-                        name="lastname"
+                        name="middlename"
                         placeholder="Отчество героя"
                         type="text"
-                        value={formData.lastname}
-                        onChange={(value) => setFormData({ ...formData, lastname: value })}
+                        value={formData.middlename}
+                        onChange={(value) => setFormData({ ...formData, middlename: value })}
                         required
                     />
                     <Input

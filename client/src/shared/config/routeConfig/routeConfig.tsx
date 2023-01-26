@@ -8,6 +8,7 @@ import { ProfilePage } from 'pages/ProfilePage';
 import { CreateHeroPage } from 'pages/CreateHeroPage';
 import { AdminPage } from 'pages/adminPage';
 import { ConfirmEmailPage } from 'pages/ConfirmEmailPage';
+import { HeroDetailedPage } from 'pages/HeroDetailedPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -18,6 +19,7 @@ export enum AppRoutes {
     MAIN = 'main',
     ABOUT = 'about',
     HEROES = 'heroes',
+    HERODETAILED = 'hero_detailed',
     FORBIDDEN = 'forbidden',
     PROFILE = 'profile',
     CREATEHERO = 'create_hero',
@@ -32,6 +34,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.ABOUT]: '/about',
     [AppRoutes.MAIN]: '/',
     [AppRoutes.HEROES]: '/heroes',
+    [AppRoutes.HERODETAILED]: '/hero/',
     [AppRoutes.PROFILE]: '/profile',
     [AppRoutes.CREATEHERO]: '/createHero',
     [AppRoutes.ADMINPAGE]: '/admin/page',
@@ -54,6 +57,11 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.HEROES]: {
         path: RoutePath.heroes,
         element: <HeroesPage />,
+        authOnly: true,
+    },
+    [AppRoutes.HERODETAILED]: {
+        path: `${RoutePath.hero_detailed}:heroId`,
+        element: <HeroDetailedPage />,
         authOnly: true,
     },
     [AppRoutes.PROFILE]: {

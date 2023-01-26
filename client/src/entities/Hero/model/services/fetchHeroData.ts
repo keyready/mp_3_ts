@@ -12,7 +12,7 @@ export const fetchHeroData = createAsyncThunk<
         const { extra, rejectWithValue } = thunkAPI;
 
         try {
-            const response = await extra.api.get<Hero>(`/heroes/${heroId}`);
+            const response = await extra.api.post<Hero>(`/hero/${heroId}`);
 
             if (!response.data) {
                 throw new Error();

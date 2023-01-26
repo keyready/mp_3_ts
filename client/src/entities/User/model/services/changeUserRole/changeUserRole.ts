@@ -4,7 +4,7 @@ import { User } from 'entities/User';
 
 interface newRoleProps {
     newRole: string
-    id: number;
+    id?: number;
 }
 export const changeUserRole = createAsyncThunk<
     User,

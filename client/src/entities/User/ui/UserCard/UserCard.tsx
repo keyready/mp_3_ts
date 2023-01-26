@@ -14,7 +14,7 @@ import classes from './UserCard.module.scss';
 
 interface UserCardProps {
     className?: string;
-    user?: User
+    user: User
 }
 
 export const UserCard = memo((props: UserCardProps) => {
@@ -30,12 +30,12 @@ export const UserCard = memo((props: UserCardProps) => {
         { value: 'admin', content: 'Петух' },
     ], []);
 
-    const changeRoleHandler = useCallback((newRole: string, userId: number) => {
+    const changeRoleHandler = useCallback((newRole: string, userId?: number) => {
         const newRoleSender = { newRole, id: userId };
         dispatch(changeUserRole(newRoleSender));
     }, [dispatch]);
 
-    const onUserBanHandler = useCallback((userId: number) => {
+    const onUserBanHandler = useCallback((userId?: number) => {
         setIsBanReasonTextVisible(true);
         if (isBanReasonTextVisible) {
             dispatch(banUserById({ userId, banReason: banReasonText }));
@@ -44,9 +44,9 @@ export const UserCard = memo((props: UserCardProps) => {
 
     const onUserUnBanHandler = useCallback((
         event: MouseEvent<HTMLButtonElement>,
-        userId: number,
+        userId?: number,
     ) => {
-        dispatch(unBanUserById(userId));
+        dispatch(unBanUserById({ id: userId }));
     }, [dispatch]);
 
     const onBanReasonChangeHandler = useCallback((banReason) => {
@@ -73,7 +73,7 @@ export const UserCard = memo((props: UserCardProps) => {
             </div>
             <Select
                 value={user?.role}
-                onChange={(newRole) => changeRoleHandler(newRole, user!.id)}
+                onChange={(newRole) => changeRoleHandler(newRole, user.id)}
                 option={roles}
                 label="Роль"
             />
@@ -97,7 +97,7 @@ export const UserCard = memo((props: UserCardProps) => {
                     <div>
                         <Button
                             theme={ButtonTheme.ERROR}
-                            onClick={() => onUserBanHandler(user!.id)}
+                            onClick={() => onUserBanHandler(user?.id)}
                         >
                             Забанить
                         </Button>

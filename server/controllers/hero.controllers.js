@@ -37,28 +37,7 @@ class HeroControllers {
     async showAllHeroes(req, res) {
         try {
             const heroes = await HeroService.showAllHeroes();
-            // for (let i = 0; i < heroes.length; i++) {
-            //     const AwardsIdObjects = await HeroAwardModel.findAll({
-            //         where: {
-            //             heroId: heroes[i].id
-            //         },
-            //         raw: true,
-            //         attributes: ['awardId']
-            //     })
-            //     let ArrayAwardsId = []
-            //     AwardsIdObjects.map((oneObj) => {
-            //         ArrayAwardsId.push(oneObj.awardId)
-            //     })
-            //     const awards = await AwardModel.findAll({
-            //         where: {
-            //             id: {
-            //                 [Op.in]: ArrayAwardsId
-            //             }
-            //         },
-            //         raw: true
-            //     })
-            //     heroes[i].awards = awards
-            // }
+            
             return res.status(200).json(heroes)
         } catch (e) {
             console.log(e.message)

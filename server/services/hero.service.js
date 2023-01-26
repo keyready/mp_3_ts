@@ -120,7 +120,7 @@ class HeroService {
     }
 
     async showOneHero(heroId) {
-        const hero = await HeroModel.findByPk(heroId);
+        const hero = await HeroModel.findByPk(heroId, {raw: true});
         const AwardsIdObjects = await HeroAwardModel.findAll({
             where:{
                 heroId
@@ -140,6 +140,7 @@ class HeroService {
             },
             raw:true
         })
+
         const author = await UserModel.findByPk(hero.userId)
         hero.awards = awards
         hero.userId = author

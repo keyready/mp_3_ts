@@ -14,7 +14,7 @@ export const deleteHero = createAsyncThunk<
         const { extra, rejectWithValue } = thunkApi;
 
         try {
-            const response = await extra.api.post(`/deleteHero/${heroId}`);
+            const response = await extra.api.post(`/deleteHeroFromAdmin/${heroId}`);
 
             if (!response.data) {
                 throw new Error();

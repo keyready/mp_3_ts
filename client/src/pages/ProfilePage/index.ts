@@ -1,3 +1,3 @@
 export {
     ProfilePageLazy as ProfilePage,
-} from './ui/ProfilePage.lazy';
+} from './ui/Profile/ProfilePage.lazy';
