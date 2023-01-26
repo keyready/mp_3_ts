@@ -37,32 +37,28 @@ class HeroControllers {
     async showAllHeroes(req, res) {
         try {
             const heroes = await HeroService.showAllHeroes();
-            //heroes.(async(hero) =>{
-            //hero.awards = [{id:1,title:'tit'},{id:2,title:'tit'},{id:3,title:'tit'}]
-            for (let i = 0; i < heroes.length; i++) {
-                const AwardsIdObjects = await HeroAwardModel.findAll({
-                    where: {
-                        heroId: heroes[i].id
-                    },
-                    raw: true,
-                    attributes: ['awardId']
-                })
-                let ArrayAwardsId = []
-                AwardsIdObjects.map((oneObj) => {
-                    ArrayAwardsId.push(oneObj.awardId)
-                })
-                const awards = await AwardModel.findAll({
-                    where: {
-                        id: {
-                            [Op.in]: ArrayAwardsId
-                        }
-                    },
-                    raw: true
-                })
-                //console.log(awards)
-                heroes[i].awards = awards
-            }
-            console.log(heroes)
+            // for (let i = 0; i < heroes.length; i++) {
+            //     const AwardsIdObjects = await HeroAwardModel.findAll({
+            //         where: {
+            //             heroId: heroes[i].id
+            //         },
+            //         raw: true,
+            //         attributes: ['awardId']
+            //     })
+            //     let ArrayAwardsId = []
+            //     AwardsIdObjects.map((oneObj) => {
+            //         ArrayAwardsId.push(oneObj.awardId)
+            //     })
+            //     const awards = await AwardModel.findAll({
+            //         where: {
+            //             id: {
+            //                 [Op.in]: ArrayAwardsId
+            //             }
+            //         },
+            //         raw: true
+            //     })
+            //     heroes[i].awards = awards
+            // }
             return res.status(200).json(heroes)
         } catch (e) {
             console.log(e.message)
@@ -94,11 +90,10 @@ class HeroControllers {
     async updateHero(req, res) {
         try {
             const {firstname, middlename, lastname, story, rank} = req.body;
-            const flag = await HeroService.updateHero(firstname, middlename, lastname, story, rank, req.user.id, req.params.heroId)
+            const flag = await HeroService.updateHero(firstname, middlename, lastname, story, rank, req.user.id, req.params.heroId,req.files.photo)
             if (!flag) {
                 return res.status(404).json({message: 'Ошибка изменения.'})
             }
-            req.files.photo.mv(path.resolve(`../../client/dist/images/${req.files.photo.name}`))
             return res.status(200).json({message: 'Герой успешно обновлен.'})
         } catch (e) {
             console.log(e.message)

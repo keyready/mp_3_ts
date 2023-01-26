@@ -101,6 +101,11 @@ class AdminService {
         return false
     }
 
+    async showOneUser(userId){
+        const user = await UserModel.findByPk(userId)
+        return user
+    }
+
 }
 
 module.exports = new AdminService();

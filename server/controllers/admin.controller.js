@@ -164,6 +164,22 @@ class AdminController {
         }
     }
 
+
+    async showOneUser(req,res){
+        try{
+            const {userId} = req.params;
+            const flag = await AdminService.showOneUser(userId)
+            if (!flag){
+                return res.status(403).json({message:'У вас нет прав для осуществления данного действия.'})
+            }
+            return res.status(200).json(flag)
+        }
+        catch (e){
+            console.log(e.message)
+            return res.status(500).json(e.message)
+        }
+    }
+
 }
 
 module.exports = new AdminController()

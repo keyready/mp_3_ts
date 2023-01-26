@@ -66,6 +66,20 @@ class UserService {
         const user = await UserModel.findByPk(userId);
         return user
     }
+
+    async updateProfile(firstname,middlename,lastname,userId){
+        await UserModel.update({
+            firstname,
+            middlename,
+            lastname
+        },{
+            where:{
+                id:userId
+            }
+        })
+        return true
+    }
+
 }
 
 module.exports = new UserService()
