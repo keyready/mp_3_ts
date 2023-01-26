@@ -66,7 +66,7 @@ class AdminController {
                 crypto.randomBytes(5).toString('hex') +
                 req.files.photo.name.substr(dot)
 
-            req.files.photo.mv(path.resolve(`../client/public/images/awards/${newFileName}`))
+            req.files.photo.mv(path.resolve(`../client/dist/images/awards/${newFileName}`))
             const flag = await AdminService.addAward(title, description, newFileName)
             if (!flag) {
                 return res.status(403).json({message: 'Ошибка добавления награды.'})
@@ -102,7 +102,6 @@ class AdminController {
             }
             const {awardId} = req.params;
             const flag = await AdminService.updateAward(awardId);
-            //TODO ОБНОВЛЕНИЕ ФОТКИ
             if (!flag) {
                 return res.status(403).json({message: 'Ошибка обновления награды.'})
             }

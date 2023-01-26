@@ -13,7 +13,7 @@ class AdminService {
         if (currentUser.role === 'admin') {
             await UserModel.update({
                 isBanned: true,
-                banReason: banReason || 'по причине пидорас'
+                banReason: banReason || 'бан'
             }, {
                 where: {
                     id: userId

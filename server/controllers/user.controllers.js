@@ -14,15 +14,15 @@ class UserControllers {
             const newFileName =
                 crypto.randomBytes(5).toString('hex') +
                 req.files.photo.name.substr(dot)
-            req.files.photo.mv(path.resolve(`../client/public/images/users/${newFileName}`))
-            // req.files.photo.mv(path.resolve(`../client/dist/images/users/${newFileName}`))
+            //req.files.photo.mv(path.resolve(`../client/public/images/users/${newFileName}`))
+             req.files.photo.mv(path.resolve(`../client/dist/images/users/${newFileName}`))
 
             const link = generateLink();
             const flag = await UserService.sign_up(firstname, middlename, lastname, email, password, link, newFileName)
             if (!flag) {
                 return res.status(401).json({message: 'Ошибка регистрации'})
             }
-            // await EmailService.successfulSignUp(firstname,middlename,email, link)
+            await EmailService.successfulSignUp(firstname,middlename,email, link)
             return res.status(200).json({message: 'Регистрация прошла успешно.', link})
         } catch (e) {
             console.log(e.message)

@@ -30,9 +30,9 @@ class UserService {
         if (!checkPassword) {
             return false
         }
-        // if (user.isActivated == false){
-        //       return false
-        // }
+        if (user.isActivated == false){
+              return false
+        }
         if (user.isBanned === true) {
             return false
         }

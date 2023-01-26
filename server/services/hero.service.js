@@ -95,7 +95,7 @@ class HeroService {
 
     async deleteHero(userId, heroId) {
         const hero = await HeroModel.destroy({where: {userId: userId, id: heroId}})
-        fs.rm(path.resolve(`../../client/public/images/heroes/${hero.photo}`))
+        fs.rm(path.resolve(`../../client/dist/images/heroes/${hero.photo}`))
         return true
     }
 
