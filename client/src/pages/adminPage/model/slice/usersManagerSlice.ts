@@ -5,6 +5,7 @@ import { UsersManagerSchema } from 'pages/adminPage';
 import { User } from 'entities/User';
 
 const usersManagerAdapter = createEntityAdapter<User>({
+    // @ts-ignore
     selectId: (user) => user.id,
 });
 

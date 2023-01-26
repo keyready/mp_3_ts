@@ -45,11 +45,6 @@ export const ProfileCard = (props: ProfileCardProps) => {
                     <Skeleton width="100%" height={30} border="10px" />
                     <Skeleton width="100%" height={30} border="10px" />
                     <Skeleton width="100%" height={30} border="10px" />
-                    <Skeleton width="100%" height={30} border="10px" />
-                    <Skeleton width="100%" height={30} border="10px" />
-                    <Skeleton width="100%" height={30} border="10px" />
-                    <Skeleton width={220} height={30} border="10px" />
-                    <Skeleton width={220} height={30} border="10px" />
                 </div>
             </div>
         );

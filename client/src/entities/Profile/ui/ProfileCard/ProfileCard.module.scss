@@ -34,7 +34,12 @@
 }
 
 .avatarSkeleton {
+    width: 150px;
+    height: 150px;
+    border-radius: 20%;
     align-self: center;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 .skeletons {

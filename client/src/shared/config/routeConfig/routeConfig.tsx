@@ -32,7 +32,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.ABOUT]: '/about',
     [AppRoutes.MAIN]: '/',
     [AppRoutes.HEROES]: '/heroes',
-    [AppRoutes.PROFILE]: '/profile/',
+    [AppRoutes.PROFILE]: '/profile',
     [AppRoutes.CREATEHERO]: '/createHero',
     [AppRoutes.ADMINPAGE]: '/admin/page',
     [AppRoutes.CONFIRMPAGE]: '/activate/',
@@ -57,7 +57,7 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
         authOnly: true,
     },
     [AppRoutes.PROFILE]: {
-        path: `${RoutePath.profile}:id`,
+        path: RoutePath.profile,
         element: <ProfilePage />,
         authOnly: true,
     },

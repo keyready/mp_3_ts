@@ -29,7 +29,8 @@ export const HeroCard = memo((props: HeroProps) => {
                 <img
                     className={classes.heroPhoto}
                     src={`/images/heroes/${hero?.photo}`}
-                    alt=""
+                    alt={`${hero.rank} ${hero.middlename}`}
+                    title={`${hero.rank} ${hero.middlename}`}
                 />
                 <div className={classes.heroMainInfo}>
                     <p>{hero?.rank}</p>
@@ -49,7 +50,9 @@ export const HeroCard = memo((props: HeroProps) => {
                 ))}
             </div>
             {hero.awards?.length && (
-                <div className={classes.awardsWrapper}>
+                <div className={classes.awardsSectionWrapper}>
+                    <h2 className={classes.awardsWrapperTitle}>Награды</h2>
+                    <div className={classes.awardsWrapper} />
                     {hero.awards.map((award) => (
                         <img
                             className={classes.awardPhoto}

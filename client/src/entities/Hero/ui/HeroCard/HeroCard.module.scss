@@ -39,13 +39,23 @@
     margin-left: auto;
 }
 
-.awardsWrapper {
+.awardsSectionWrapper {
     padding: 10px;
     border: 2px solid var(--inverted-bg-color);
     border-radius: 10px;
+    margin-top: 15px;
+}
+
+.awardsWrapper {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.awardsWrapperTitle {
+    color: var(--inverted-primary-color);
 }
 
 .awardPhoto {

@@ -4,17 +4,21 @@ import { memo, useCallback, useEffect } from 'react';
 import {
     fetchProfileData,
     getProfileData,
+    getProfileError,
+    getProfileIsLoading,
+    getProfileReadonly,
     profileActions,
     ProfileCard,
     profileReducer,
 } from 'entities/Profile';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import { Button } from 'shared/UI/Button';
+import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 
 interface ProfilePageProps {
     className?: string;
@@ -29,39 +33,47 @@ const ProfilePage = memo((props: ProfilePageProps) => {
         className,
     } = props;
     const dispatch = useAppDispatch();
-    const { id } = useParams<{ id: string }>();
+    const profileData = useSelector(getProfileData);
+    const profileIsLoading = useSelector(getProfileIsLoading);
+    const profileError = useSelector(getProfileError);
+    const profileReadonly = useSelector(getProfileReadonly);
+
     useEffect(() => {
         document.title = 'Профиль';
-        if (id) dispatch(fetchProfileData(id));
-    }, [dispatch, id]);
-    const profileData = useSelector(getProfileData);
+        dispatch(fetchProfileData());
+    }, [dispatch]);
 
     const onChangeFirstname = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ id: id!, firstname: value || '' }));
-    }, [dispatch, id]);
+        dispatch(profileActions.changeFirstname(value));
+    }, [dispatch]);
     const onChangeLastname = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ id: id!, lastname: value || '' }));
-    }, [dispatch, id]);
-    const onChangeAge = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ id: id!, age: value || '' }));
-    }, [dispatch, id]);
-    const onChangeCity = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ id: id!, city: value || '' }));
-    }, [dispatch, id]);
-    const onChangeEmail = useCallback((value: string) => {
-        dispatch(profileActions.changeData({ id: id!, email: value || '' }));
-    }, [dispatch, id]);
+        dispatch(profileActions.changeLastname(value));
+    }, [dispatch]);
+    const onChangeMiddlename = useCallback((value: string) => {
+        dispatch(profileActions.changeMiddlename(value));
+    }, [dispatch]);
+
+    const onEditButtonClick = () => {
+        dispatch(profileActions.setReadonly(!profileReadonly));
+    };
 
     return (
         <DynamicModuleLoader reducers={reducers}>
             <Page className={classNames('', {}, [className])}>
+                <Button
+                    theme={profileReadonly ? ButtonTheme.SUCCESS : ButtonTheme.ERROR}
+                    onClick={onEditButtonClick}
+                >
+                    {profileReadonly ? 'Изменить' : 'Отменить'}
+                </Button>
                 <ProfileCard
                     data={profileData}
                     onChangeFirstname={onChangeFirstname}
                     onChangeLastname={onChangeLastname}
-                    onChangeAge={onChangeAge}
-                    onChangeCity={onChangeCity}
-                    onChangeEmail={onChangeEmail}
+                    onChangeMiddlename={onChangeMiddlename}
+                    readonly={profileReadonly}
+                    isLoading={profileIsLoading}
+                    error={profileError}
                 />
             </Page>
         </DynamicModuleLoader>
