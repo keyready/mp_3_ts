@@ -40,7 +40,6 @@ const PORT = process.env.PORT || 5000
 
 const StartApp = async () => {
     try {
-        // await DB.sync({force: true})
         await DB.sync()
         await app.get('/*', (req, res) => {
             res.sendFile(path.resolve('../client/dist/index.html'))

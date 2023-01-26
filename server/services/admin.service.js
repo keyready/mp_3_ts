@@ -40,7 +40,11 @@ class AdminService {
         return false
     }
 
-    async addAward(title, description, photo) {
+    async addAward(title, description, photo,currentId) {
+        const currentUser = await UserModel.findByPk(currentId)
+        if (currentUser.role !== 'admin'){
+            return false
+        }
         const candidate = await AwardModel.findOne({where: {title}})
         if (candidate) {
             return false

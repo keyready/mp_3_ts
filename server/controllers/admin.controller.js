@@ -56,9 +56,6 @@ class AdminController {
 
     async addAward(req, res) {
         try {
-            if (req.user.role !== 'admin') {
-                return res.status(403).json({message: 'У вас нет прав на осуществление данного запроса.'})
-            }
             const {title, description} = req.body;
 
             const dot = req.files.photo.name.lastIndexOf('.');
@@ -67,7 +64,7 @@ class AdminController {
                 req.files.photo.name.substr(dot)
 
             req.files.photo.mv(path.resolve(`../client/dist/images/awards/${newFileName}`))
-            const flag = await AdminService.addAward(title, description, newFileName)
+            const flag = await AdminService.addAward(title, description, newFileName,req.user.id)
             if (!flag) {
                 return res.status(403).json({message: 'Ошибка добавления награды.'})
             }

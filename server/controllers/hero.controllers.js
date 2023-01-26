@@ -15,9 +15,9 @@ class HeroControllers {
             const newFileName =
                 crypto.randomBytes(5).toString('hex') +
                 req.files.photo.name.substr(dot)
-            //req.files.photo.mv(path.resolve(`../client/public/images/heroes/${newFileName}`))
+            //req.files.photo.mv(path.resolve(`../config_app/public/images/heroes/${newFileName}`))
 
-            req.files.photo.mv(path.resolve(`../client/dist/images/users/${newFileName}`))
+            req.files.photo.mv(path.resolve(`../client/dist/images/heroes/${newFileName}`))
 
             const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, newFileName, SelectArrayAwardsId, req.user.id)
             if (!flag) {
