@@ -61,26 +61,26 @@ const HeroDetailedPage = memo((props: HeroDetailedPageProps) => {
                         <img
                             className={classes.heroPhoto}
                             src={`/images/heroes/${hero?.photo}`}
-                            alt={hero?.middlename}
-                            title={hero?.middlename}
+                            alt={hero?.lastname}
+                            title={hero?.lastname}
                         />
                         <div className={classes.heroText}>
                             <Text
                                 className={classes.textWrapper}
                                 align={TextAlign.CENTER}
-                                title={`${hero?.rank} ${hero?.middlename}`}
-                                text={`${hero?.firstname} ${hero?.lastname}`}
+                                title={`${hero?.rank} ${hero?.lastname}`}
+                                text={`${hero?.firstname} ${hero?.middlename}`}
                             />
                             <Text
                                 className={classes.textWrapper}
                                 align={TextAlign.CENTER}
                                 title="Героя добавил"
-                                text={`${hero?.userId.middlename} ${hero?.userId.firstname} ${hero?.userId.lastname}`}
+                                text={`${hero?.userId.lastname} ${hero?.userId.firstname} ${hero?.userId.middlename}`}
                             />
                         </div>
                     </div>
                     <Text
-                        className={classes.textWrapper}
+                        className={classNames(classes.textWrapper, {}, [classes.story])}
                         title="История героя"
                         text={hero?.story}
                     />
