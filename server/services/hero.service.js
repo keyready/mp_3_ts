@@ -7,7 +7,7 @@ const fs = require('fs')
 const path = require('path')
 
 class HeroService {
-    async addHero(firstname, middlename, lastname, story, rank, photo,/*SelectArrayAwardsId,*/userId) {
+    async addHero(firstname, middlename, lastname, story, rank, photo,SelectArrayAwardsId,userId) {
         const candidate = await HeroModel.findOne({
             where: {
                 firstname, middlename, lastname, rank, story
@@ -34,78 +34,55 @@ class HeroService {
         //     })
         // })
 
+        // const awards = await AwardModel.findAll({
+        //     where:{
+        //         id:{
+        //             [Op.in]:SelectArrayAwardsId
+        //         }
+        //     },
+        //     raw:true
+        // })
+
+        SelectArrayAwardsId.map(async (awardId) =>{
+            await HeroAwardModel.create({
+                awardId:awardId,
+                heroId:hero.id
+            })
+        })
+
+        //await hero.save()
         return true
     }
 
-    async showAllHeroes() {
-        // TODO в каждого героя добавить всю информацию о пользователе, который его оставил, т.е.
-        // heroes: [
-        //     {
-        //         id: 1,
-        //         firstname: '',
-        //         awards: [
-        //             {
-        //                 id: '',
-        //                 title: '',
-        //                 ...
-        //             },
-        //             {
-        //                 id: '',
-        //                 title: '',
-        //                 ...
-        //             }
-        //         ],
-        //         ...
-        //     },
-        //     {
-        //         id: 1,
-        //         firstname: '',
-        //         awards: [
-        //             {
-        //                 id: '',
-        //                 title: '',
-        //                 ...
-        //             },
-        //             {
-        //                 id: '',
-        //                 title: '',
-        //                 ...
-        //             }
-        //         ],
-        //         ...
-        //     },
-        // ]
+    async showAllHeroes(){
+        const heroes = await HeroModel.findAll()
 
-        const heroes = await HeroModel.findAll({raw: true})
-
-        // let PersonalAwardsObjects = []
-        // heroes.map(async(hero) =>{
-        //     const tmp = await HeroAwardModel.findAll({
+        // heroes.map(async (hero) =>{
+        //     const AwardsIdObjects = await HeroAwardModel.findAll({
         //         where:{
         //             heroId:hero.id
         //         },
-        //         attributes:['awardId','heroId']
+        //         raw:true,
+        //         attributes:['awardId']
         //     })
-        //     PersonalAwardsObjects.push(tmp)
-        // })
+        //     console.log(AwardsIdObjects)
+        //     let ArrayAwardsId = []
+        //     AwardsIdObjects.map((oneObj) =>{
+        //         ArrayAwardsId.push(oneObj.awardId)
+        //     })
         //
-        // PersonalAwardsObjects.map(async(PersonalAwardsOneObject) =>{
-        //     const PersonalAwards = await AwardModel.findAll({
+        //     const awards = await AwardModel.findAll({
         //         where:{
-        //             id:PersonalAwardsOneObject.awardId
-        //         }
+        //             id:{
+        //                 [Op.in]:ArrayAwardsId
+        //             }
+        //         },
+        //         raw:true
         //     })
-        //     heroes.forEach(async(hero)=>{
-        //         hero.awards=PersonalAwards
-        //         await hero.save()
-        //     })
+        //
+        //     hero.awards = awards
+        //     await hero.save()
         // })
-
-        // let PersonalAwardsIdArray=[]
-        // PersonalAwardsIdObjects.map(async(oneObject) =>{
-        //     PersonalAwardsIdArray.push(oneObject.awardId)
-        // })
-        //TODO вернуть все медальки
         return heroes
     }
 

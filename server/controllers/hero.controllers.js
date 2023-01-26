@@ -1,24 +1,26 @@
 const HeroService = require('../services/hero.service');
 const EmailService = require('../services/email.service');
-const {UserModel} = require('../models')
+const {UserModel, HeroAwardModel, AwardModel} = require('../models')
 const path = require('path');
 const crypto = require("crypto");
+const {Op} = require("sequelize");
 
 class HeroControllers {
     async addHero(req, res) {
         try {
             //TODO ид_медалей
-            const {firstname, middlename, lastname, story, rank,/*array_awards_id*/} = req.body;
+            const {firstname, middlename, lastname, story, rank, awards} = req.body;
+            const SelectArrayAwardsId = awards.split(',')
 
             const dot = req.files.photo.name.lastIndexOf('.');
             const newFileName =
                 crypto.randomBytes(5).toString('hex') +
                 req.files.photo.name.substr(dot)
             req.files.photo.mv(path.resolve(`../client/public/images/heroes/${newFileName}`))
+
             // req.files.photo.mv(path.resolve(`../client/dist/images/users/${newFileName}`)
 
-            const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, newFileName,/*SelectArrayAwardsId,*/req.user.id)
-            //const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, newFileName,/*array_awards_id,*/req.user.id)
+            const flag = await HeroService.addHero(firstname, middlename, lastname, story, rank, newFileName, SelectArrayAwardsId, req.user.id)
             if (!flag) {
                 return res.status(412).json({message: 'Такой герой уже существует.'})
             }
@@ -35,6 +37,32 @@ class HeroControllers {
     async showAllHeroes(req, res) {
         try {
             const heroes = await HeroService.showAllHeroes();
+            //heroes.(async(hero) =>{
+            //hero.awards = [{id:1,title:'tit'},{id:2,title:'tit'},{id:3,title:'tit'}]
+            for (let i = 0; i < heroes.length; i++) {
+                const AwardsIdObjects = await HeroAwardModel.findAll({
+                    where: {
+                        heroId: heroes[i].id
+                    },
+                    raw: true,
+                    attributes: ['awardId']
+                })
+                let ArrayAwardsId = []
+                AwardsIdObjects.map((oneObj) => {
+                    ArrayAwardsId.push(oneObj.awardId)
+                })
+                const awards = await AwardModel.findAll({
+                    where: {
+                        id: {
+                            [Op.in]: ArrayAwardsId
+                        }
+                    },
+                    raw: true
+                })
+                //console.log(awards)
+                heroes[i].awards = awards
+            }
+            console.log(heroes)
             return res.status(200).json(heroes)
         } catch (e) {
             console.log(e.message)
