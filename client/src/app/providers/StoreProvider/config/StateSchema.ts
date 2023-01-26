@@ -19,6 +19,7 @@ import {
     UsersManagerSchema,
     HeroesManagerSchema,
 } from 'pages/adminPage';
+import { ChangePassSchema } from 'pages/ProfilePage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -34,6 +35,7 @@ export interface StateSchema {
     heroesManagerPage?: HeroesManagerSchema;
     awardsManagerPage?: AwardsManagerSchema;
     award?: AwardSchema
+    changePassword?: ChangePassSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

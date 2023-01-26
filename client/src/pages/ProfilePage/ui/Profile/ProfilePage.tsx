@@ -20,6 +20,8 @@ import {
 import { Button } from 'shared/UI/Button';
 import { ButtonTheme } from 'shared/UI/Button/ui/Button';
 import { ChangePasswordForm } from 'pages/ProfilePage/ui/ChangePasswordForm/ChangePasswordForm';
+import { HDisclosure } from 'shared/UI/HDisclosure/HDisclosure';
+import classes from './ProfilePage.module.scss';
 
 interface ProfilePageProps {
     className?: string;
@@ -79,7 +81,19 @@ const ProfilePage = memo((props: ProfilePageProps) => {
                     error={profileError}
                 />
 
-                <ChangePasswordForm />
+                <HDisclosure
+                    className={classes.changePassForm}
+                    content={[
+                        {
+                            title: 'Сменить пароль',
+                            content: <ChangePasswordForm />,
+                        },
+                        {
+                            title: 'Восстановить пароль',
+                            content: <><h1>Пока пусто(</h1></>,
+                        },
+                    ]}
+                />
             </Page>
         </DynamicModuleLoader>
     );

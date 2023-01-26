@@ -33,7 +33,7 @@
         border: 2px solid var(--primary-color);
         color: var(--primary-color);
         background: var(--bg-color);
-        transform: scale(95%);
+        transform: scale(0.98);
     }
 }
 
@@ -43,7 +43,7 @@
     background: var(--bg-color);
 
     &:hover {
-        transform: scale(95%);
+        transform: scale(0.98);
     }
 }
 
@@ -56,7 +56,7 @@
         border: 2px solid var(--inverted-primary-color);
         color: var(--inverted-primary-color);
         background: var(--inverted-bg-color);
-        transform: scale(95%);
+        transform: scale(0.98);
     }
 }
 
@@ -91,7 +91,7 @@
     background: var(--bg-color);
 
     &:hover {
-        transform: scale(95%);
+        transform: scale(0.98);
     }
 }
 
@@ -101,7 +101,7 @@
     background: var(--bg-color);
 
     &:hover {
-        transform: scale(95%);
+        transform: scale(0.98);
     }
 }
 
@@ -111,7 +111,7 @@
     }
 
     50% {
-        transform: scale(95%);
+        transform: scale(0.98);
     }
 
     100% {

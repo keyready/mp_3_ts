@@ -57,7 +57,7 @@ class UserService {
         if (!checkPassword) {
             return false
         }
-        user.password = bcrypt.hashSync(newPassword, 5)
+        user.password = await bcrypt.hashSync(newPassword, 5)
         await user.save()
         return true
     }

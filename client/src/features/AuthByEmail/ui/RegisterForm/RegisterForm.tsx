@@ -134,7 +134,7 @@ const RegisterForm = memo((props: RegisterFormProps) => {
                 value={middlename}
                 onChange={onMiddlenameChange}
                 type="text"
-                name="middle"
+                name="middlename"
                 required
             />
             <Input
