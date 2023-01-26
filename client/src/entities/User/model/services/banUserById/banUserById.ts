@@ -4,7 +4,7 @@ import { User } from 'entities/User';
 
 export const banUserById = createAsyncThunk<
     User,
-    { userId: number, banReason: string },
+    { userId?: number, banReason: string },
     ThunkConfig<string>
 >(
     'user/banUser',

@@ -39,12 +39,14 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     if (token) {
         return (
             <div className={classNames(classes.Navbar, {}, [className])}>
-                <Button
-                    onClick={onAdminPageLinkClick}
-                    theme={ButtonTheme.OUTLINED}
-                >
-                    Петух-панель
-                </Button>
+                {userData?.role === 'admin' && (
+                    <Button
+                        onClick={onAdminPageLinkClick}
+                        theme={ButtonTheme.OUTLINED}
+                    >
+                        Петух-панель
+                    </Button>
+                )}
                 <Button
                     onClick={onLogout}
                     theme={ButtonTheme.ERROR}

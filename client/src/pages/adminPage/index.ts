@@ -4,3 +4,4 @@ export {
 export { UsersManagerSchema } from './model/types/usersManagerSchema';
 export { HeroesManagerSchema } from './model/types/heroesManagerSchema';
 export { AwardsManagerSchema } from './model/types/awardsManagerSchema';
+export { AwardCard } from './ui/awardsManager/AwardCard/AwardCard';

@@ -38,6 +38,7 @@ export const HeroesManager = memo((props: heroesManagerProps) => {
 
     const onDeleteHeroClick = useCallback((heroId) => {
         dispatch(deleteHero(heroId));
+        location.reload();
     }, [dispatch]);
 
     return (
@@ -65,7 +66,17 @@ export const HeroesManager = memo((props: heroesManagerProps) => {
                                 {hero?.lastname}
                             </span>
                         </div>
-                        <h3 className={classes.heroHost}>{hero.userId}</h3>
+                        <h3
+                            className={classNames(
+                                classes.heroHost,
+                                {
+                                    [classes.banned]: hero.userId.isBanned,
+                                    [classes.admin]: hero.userId.role === 'admin',
+                                },
+                            )}
+                        >
+                            {hero.userId?.email}
+                        </h3>
                         <Button
                             theme={ButtonTheme.ERROR}
                             onClick={() => onDeleteHeroClick(hero.id)}
