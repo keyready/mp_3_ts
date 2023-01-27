@@ -6,10 +6,11 @@ services:
     build: ./server
     restart: always
     ports:
-      - "9999:9999"
+      - 9999:9999
     volumes:
       - ./client:/app/client/
       - ./server:/app/server/
+      - /app/server/node_modules
     depends_on:
       - db
 
@@ -18,7 +19,7 @@ services:
     restart: always
     build: ./nginx
     ports:
-      - "80:80"
+      - 80:80
     depends_on:
       - app
       - db
@@ -28,8 +29,9 @@ services:
     container_name: bp_db
     restart: always
     ports:
-      - "5432:5432"
+      - 5432:5432
     environment:
       - POSTGRES_DB=bp
       - POSTGRES_USER=k0fanov36
       - POSTGRES_PASSWORD=k0fanov36
+
