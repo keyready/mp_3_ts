@@ -39,7 +39,7 @@ const HeroesPage = memo((props: HeroesPageProps) => {
     }, [dispatch]);
 
     return (
-        <DynamicModuleLoader reducers={reducer} removeAfterUnmount={false}>
+        <DynamicModuleLoader reducers={reducer}>
             <Page className={classNames(classes.HeroesPage, {}, [className])}>
                 {error && (
                     <Text

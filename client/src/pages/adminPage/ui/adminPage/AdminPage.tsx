@@ -3,6 +3,7 @@ import { memo, useEffect } from 'react';
 import { UsersManager } from 'pages/adminPage/ui/usersManager/UsersManager';
 import { HeroesManager } from 'pages/adminPage/ui/HeroesManager/HeroesManager';
 import { AwardsManager } from 'pages/adminPage/ui/awardsManager/AwardsManager/AwardsManager';
+import { HDisclosure } from 'shared/UI/HDisclosure/HDisclosure';
 import classes from './AdminPage.module.scss';
 
 interface AdminPageProps {
@@ -21,9 +22,22 @@ const AdminPage = memo((props: AdminPageProps) => {
     return (
         <Page className={classes.AdminPage}>
             <h2 className={classes.header}>ПЕТУХ-ПАНЕЛЬ</h2>
-            <UsersManager />
-            <HeroesManager />
-            <AwardsManager />
+            <HDisclosure
+                content={[
+                    {
+                        title: 'ИГРОКИ',
+                        content: <UsersManager />,
+                    },
+                    {
+                        title: 'ГЕРОИ',
+                        content: <HeroesManager />,
+                    },
+                    {
+                        title: 'АЧИВКИ',
+                        content: <AwardsManager />,
+                    },
+                ]}
+            />
         </Page>
     );
 });

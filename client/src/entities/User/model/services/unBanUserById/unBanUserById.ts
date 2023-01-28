@@ -4,7 +4,7 @@ import { User } from 'entities/User';
 
 export const unBanUserById = createAsyncThunk<
     User,
-    { id?: number },
+    number,
     ThunkConfig<string>
 >(
     'user/banUser',

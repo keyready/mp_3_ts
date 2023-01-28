@@ -1,7 +1,7 @@
 .HDisclosureWrapper {
     width: 100%;
     padding: 20px;
-    border: 2px solid red;
+    border: 2px solid var(--inverted-bg-color);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -10,5 +10,6 @@
 }
 
 .opened {
-    background: lightseagreen;
+    color: var(--inverted-bg-color);
+    background: var(--primary-color);
 }

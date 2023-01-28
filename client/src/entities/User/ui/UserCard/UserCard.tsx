@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
-    memo, MouseEvent, useCallback, useMemo, useState,
+    memo, useCallback, useMemo, useState,
 } from 'react';
 import { Select } from 'shared/UI/Select/Select';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -42,11 +42,8 @@ export const UserCard = memo((props: UserCardProps) => {
         }
     }, [banReasonText, dispatch, isBanReasonTextVisible]);
 
-    const onUserUnBanHandler = useCallback((
-        event: MouseEvent<HTMLButtonElement>,
-        userId?: number,
-    ) => {
-        dispatch(unBanUserById({ id: userId }));
+    const onUserUnBanHandler = useCallback((userId?: number) => {
+        if (userId) dispatch(unBanUserById(userId));
     }, [dispatch]);
 
     const onBanReasonChangeHandler = useCallback((banReason) => {
@@ -88,7 +85,7 @@ export const UserCard = memo((props: UserCardProps) => {
                 ? (
                     <Button
                         theme={ButtonTheme.SUCCESS}
-                        onClick={(e) => onUserUnBanHandler(e, user!.id)}
+                        onClick={() => onUserUnBanHandler(user.id)}
                     >
                         Разбанить
                     </Button>
@@ -97,7 +94,7 @@ export const UserCard = memo((props: UserCardProps) => {
                     <div>
                         <Button
                             theme={ButtonTheme.ERROR}
-                            onClick={() => onUserBanHandler(user?.id)}
+                            onClick={() => onUserBanHandler(user.id)}
                         >
                             Забанить
                         </Button>

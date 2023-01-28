@@ -48,6 +48,7 @@ export const HeroesManager = memo((props: heroesManagerProps) => {
                 {isLoading && (
                     <Loader />
                 )}
+                {!heroes.length && <h3>Пока пусто...</h3>}
                 {heroes.map((hero) => (
                     <div
                         className={classes.heroCard}

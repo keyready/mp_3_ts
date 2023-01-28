@@ -1,0 +1,98 @@
+.HCombobox {
+    position: relative;
+    z-index: 100;
+}
+
+li {
+    list-style-type: none;
+}
+
+.inputWrapper {
+    padding: 5px;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--inverted-primary-color);
+    border-radius: 10px;
+    background: var(--inverted-bg-color);
+    font: inherit;
+}
+
+.button {
+    border: none;
+    background: none;
+    outline: none;
+    z-index: 100;
+    position: absolute;
+    right: 25px;
+    top: 0;
+    transform: translateY(50%);
+}
+
+.svg {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    transition: 200ms;
+    fill: var(--bg-color);
+
+    &:active {
+        transform: rotate(180deg);
+    }
+}
+
+.options {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--inverted-bg-color);
+    max-height: 200px;
+    overflow-y: auto;
+    left: 5px;
+    position: absolute;
+}
+
+.option {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.selected,
+.active {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 5px;
+    background: var(--bg-color);
+}
+
+.selected {
+    font-weight: bold;
+}
+
+.selectedIcon {
+    width: 25px;
+    height: 25px;
+    fill: var(--inverted-bg-color);
+}
+
+.notFound {
+    color: var(--primary-color);
+}
