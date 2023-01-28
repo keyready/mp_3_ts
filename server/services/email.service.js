@@ -5,17 +5,17 @@ class EmailService{
     async successfulSignUp(firstname,middlename,email,link) {
 
         const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
+            host: 'smtp.mail.ru',
             port: 465,
             auth: {
-                user: 'immortalheroes1712@gmail.com',
-                pass: 'ixnyuzxtxqsxedjh'
+                user: 'immortalheroes1712@mail.com',
+                pass: 'yIoOYAo1ig3$'
             },
             secure: true
         })
 
         const MailData = {
-            from: 'immortalheroes1712@gmail.com',
+            from: 'immortalheroes1712@mail.com',
             to: email,
             text:                                           `Уважаемый/ая ${firstname} ${middlename}! 
                 Спасибо за внимание, проявленное к нашему проекту "Наш полк | ВКА". Мы ценим каждого участника и истории, пополняющие кладезь памяти о наших предках, принесших победу в Великой Отечественной Войне.
@@ -39,17 +39,17 @@ class EmailService{
 
     async banUser(firstname,middlename,banReason,email){
         const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
+            host: 'smtp.mail.com',
             port: 465,
             auth: {
-                user: 'immortalheroes1712@gmail.com',
-                pass: 'ixnyuzxtxqsxedjh'
+                user: 'immortalheroes1712@mail.com',
+                pass: 'yIoOYAo1ig3$'
             },
             secure: true
         })
 
         const MailData = {
-            from: 'immortalheroes1712@gmail.com',
+            from: 'immortalheroes1712@mail.com',
             to: email,
             text: `Уважаемый/ая ${firstname} ${middlename}, ваш профиль был заблокирован по причине ${banReason}.
                     Для разъяснения причин блокировки обратитесь к администрации платформы.
@@ -69,17 +69,17 @@ class EmailService{
 
     async addHeroEmail(email,hero,firstname,middlename){
         const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
+            host: 'smtp.mail.com',
             port: 465,
             auth: {
-                user: 'immortalheroes1712@gmail.com',
-                pass: 'ixnyuzxtxqsxedjh'
+                user: 'immortalheroes1712@mail.com',
+                pass: 'yIoOYAo1ig3$'
             },
             secure: true
         })
 
         const MailData = {
-            from: 'immortalheroes1712@gmail.com',
+            from: 'immortalheroes1712@mail.com',
             to: email,
             text: `                             Уважаемый/ая ${firstname} ${middlename}! 
                                                     Ваш новый герой на платформе 
