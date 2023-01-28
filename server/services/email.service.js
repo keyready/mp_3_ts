@@ -9,7 +9,7 @@ class EmailService{
             port: 465,
             auth: {
                 user: 'immortalheroes1712@mail.com',
-                pass: 'yIoOYAo1ig3$'
+                pass: 'HDDHZUsZn8pgj2hmwxDF'
             },
             secure: true
         })
@@ -43,7 +43,7 @@ class EmailService{
             port: 465,
             auth: {
                 user: 'immortalheroes1712@mail.com',
-                pass: 'yIoOYAo1ig3$'
+                pass: 'HDDHZUsZn8pgj2hmwxDF'
             },
             secure: true
         })
@@ -73,7 +73,7 @@ class EmailService{
             port: 465,
             auth: {
                 user: 'immortalheroes1712@mail.com',
-                pass: 'yIoOYAo1ig3$'
+                pass: 'HDDHZUsZn8pgj2hmwxDF'
             },
             secure: true
         })
