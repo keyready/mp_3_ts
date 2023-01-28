@@ -1,5 +1,5 @@
 const {Sequelize} = require('sequelize');
-module.exports = new Sequelize('bp', 'k0fanov36', 'k0fanov36', {
+module.exports = new Sequelize('ImmortalRegiment', 'postgres', 'userSQL', {
     dialect: 'postgres',
     host: 'localhost',
     port: 5432
