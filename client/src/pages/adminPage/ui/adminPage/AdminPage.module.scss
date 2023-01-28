@@ -1,0 +1,15 @@
+.AdminPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.header {
+    color: var(--primary-color);
+    font-size: 32px;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+    text-align: center;
+}
