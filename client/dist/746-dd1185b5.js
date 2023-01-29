@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkimmortal_regiment=self.webpackChunkimmortal_regiment||[]).push([[746],{8746:(e,t,n)=>{n.r(t),n.d(t,{default:()=>u});var r=n(5893),c=n(2594),i=n(7294);const u=function(){return(0,i.useEffect)((function(){document.title="Наш полк | ВКА"}),[]),(0,r.jsx)(c.T,{children:(0,r.jsx)("h1",{children:"Мейн пейдж"})})}}}]);
