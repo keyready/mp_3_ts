@@ -92,7 +92,7 @@ class EmailService{
                     `,
             attachment: [{
                 filename : hero.photo,
-                path: path.resolve(`../../client/dist/images/heroes/${hero.photo}`),
+                path: `/app/client/dist/images/heroes/{hero.photo}`,
                 cid: hero.photo
             }]
         }
