@@ -8,7 +8,7 @@
     "start:server": "nodemon ./json-server/index.js",
     "start:dev": "concurrently \"npm start\" \"npm run start:server\"",
     "build:dev": "webpack --env mode=development",
-    "build:prod": "webpack --env mode=production",
+    "build:prod": "webpack --env mode=production apiUrl=https://valiko666.site",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
     "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
     "lint:scss": "npx stylelint \"**/*.scss\"",

@@ -75,7 +75,9 @@ const HeroDetailedPage = memo((props: HeroDetailedPageProps) => {
                                 className={classes.textWrapper}
                                 align={TextAlign.CENTER}
                                 title="Героя добавил"
-                                text={`${hero?.userId.lastname} ${hero?.userId.firstname} ${hero?.userId.middlename}`}
+                                text={`${hero?.userId.lastname} ${
+                                    hero?.userId.firstname} ${
+                                    hero?.userId.middlename}`}
                             />
                         </div>
                     </div>

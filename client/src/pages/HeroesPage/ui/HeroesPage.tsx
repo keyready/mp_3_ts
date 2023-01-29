@@ -14,7 +14,6 @@ import { AppLinkTheme } from 'shared/UI/AppLink/ui/AppLink';
 import { getHeroes, heroesPageReducers } from '../model/slice/HeroesPageSlice';
 import { getHeroesError, getHeroesIsLoading } from '../model/selectors/HeroesPageSelector';
 import { initHeroesPage } from '../model/services/initHeroesPage';
-import classes from './HeroesPage.module.scss';
 
 interface HeroesPageProps {
     className?: string;
@@ -40,7 +39,7 @@ const HeroesPage = memo((props: HeroesPageProps) => {
 
     return (
         <DynamicModuleLoader reducers={reducer}>
-            <Page className={classNames(classes.HeroesPage, {}, [className])}>
+            <Page className={classNames('', {}, [className])}>
                 {error && (
                     <Text
                         theme={TextTheme.ERROR}

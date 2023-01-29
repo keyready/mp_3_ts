@@ -4,9 +4,7 @@ import { memo, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'shared/UI/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { userActions } from 'entities/User';
 import { confirmEmail } from 'features/AuthByEmail/model/services/confirmEmail/confirmEmail';
-import classes from './ConfirmEmailPage.module.scss';
 
 interface ConfirmEmailPageProps {
     className?: string;
@@ -31,7 +29,7 @@ const ConfirmEmailPage = memo((props: ConfirmEmailPageProps) => {
     }, [dispatch, link, navigate]);
 
     return (
-        <Page className={classNames(classes.ConfirmEmailPage, {}, [className])}>
+        <Page className={classNames('', {}, [className])}>
             <Button
                 onClick={onActivateClick}
             >
