@@ -1,15 +1,14 @@
-FROM node:12
+FROM node:latest
 
 WORKDIR /app/server
 
 RUN apt-get update && apt-get install -y --no-install-recommends netcat
 
-ADD package.json /app/server
-
-RUN npm uninstall bcrypt
-RUN npm i bcrypt
+ADD package*.json /app/server
 
 RUN npm i
+
+COPY . /app/server/
 
 EXPOSE 9999
 

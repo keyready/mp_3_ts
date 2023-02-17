@@ -3,19 +3,21 @@ version: '3.3'
 services:
   app:
     container_name: bp_app
+    image: bp_app
     build: ./server
     restart: always
     ports:
       - 9999:9999
     volumes:
       - ./client:/app/client/
-      - ./server:/app/server/
-      - /app/server/node_modules
+    #  - ./server:/app/server/
+      # - /app/server/node_modules
     depends_on:
       - db
 
   nginx:
     container_name: bp_nginx
+    image: bp_nginx
     restart: always
     build: ./nginx
     ports:
@@ -32,6 +34,6 @@ services:
       - 5432:5432
     environment:
       - POSTGRES_DB=bp
-      - POSTGRES_USER=k0fanov36
-      - POSTGRES_PASSWORD=k0fanov36
+      - POSTGRES_USER=admin 
+      - POSTGRES_PASSWORD=admin
 
